@@ -9,7 +9,7 @@
 * 24種類のロールアウトコントロールに対応。
   （`comboBox`と`timer`は非対応）
 
-* `ProgressBar`や`SpinnerControl`等、通常はサイズ変更できないコントロールもサイズ変更可能。
+* `progressBar`や`spinner`等、通常はサイズ変更できないコントロールもサイズ変更可能。
 
 ## サンプル
 
@@ -72,7 +72,7 @@
       local y = padding
       local w = size.X as Integer - padding * 2
       local h = size.Y as Integer - padding * 2
-      -- Box2値のサイズは 1 以上必要
+      -- Box2値のサイズは`1`以上必要
       if w < 1 do w = 1
       if h < 1 do h = 1
       Box2 x y w h
@@ -117,13 +117,13 @@
       -- スペースを追加
       layout.AddSpace 10
 
-      -- ウィジェットをストレッチ係数 2 で追加
+      -- ウィジェットをストレッチ係数`2`で追加
       layout.AddWidget widget2 stretch:2
 
-      -- ストレッチをストレッチ係数 2 で追加
+      -- ストレッチをストレッチ係数`2`で追加
       layout.AddStretch stretch:2
 
-      -- ウィジェットを最小高 10 で追加
+      -- ウィジェットを最小高`10`で追加
       layout.AddWidget widget3 minimum:10
 
       -- コントロールを更新
