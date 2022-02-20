@@ -13,6 +13,14 @@
 
 ## サンプル
 
+* ウィジェット
+
+  ![WidgetSample](Resource/WidgetSample.gif "WidgetSample")
+
+* レイアウト
+
+  ![LayoutSample](Resource/LayoutSample.gif "LayoutSample")
+
 ## 要件
 
 * [imaoki/Standard](https://github.com/imaoki/Standard)
@@ -35,7 +43,7 @@
 
 ```
 (
-  local widget = ::flexUI.CreateWidget Btn
+  local widget = ::flexUI.CreateWidget Edt
   widget.SetRect (Box2 0 0 100 100)
 )
 ```
@@ -44,7 +52,7 @@
 
 ```
 (
-  local layout = ::flexUI.CreateLayout #VBox
+  local layout = ::flexUI.CreateLayout #Grid
   layout.SetRect (Box2 0 0 100 100)
 )
 ```
@@ -172,7 +180,7 @@
 
 ### ウィジェットの種類
 
-| ウィジェット                                                                                                                    | コントロール     | 幅   | 高さ | 画像                                                                                                         |
+| ウィジェット                                                                                                                    | コントロール     | 幅   | 高   | 画像                                                                                                         |
 | ------------------------------------------------------------------------------------------------------------------------------- | ---------------- | ---- | ---- | ------------------------------------------------------------------------------------------------------------ |
 | [`FlexAngleControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-flexanglecontrolwidget.html)               | `angle`          | 可変 | 可変 | ![FlexAngleControlWidget](Resource/FlexAngleControlWidget.png "FlexAngleControlWidget")                      |
 | [`FlexBitmapControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-flexbitmapcontrolwidget.html)             | `bitmap`         | 可変 | 可変 | ![FlexBitmapControlWidget](Resource/FlexBitmapControlWidget.png "FlexBitmapControlWidget")                   |
