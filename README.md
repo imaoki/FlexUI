@@ -172,32 +172,32 @@
 
 ### ウィジェットの種類
 
-| ウィジェット                                                                                                                    | コントロール     | 幅   | 高さ |
-| ------------------------------------------------------------------------------------------------------------------------------- | ---------------- | ---- | ---- |
-| [`FlexAngleControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-flexanglecontrolwidget.html)               | `angle`          | 可変 | 可変 |
-| [`FlexBitmapControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-flexbitmapcontrolwidget.html)             | `bitmap`         | 可変 | 可変 |
-| [`FlexButtonControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-flexbuttoncontrolwidget.html)             | `button`         | 可変 | 可変 |
-| [`FlexCheckBoxControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-flexcheckboxcontrolwidget.html)         | `checkBox`       | 固定 | 固定 |
-| [`FlexCheckButtonControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-flexcheckbuttoncontrolwidget.html)   | `checkButton`    | 可変 | 可変 |
-| [`FlexColorPickerControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-flexcolorpickercontrolwidget.html)   | `colorPicker`    | 可変 | 可変 |
-| [`FlexComboBoxControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-flexcomboboxcontrolwidget.html)         | `dropDownList`   | 可変 | 固定 |
-| [`FlexDotNetControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-flexdotnetcontrolwidget.html)             | `dotNetControl`  | 可変 | 可変 |
-| [`FlexEditTextControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-flexedittextcontrolwidget.html)         | `editText`       | 可変 | 可変 |
-| [`FlexGroupBoxControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-flexgroupboxcontrolwidget.html)         | `groupBox`       | 可変 | 可変 |
-| [`FlexImgTagWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-fleximgtagwidget.html)                           | `imgTag`         | 可変 | 可変 |
-| [`FlexLabelControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-flexlabelcontrolwidget.html)               | `label`          | 固定 | 固定 |
-| [`FlexLinkControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-flexlinkcontrolwidget.html)                 | `hyperLink`      | 固定 | 固定 |
-| [`FlexListBoxControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-flexlistboxcontrolwidget.html)           | `listBox`        | 可変 | 可変 |
-| [`FlexMapButtonControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-flexmapbuttoncontrolwidget.html)       | `mapButton`      | 可変 | 可変 |
-| [`FlexMaxcurveCtlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-flexmaxcurvectlwidget.html)                 | `curveControl`   | 固定 | 固定 |
-| [`FlexMtlButtonControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-flexmtlbuttoncontrolwidget.html)       | `materialButton` | 可変 | 可変 |
-| [`FlexMultiListBoxControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-flexmultilistboxcontrolwidget.html) | `multiListBox`   | 可変 | 可変 |
-| [`FlexPickerControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-flexpickercontrolwidget.html)             | `pickButton`     | 可変 | 可変 |
-| [`FlexProgressBarWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-flexprogressbarwidget.html)                 | `progressBar`    | 可変 | 可変 |
-| [`FlexRadioControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-flexradiocontrolwidget.html)               | `radioButtons`   | 可変 | 可変 |
-| [`FlexSliderControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-flexslidercontrolwidget.html)             | `slider`         | 可変 | 固定 |
-| [`FlexSpinnerControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-flexspinnercontrolwidget.html)           | `spinner`        | 可変 | 固定 |
-| [`FlexSubRolloutWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-flexsubrolloutwidget.html)                   | `subRollout`     | 可変 | 可変 |
+| ウィジェット                                                                                                                    | コントロール     | 幅   | 高さ | 画像                                                                                                         |
+| ------------------------------------------------------------------------------------------------------------------------------- | ---------------- | ---- | ---- | ------------------------------------------------------------------------------------------------------------ |
+| [`FlexAngleControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-flexanglecontrolwidget.html)               | `angle`          | 可変 | 可変 | ![FlexAngleControlWidget](Resource/FlexAngleControlWidget.png "FlexAngleControlWidget")                      |
+| [`FlexBitmapControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-flexbitmapcontrolwidget.html)             | `bitmap`         | 可変 | 可変 | ![FlexBitmapControlWidget](Resource/FlexBitmapControlWidget.png "FlexBitmapControlWidget")                   |
+| [`FlexButtonControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-flexbuttoncontrolwidget.html)             | `button`         | 可変 | 可変 | ![FlexButtonControlWidget](Resource/FlexButtonControlWidget.png "FlexButtonControlWidget")                   |
+| [`FlexCheckBoxControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-flexcheckboxcontrolwidget.html)         | `checkBox`       | 固定 | 固定 | ![FlexCheckBoxControlWidget](Resource/FlexCheckBoxControlWidget.png "FlexCheckBoxControlWidget")             |
+| [`FlexCheckButtonControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-flexcheckbuttoncontrolwidget.html)   | `checkButton`    | 可変 | 可変 | ![FlexCheckButtonControlWidget](Resource/FlexCheckButtonControlWidget.png "FlexCheckButtonControlWidget")    |
+| [`FlexColorPickerControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-flexcolorpickercontrolwidget.html)   | `colorPicker`    | 可変 | 可変 | ![FlexColorPickerControlWidget](Resource/FlexColorPickerControlWidget.png "FlexColorPickerControlWidget")    |
+| [`FlexComboBoxControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-flexcomboboxcontrolwidget.html)         | `dropDownList`   | 可変 | 固定 | ![FlexComboBoxControlWidget](Resource/FlexComboBoxControlWidget.png "FlexComboBoxControlWidget")             |
+| [`FlexDotNetControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-flexdotnetcontrolwidget.html)             | `dotNetControl`  | 可変 | 可変 | ![FlexDotNetControlWidget](Resource/FlexDotNetControlWidget.png "FlexDotNetControlWidget")                   |
+| [`FlexEditTextControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-flexedittextcontrolwidget.html)         | `editText`       | 可変 | 可変 | ![FlexEditTextControlWidget](Resource/FlexEditTextControlWidget.png "FlexEditTextControlWidget")             |
+| [`FlexGroupBoxControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-flexgroupboxcontrolwidget.html)         | `groupBox`       | 可変 | 可変 | ![FlexGroupBoxControlWidget](Resource/FlexGroupBoxControlWidget.png "FlexGroupBoxControlWidget")             |
+| [`FlexImgTagWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-fleximgtagwidget.html)                           | `imgTag`         | 可変 | 可変 | ![FlexImgTagWidget](Resource/FlexImgTagWidget.png "FlexImgTagWidget")                                        |
+| [`FlexLabelControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-flexlabelcontrolwidget.html)               | `label`          | 固定 | 固定 | ![FlexLabelControlWidget](Resource/FlexLabelControlWidget.png "FlexLabelControlWidget")                      |
+| [`FlexLinkControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-flexlinkcontrolwidget.html)                 | `hyperLink`      | 固定 | 固定 | ![FlexLinkControlWidget](Resource/FlexLinkControlWidget.png "FlexLinkControlWidget")                         |
+| [`FlexListBoxControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-flexlistboxcontrolwidget.html)           | `listBox`        | 可変 | 可変 | ![FlexListBoxControlWidget](Resource/FlexListBoxControlWidget.png "FlexListBoxControlWidget")                |
+| [`FlexMapButtonControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-flexmapbuttoncontrolwidget.html)       | `mapButton`      | 可変 | 可変 | ![FlexMapButtonControlWidget](Resource/FlexMapButtonControlWidget.png "FlexMapButtonControlWidget")          |
+| [`FlexMaxcurveCtlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-flexmaxcurvectlwidget.html)                 | `curveControl`   | 固定 | 固定 | ![FlexMaxcurveCtlWidget](Resource/FlexMaxcurveCtlWidget.png "FlexMaxcurveCtlWidget")                         |
+| [`FlexMtlButtonControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-flexmtlbuttoncontrolwidget.html)       | `materialButton` | 可変 | 可変 | ![FlexMtlButtonControlWidget](Resource/FlexMtlButtonControlWidget.png "FlexMtlButtonControlWidget")          |
+| [`FlexMultiListBoxControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-flexmultilistboxcontrolwidget.html) | `multiListBox`   | 可変 | 可変 | ![FlexMultiListBoxControlWidget](Resource/FlexMultiListBoxControlWidget.png "FlexMultiListBoxControlWidget") |
+| [`FlexPickerControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-flexpickercontrolwidget.html)             | `pickButton`     | 可変 | 可変 | ![FlexPickerControlWidget](Resource/FlexPickerControlWidget.png "FlexPickerControlWidget")                   |
+| [`FlexProgressBarWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-flexprogressbarwidget.html)                 | `progressBar`    | 可変 | 可変 | ![FlexProgressBarWidget](Resource/FlexProgressBarWidget.png "FlexProgressBarWidget")                         |
+| [`FlexRadioControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-flexradiocontrolwidget.html)               | `radioButtons`   | 可変 | 可変 | ![FlexRadioControlWidget](Resource/FlexRadioControlWidget.png "FlexRadioControlWidget")                      |
+| [`FlexSliderControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-flexslidercontrolwidget.html)             | `slider`         | 可変 | 固定 | ![FlexSliderControlWidget](Resource/FlexSliderControlWidget.png "FlexSliderControlWidget")                   |
+| [`FlexSpinnerControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-flexspinnercontrolwidget.html)           | `spinner`        | 可変 | 固定 | ![FlexSpinnerControlWidget](Resource/FlexSpinnerControlWidget.png "FlexSpinnerControlWidget")                |
+| [`FlexSubRolloutWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-flexsubrolloutwidget.html)                   | `subRollout`     | 可変 | 可変 | ![FlexSubRolloutWidget](Resource/FlexSubRolloutWidget.png "FlexSubRolloutWidget")                            |
 
 #### 制限
 
@@ -213,11 +213,11 @@
 レイアウトはそれぞれ固有のプロパティを持つ。
 プロパティやメソッドの詳細は各レイアウトのドキュメントを参照。
 
-| レイアウト                                                                                        | 説明                         |
-| ------------------------------------------------------------------------------------------------- | ---------------------------- |
-| [`FlexGridLayoutStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-layout-flexgridlayout.html) | グリッドにアイテムを配置する |
-| [`FlexHBoxLayoutStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-layout-flexhboxlayout.html) | 水平方向にアイテムを配置する |
-| [`FlexVBoxLayoutStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-layout-flexvboxlayout.html) | 垂直方向にアイテムを配置する |
+| レイアウト                                                                                        | 説明                         | 画像                                                            |
+| ------------------------------------------------------------------------------------------------- | ---------------------------- | --------------------------------------------------------------- |
+| [`FlexGridLayoutStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-layout-flexgridlayout.html) | グリッドにアイテムを配置する | ![FlexGridLayout](Resource/FlexGridLayout.png "FlexGridLayout") |
+| [`FlexHBoxLayoutStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-layout-flexhboxlayout.html) | 水平方向にアイテムを配置する | ![FlexHBoxLayout](Resource/FlexHBoxLayout.png "FlexHBoxLayout") |
+| [`FlexVBoxLayoutStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-layout-flexvboxlayout.html) | 垂直方向にアイテムを配置する | ![FlexVBoxLayout](Resource/FlexVBoxLayout.png "FlexVBoxLayout") |
 
 ### レイアウトオプション
 
