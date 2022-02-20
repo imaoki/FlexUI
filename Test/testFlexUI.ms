@@ -122,6 +122,9 @@
   assert (testInstance (testObj.CreateLayout #HBox) #FlexHBoxLayoutStruct)
   assert (testInstance (testObj.CreateLayout #VBox) #FlexVBoxLayoutStruct)
 
+  /* CreateLayoutOptions */
+  assert (testInstance (testObj.CreateLayoutOptions()) #FlexLayoutOptionsStruct)
+
   /* CreateWidget */
   -- 無効な値
   actual = ::TestValueStruct (testObj.CreateWidget undefined)

@@ -13,11 +13,14 @@ struct FlexUIStruct (
 
   /*- @prop <Dictionary <Name> <StructDef>> レイアウト定義。既定値は`undefined`。 */
   private layoutDefTable,
+  /*- @prop <StructDef:FlexLayoutOptionsStruct> */
+  private layoutOptionsDef,
   /*- @prop <Dictionary <Name> <StructDef>> ウィジェット定義。既定値は`undefined`。 */
   private widgetDefTable,
 
   /*
   public fn CreateLayout layoutName = (),
+  public fn CreateLayoutOptions = (),
   public fn CreateWidget control = (),
   public fn GetUseGlobalLayoutOptions = (),
   public fn SetUseGlobalLayoutOptions input = (),
@@ -50,6 +53,14 @@ struct FlexUIStruct (
       )
     )
     layout
+  ),
+
+  /*-
+  レイアウトオプションオブジェクトを作成する。
+  @returns <Struct:FlexLayoutOptionsStruct>
+  */
+  public fn CreateLayoutOptions = (
+    this.layoutOptionsDef()
   ),
 
   /*-
@@ -217,8 +228,9 @@ struct FlexUIStruct (
   ),
 
   on Create do (
+    this.layoutOptionsDef = fileIn @"Layout\FlexLayoutOptions.ms"
     if not this.isValidLayoutOptions this.Options do (
-      this.Options = (fileIn @"Layout\FlexLayoutOptions.ms")()
+      this.Options = this.CreateLayoutOptions()
     )
     this.initialize()
   )
