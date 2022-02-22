@@ -5,12 +5,6 @@ global flexUI
 ロールアウトコントロールをフレキシブルに配置するためのフレームワーク。
 */
 struct FlexUIStruct (
-    /*- @prop <Struct:FlexLayoutOptionsStruct> 既定値は`undefined`。未指定の場合は既定値で作成される。 */
-  public Options,
-
-  /*- @prop <BooleanClass> グローバルレイアウトオプションを使用するかどうか。既定値は`true`。 */
-  private useGlobalLayoutOptions = true,
-
   /*- @prop <Dictionary <Name> <StructDef>> レイアウト定義。既定値は`undefined`。 */
   private layoutDefTable,
   /*- @prop <StructDef:FlexLayoutOptionsStruct> */
@@ -19,38 +13,56 @@ struct FlexUIStruct (
   private widgetDefTable,
 
   /*
-  public fn CreateLayout layoutName = (),
+  public fn CreateGridLayout options:undefined = (),
+  public fn CreateGroupLayout groupBoxWidget = (),
+  public fn CreateHBoxLayout options:undefined = (),
   public fn CreateLayoutOptions = (),
+  public fn CreateVBoxLayout options:undefined = (),
   public fn CreateWidget control = (),
-  public fn GetUseGlobalLayoutOptions = (),
-  public fn SetUseGlobalLayoutOptions input = (),
 
   private fn initialize = (),
-  private fn isValidLayoutOptions obj = (),
+  private fn isValidGroupBoxControlWidget obj = (),
   */
 
   /*-
-  レイアウトオブジェクトを作成する。
-  @param layoutName <Name|String> レイアウトの名前。
-
-  | 値      | レイアウト                   |
-  | ------- | ---------------------------- |
-  | `#Grid` | グリッドにアイテムを配置する |
-  | `#HBox` | 水平方向にアイテムを配置する |
-  | `#VBox` | 垂直方向にアイテムを配置する |
-  @returns <Struct|UndefinedClass>
-  @remarks 不明な名前の場合は`undefined`を返す。
+  Gridレイアウトを作成する。
+  @param options: <Struct:FlexLayoutOptionsStruct|UndefinedClass> レイアウトオプション。既定値は`undefined`。
+  @returns <Struct:FlexGridLayoutStruct|UndefinedClass>
   */
-  public fn CreateLayout layoutName = (
+  public fn CreateGridLayout options:undefined = (
     local layout = undefined
-    local key = ("Flex" + layoutName as String + "Layout") as Name
+    local key = #FlexGridLayout
     if hasDictValue this.layoutDefTable key do (
-      if this.useGlobalLayoutOptions then (
-        layout = this.layoutDefTable[key] this.Options
-      )
-      else (
-        layout = this.layoutDefTable[key]()
-      )
+      layout = this.layoutDefTable[key] options
+    )
+    layout
+  ),
+
+  /*-
+  Groupレイアウトを作成する。
+  @param groupBoxWidget <Struct:FlexGroupBoxControlWidgetStruct> `GroupBoxControl`ウィジェット。
+  @returns <Struct:FlexGroupLayoutStruct|UndefinedClass>
+  */
+  public fn CreateGroupLayout groupBoxWidget = (
+    local layout = undefined
+    local key = #FlexGroupLayout
+    if hasDictValue this.layoutDefTable key \
+        and this.isValidGroupBoxControlWidget groupBoxWidget do (
+      layout = this.layoutDefTable[key] groupBoxWidget
+    )
+    layout
+  ),
+
+  /*-
+  HBoxレイアウトを作成する。
+  @param options: <Struct:FlexLayoutOptionsStruct|UndefinedClass> レイアウトオプション。既定値は`undefined`。
+  @returns <Struct:FlexHBoxLayoutStruct|UndefinedClass>
+  */
+  public fn CreateHBoxLayout options:undefined = (
+    local layout = undefined
+    local key = #FlexHBoxLayout
+    if hasDictValue this.layoutDefTable key do (
+      layout = this.layoutDefTable[key] options
     )
     layout
   ),
@@ -64,7 +76,21 @@ struct FlexUIStruct (
   ),
 
   /*-
-  ウィジェットオブジェクトを作成する。
+  VBoxレイアウトを作成する。
+  @param options: <Struct:FlexLayoutOptionsStruct|UndefinedClass> レイアウトオプション。既定値は`undefined`。
+  @returns <Struct:FlexVBoxLayoutStruct|UndefinedClass>
+  */
+  public fn CreateVBoxLayout options:undefined = (
+    local layout = undefined
+    local key = #FlexVBoxLayout
+    if hasDictValue this.layoutDefTable key do (
+      layout = this.layoutDefTable[key] options
+    )
+    layout
+  ),
+
+  /*-
+  ウィジェットを作成する。
   @param control <RolloutControl> ロールアウトコントロール。
   @returns <Struct|UndefinedClass>
   @remarks 不明なコントロールの場合は`undefined`を返す。
@@ -76,27 +102,6 @@ struct FlexUIStruct (
       widget = this.widgetDefTable[key] control
     )
     widget
-  ),
-
-  /*-
-  グローバルレイアウトオプションを使用するかどうかを取得する。
-  @returns <BooleanClass>
-  */
-  public fn GetUseGlobalLayoutOptions = (
-    this.useGlobalLayoutOptions
-  ),
-
-  /*-
-  グローバルレイアウトオプションを使用するかどうかを設定する。
-  @param input <BooleanClass>
-  @returns <BooleanClass>
-  */
-  public fn SetUseGlobalLayoutOptions input = (
-    if classOf input == BooleanClass do (
-      this.useGlobalLayoutOptions = input
-      this.notify #(#UseGlobalLayoutOptions)
-    )
-    this.GetUseGlobalLayoutOptions()
   ),
 
   /*-
@@ -128,11 +133,11 @@ struct FlexUIStruct (
   @param obj <Any>
   @returns <BooleanClass>
   */
-  private fn isValidLayoutOptions obj = (
+  private fn isValidGroupBoxControlWidget obj = (
     isStruct obj \
         and isProperty obj #StructName \
         and classOf obj.StructName == MAXScriptFunction \
-        and obj.StructName() == #FlexLayoutOptionsStruct
+        and obj.StructName() == #FlexGroupBoxControlWidgetStruct
   ),
 
   /*- @returns <Name> */
@@ -145,9 +150,6 @@ struct FlexUIStruct (
   */
   public fn Dump indent:"" out:listener = (
     format "%FlexUIStruct\n" indent to:out
-    format "%  Options:\n" indent to:out
-    this.Options.Dump indent:(indent + "    ") out:out
-    format "%  useGlobalLayoutOptions:%\n" indent this.useGlobalLayoutOptions to:out
     format "%  layoutDefTable:%\n" indent this.layoutDefTable.Count to:out
     for key in this.layoutDefTable.Keys do (
       format "%    [%]:%\n" indent key (classOf this.layoutDefTable[key]) to:out
@@ -175,63 +177,8 @@ struct FlexUIStruct (
     isEqualStructName and isEqualProperties
   ),
 
-  /*- @prop <Array[<Struct:ObserverStruct>]> */
-  private observers = #(),
-
-  /*-
-  @param observer <Struct:ObserverStruct>
-  @returns <BooleanClass> 成功した場合は`true`、失敗した場合は`false`。
-  */
-  public fn AddObserver observer = (
-    if this.findObserver observer == 0 do (
-      append this.observers observer
-    )
-    this.findObserver observer > 0
-  ),
-
-  /*-
-  @param observer <Struct:ObserverStruct>
-  @returns <BooleanClass> 成功した場合は`true`、失敗した場合は`false`。
-  */
-  public fn RemoveObserver observer = (
-    local index = this.findObserver observer
-    if index > 0 do (
-      deleteItem this.observers index
-    )
-    this.findObserver observer == 0
-  ),
-
-  /*-
-  @param observer <Struct:ObserverStruct>
-  @returns <Integer>
-  */
-  private fn findObserver observer = (
-    local index = 0
-    for i = 1 to this.observers.Count while index == 0 do (
-      if this.observers[i].Equals observer do (
-        index = i
-      )
-    )
-    index
-  ),
-
-  /*-
-  @param params <Array[<Name>]|Any>
-  @param type: <Name>
-  @returns <OkClass>
-  */
-  private fn notify params type: = (
-    for observer in this.observers do (
-      observer.Callback observer.Context params type:type
-    )
-    ok
-  ),
-
   on Create do (
     this.layoutOptionsDef = fileIn @"Layout\FlexLayoutOptions.ms"
-    if not this.isValidLayoutOptions this.Options do (
-      this.Options = this.CreateLayoutOptions()
-    )
     this.initialize()
   )
 )

@@ -15,25 +15,7 @@
 
   format "[run %]@\"%\"\n" nowTime currentFile
   /* Setup Start ------------------------------------------------------------ */
-  local expectedUseGlobalLayoutOptions = true
-
-  local updateObject
-  fn updateObject context params type: = (
-    -- format "updateObject params:% type:%\n" params type
-    if classOf params == Array do (
-      for param in params do (
-        case param of (
-          (#UseGlobalLayoutOptions): (
-            actual = ::TestValueStruct (testObj.GetUseGlobalLayoutOptions())
-            expected = ::TestValueStruct expectedUseGlobalLayoutOptions
-            assert (actual.Equals expected == true)
-          )
-          default: ()
-        )
-      )
-    )
-    ok
-  )
+  local groupBoxControlWidgetDef = fileIn (pathUtility.GetFullPath @"..\Widget\FlexGroupBoxControlWidget.ms")
 
   local RltTest
   rollout RltTest "RltTest" (
@@ -71,59 +53,44 @@
   fn testInstance obj structName = (
     local passCount = 0
     actual = ::TestValueStruct obj
-    if assert (actual.IsStructInstance() == true) do passCount += 1
-    if assert (actual.HasProp #StructName == true) do passCount += 1
-    actual = ::TestValueStruct (obj.StructName())
-    expected = ::TestValueStruct structName
-    if assert (actual.Equals expected == true) do passCount += 1
+    if assert (actual.IsStructInstance() == true) do (
+      passCount += 1
+      if assert (actual.HasProp #StructName == true) do (
+        passCount += 1
+        actual = ::TestValueStruct (obj.StructName())
+        expected = ::TestValueStruct structName
+        if assert (actual.Equals expected == true) do passCount += 1
+      )
+    )
     passCount == 3
   )
 
+  local groupBoxWidget = groupBoxControlWidgetDef RltTest.Gbx
+
   testDef = fileIn (pathUtility.GetFullPath @"..\FlexUI.ms")
   testObj = testDef()
-
-  testObj.AddObserver (::ObserverStruct updateObject testObj)
   /* Setup End -------------------------------------------------------------- */
   sw.Start()
   /* Test Start ------------------------------------------------------------- */
-  /* GetUseGlobalLayoutOptions */
-  -- 既定値
-  actual = ::TestValueStruct (testObj.GetUseGlobalLayoutOptions())
-  expected = ::TestValueStruct true
-  assert (actual.Equals expected == true)
-
-  /* SetUseGlobalLayoutOptions */
-  expectedUseGlobalLayoutOptions = false
-  actual = ::TestValueStruct (testObj.SetUseGlobalLayoutOptions false)
-  expected = ::TestValueStruct expectedUseGlobalLayoutOptions
-  assert (actual.Equals expected == true)
-
-  /* CreateLayout */
-  -- 無効な値
-  actual = ::TestValueStruct (testObj.CreateLayout undefined)
-  expected = ::TestValueStruct undefined
-  assert (actual.Equals expected == true)
-  -- 無効な値
-  actual = ::TestValueStruct (testObj.CreateLayout 1)
-  expected = ::TestValueStruct undefined
-  assert (actual.Equals expected == true)
-  -- 無効な値
-  actual = ::TestValueStruct (testObj.CreateLayout "Foo")
-  expected = ::TestValueStruct undefined
-  assert (actual.Equals expected == true)
-  -- 無効な値
-  actual = ::TestValueStruct (testObj.CreateLayout #Foo)
-  expected = ::TestValueStruct undefined
-  assert (actual.Equals expected == true)
-  -- 成功（文字列）
-  assert (testInstance (testObj.CreateLayout "Grid") #FlexGridLayoutStruct)
-  -- 成功
-  assert (testInstance (testObj.CreateLayout #Grid) #FlexGridLayoutStruct)
-  assert (testInstance (testObj.CreateLayout #HBox) #FlexHBoxLayoutStruct)
-  assert (testInstance (testObj.CreateLayout #VBox) #FlexVBoxLayoutStruct)
-
   /* CreateLayoutOptions */
   assert (testInstance (testObj.CreateLayoutOptions()) #FlexLayoutOptionsStruct)
+
+  /* CreateGridLayout */
+  assert (testInstance (testObj.CreateGridLayout()) #FlexGridLayoutStruct)
+
+  /* CreateGroupLayout */
+  -- 失敗
+  actual = ::TestValueStruct (testObj.CreateGroupLayout undefined)
+  expected = ::TestValueStruct undefined
+  assert (actual.Equals expected == true)
+  -- 成功
+  assert (testInstance (testObj.CreateGroupLayout groupBoxWidget) #FlexGroupLayoutStruct)
+
+  /* CreateHBoxLayout */
+  assert (testInstance (testObj.CreateHBoxLayout()) #FlexHBoxLayoutStruct)
+
+  /* CreateVBoxLayout */
+  assert (testInstance (testObj.CreateVBoxLayout()) #FlexVBoxLayoutStruct)
 
   /* CreateWidget */
   -- 無効な値
