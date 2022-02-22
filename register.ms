@@ -1,7 +1,6 @@
 /*! © 2021 imaoki | MIT License | https://github.com/imaoki */
 (
-  ::flexUI = (fileIn "FlexUI.ms")()
-  format "[define]::flexUI\n"
+  fileIn "FlexUI.ms"
 
   if isProperty ::startupScriptLoader "RegisterScript" do (
     ::startupScriptLoader.RegisterScript (getSourceFileName())

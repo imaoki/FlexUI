@@ -1,9 +1,7 @@
 /*! © 2021 imaoki | MIT License | https://github.com/imaoki */
 (
-  local pathUtility = ::PathUtilityStruct (getSourceFileName())
-  local registerFile = pathUtility.GetFullPath @".\register.ms"
-
   if isProperty ::startupScriptLoader "UnregisterScript" do (
+    local registerFile = substituteString (getSourceFileName()) "unregister.ms" "register.ms"
     ::startupScriptLoader.UnregisterScript registerFile
     ::startupScriptLoader.Save()
   )

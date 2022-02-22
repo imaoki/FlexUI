@@ -182,3 +182,6 @@ struct FlexUIStruct (
     this.initialize()
   )
 )
+::flexUI = ::FlexUIStruct()
+format "[define]::flexUI\n"
+::FlexUIStruct
