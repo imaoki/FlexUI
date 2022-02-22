@@ -31,7 +31,9 @@
 
 ## スクリプトの実行とスタートアップへの登録
 
-`register.ms`を実行する。
+01. `Standard\register.ms`を実行する。
+
+02. `FlexUI\register.ms`を実行する。
 
 ## スタートアップから登録解除する
 
