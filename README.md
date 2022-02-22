@@ -41,144 +41,142 @@
 
 ### ウィジェット
 
-```
+* ウィジェットは全種類が共通のプロパティとメソッドを持つ。
+
+* 既定のサイズ、最小サイズ、およびリサイズの可/不可はロールアウトコントロールの特性に合わせて定数として定義されている。
+
+```maxscript
 (
   local widget = ::flexUI.CreateWidget Edt
+
+  -- 全体の水平方向の位置合わせ
+  widget.SetAlignmentH #Center
+
+  -- 全体の垂直方向の位置合わせ
+  widget.SetAlignmentV #Center
+
+  -- キャプションと本体との余白ピクセル
+  widget.SetCaptionMargin 3
+
+  -- キャプションの表示位置
+  widget.SetCaptionPosition #Left
+
+  -- キャプションを含まない明示的な高さ
+  widget.SetExplicitH undefined
+
+  -- キャプションを含まない明示的な幅
+  widget.SetExplicitW undefined
+
+  -- 矩形を設定
   widget.SetRect (Box2 0 0 100 100)
 )
 ```
 
 ### レイアウト
 
-```
-(
-  local layout = ::flexUI.CreateLayout #Grid
-  layout.SetRect (Box2 0 0 100 100)
-)
-```
+#### Gridレイアウト
 
-### `VBox`レイアウトの例
+* 仮想のグリッド上にアイテムを配置するレイアウト。
+
+* グリッドの数は必要に応じて自動的に拡張される。
 
 ```maxscript
 (
-  rollout RltSample "FlexUI Sample" (
-    imgTag Itg1 "ImgTag" bitmap:(BitMap 1 1 Color:(Color 159 31 31))
-    imgTag Itg2 "ImgTag" bitmap:(BitMap 1 1 Color:(Color 31 159 31))
-    imgTag Itg3 "ImgTag" bitmap:(BitMap 1 1 Color:(Color 31 31 159))
+  -- レイアウトオプションは任意で指定する
+  local layoutOptions = ::flexUI.CreateLayoutOptions()
+  local gridLayout = ::flexUI.CreateGridLayout options:layoutOptions
 
-    local layout = undefined
+  -- レイアウトを追加（開始行、開始列の順）
+  gridLayout.AddLayout vBoxLayout 1 1
 
-    local padding = 80
-    local bgColor = Color 31 95 95
-    local rectColor = Color 63 127 127
+  -- ウィジェットを追加（開始行、開始列、専有する行数、専有する列数の順）
+  gridLayout.AddWidget widget 2 3 rowSpan:1 columnSpan:3
 
-    fn getRect = (
-      local size = getDialogSize RltSample
-      if size.X < 1 do size.X = 1
-      if size.Y < 1 do size.Y = 1
-      local x = padding
-      local y = padding
-      local w = size.X as Integer - padding * 2
-      local h = size.Y as Integer - padding * 2
-      -- Box2値のサイズは`1`以上必要
-      if w < 1 do w = 1
-      if h < 1 do h = 1
-      Box2 x y w h
-    )
+  -- 行の最小高を設定（行、高さの順）
+  gridLayout.SetRowMinimumHeight 1 10
 
-    fn updateBackgroundImage = (
-      local size = getDialogSize RltSample
-      if size.X < 1 do size.X = 1
-      if size.Y < 1 do size.Y = 1
-      local imageW = size.X as Integer
-      local imageH = size.Y as Integer
-      local bgImage = Bitmap imageW imageH Color:bgColor Gamma:(1.0 / 2.2)
-      local rect = getRect()
-      local rectImage = Bitmap rect.W rect.H Color:rectColor
-      pasteBitmap rectImage bgImage [0, 0] [rect.X, rect.Y] type:#Paste
-      setDialogBitmap RltSample bgImage
-      ok
-    )
+  -- 行のストレッチ係数を設定（行、ストレッチ係数の順）
+  gridLayout.SetRowStretch 2 2
 
-    fn updateControl = (
-      updateBackgroundImage()
-      local rects = layout.SetRect (getRect())
-      ok
-    )
+  -- 列の最小幅を設定（列、幅の順）
+  gridLayout.SetColumnMinimumWidth 2 10
 
-    on RltSample Open do (
-      -- ウィジェットを作成
-      local widget1 = ::flexUI.CreateWidget Itg1
-      local widget2 = ::flexUI.CreateWidget Itg2
-      local widget3 = ::flexUI.CreateWidget Itg3
+  -- 列のストレッチ係数を設定（列、ストレッチ係数の順）
+  gridLayout.SetColumnStretch 3 2
 
-      -- レイアウトを作成
-      layout = ::flexUI.CreateLayout #VBox
-
-      -- レイアウトオプションを設定
-      layout.Options.SetMargin 5 5
-      layout.Options.SetPadding 5 5 5 5
-
-      -- ウィジェットを追加
-      layout.AddWidget widget1
-
-      -- スペースを追加
-      layout.AddSpace 10
-
-      -- ウィジェットをストレッチ係数`2`で追加
-      layout.AddWidget widget2 stretch:2
-
-      -- ストレッチをストレッチ係数`2`で追加
-      layout.AddStretch stretch:2
-
-      -- ウィジェットを最小高`10`で追加
-      layout.AddWidget widget3 minimum:10
-
-      -- コントロールを更新
-      updateControl()
-    )
-    on RltSample Resized v do updateControl()
-  )
-  createDialog RltSample 320 320 \
-      bmpStyle:#Bmp_Tile \
-      style:#(#Style_Resizing, #Style_Sysmenu, #Style_ToolWindow)
-  ok
+  -- 矩形を設定
+  gridLayout.SetRect (Box2 0 0 100 100)
 )
 ```
 
-## `::flexUI`
+#### Groupレイアウト
 
-通常はこのグローバル変数を通して操作する。
-プロパティやメソッドの詳細は[`mxsdoc.FlexUI.ms`](https://imaoki.github.io/mxskb/mxsdoc/flexui-flexui.html)を参照。
+* `GroupBoxControl`用のレイアウト。
 
-## ウィジェット
+```maxscript
+(
+  local groupBoxWidget = ::flexUI.CreateWidget Gbx
+  local groupLayout = ::flexUI.CreateGroupLayout groupBoxWidget
 
-ウィジェットは全て共通のプロパティを持ち、コントロール毎に定義する。
-プロパティやメソッドの詳細は各ウィジェットのドキュメントを参照。
+  -- レイアウトまたはウィジェットを追加
+  groupLayout.SetCell widget
 
-### 設定可能なプロパティ
+  -- 矩形を設定
+  groupLayout.SetRect (Box2 0 0 100 100)
+)
+```
 
-| プロパティ        | 説明                               |
-| ----------------- | ---------------------------------- |
-| `alignmentH`      | 全体の水平方向の位置合わせ         |
-| `alignmentV`      | 全体の垂直方向の位置合わせ         |
-| `captionMargin`   | キャプションと本体との余白ピクセル |
-| `captionPosition` | キャプションの表示位置             |
-| `explicitH`       | キャプションを含まない明示的な高さ |
-| `explicitW`       | キャプションを含まない明示的な幅   |
+#### HBoxレイアウト
 
-### 定数プロパティ
+* 水平方向にアイテムを配置するレイアウト。
 
-| プロパティ   | 説明                             |
-| ------------ | -------------------------------- |
-| `defaultH`   | キャプションを含まない既定の高さ |
-| `defaultW`   | キャプションを含まない既定の幅   |
-| `minH`       | キャプションを含まない最小の高さ |
-| `minW`       | キャプションを含まない最小の幅   |
-| `resizableH` | 高さが変更可能かどうか           |
-| `resizableW` | 幅が変更可能かどうか             |
+```maxscript
+(
+  -- レイアウトオプションは任意で指定する
+  local layoutOptions = ::flexUI.CreateLayoutOptions()
+  local hBoxLayout = ::flexUI.CreateHBoxLayout options:layoutOptions
 
-### ウィジェットの種類
+  -- レイアウトを追加（ストレッチ係数は既定の`1`）
+  hBoxLayout.AddLayout groupLayout
+
+  -- 固定スペースを追加
+  hBoxLayout.AddSpace 10
+
+  -- ストレッチを追加（ストレッチ係数`2`）
+  hBoxLayout.AddStretch stretch:2
+
+  -- ウィジェットを追加（ストレッチ係数`3`）
+  hBoxLayout.AddWidget widget stretch:1
+
+  -- 矩形を設定
+  hBoxLayout.SetRect (Box2 0 0 100 100)
+)
+```
+
+#### VBoxレイアウト
+
+* 垂直方向にアイテムを配置するレイアウト。
+
+* メソッドはHBoxレイアウトと共通。
+
+```maxscript
+(
+  -- レイアウトオプションは任意で指定する
+  local layoutOptions = ::flexUI.CreateLayoutOptions()
+  local vBoxLayout = ::flexUI.CreateVBoxLayout options:layoutOptions
+
+  -- 矩形を設定
+  vBoxLayout.SetRect (Box2 0 0 100 100)
+)
+```
+
+## グローバル変数
+
+* 通常はグローバル変数`::flexUI`を通して操作する。
+
+* 詳細は[`mxsdoc.FlexUI.ms`](https://imaoki.github.io/mxskb/mxsdoc/flexui-flexui.html)を参照。
+
+## ウィジェットの種類
 
 | ウィジェット                                                                                                                    | コントロール     | 幅   | 高   | 画像                                                                                                         |
 | ------------------------------------------------------------------------------------------------------------------------------- | ---------------- | ---- | ---- | ------------------------------------------------------------------------------------------------------------ |
@@ -207,7 +205,7 @@
 | [`FlexSpinnerControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-flexspinnercontrolwidget.html)           | `spinner`        | 可変 | 固定 | ![FlexSpinnerControlWidget](Resource/FlexSpinnerControlWidget.png "FlexSpinnerControlWidget")                |
 | [`FlexSubRolloutWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-widget-flexsubrolloutwidget.html)                   | `subRollout`     | 可変 | 可変 | ![FlexSubRolloutWidget](Resource/FlexSubRolloutWidget.png "FlexSubRolloutWidget")                            |
 
-#### 制限
+### 制限
 
 * `FlexComboBoxControlWidgetStruct`は`dropDownList`にのみ対応する。
   `comboBox`には非対応。
@@ -216,32 +214,50 @@
 
 * `slider`の`orient`パラメータは`#Horizontal`にのみ対応。
 
-## レイアウト
+## レイアウトの種類
 
-レイアウトはそれぞれ固有のプロパティを持つ。
-プロパティやメソッドの詳細は各レイアウトのドキュメントを参照。
+| レイアウト                                                                                          | 説明                            | 画像                                                               |
+| --------------------------------------------------------------------------------------------------- | ------------------------------- | ------------------------------------------------------------------ |
+| [`FlexGridLayoutStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-layout-flexgridlayout.html)   | グリッドにアイテムを配置する    | ![FlexGridLayout](Resource/FlexGridLayout.png "FlexGridLayout")    |
+| [`FlexGroupLayoutStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-layout-flexgrouplayout.html) | `GroupBoxControl`用のレイアウト | ![FlexGroupLayout](Resource/FlexGroupLayout.png "FlexGroupLayout") |
+| [`FlexHBoxLayoutStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-layout-flexhboxlayout.html)   | 水平方向にアイテムを配置する    | ![FlexHBoxLayout](Resource/FlexHBoxLayout.png "FlexHBoxLayout")    |
+| [`FlexVBoxLayoutStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-layout-flexvboxlayout.html)   | 垂直方向にアイテムを配置する    | ![FlexVBoxLayout](Resource/FlexVBoxLayout.png "FlexVBoxLayout")    |
 
-| レイアウト                                                                                        | 説明                         | 画像                                                            |
-| ------------------------------------------------------------------------------------------------- | ---------------------------- | --------------------------------------------------------------- |
-| [`FlexGridLayoutStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-layout-flexgridlayout.html) | グリッドにアイテムを配置する | ![FlexGridLayout](Resource/FlexGridLayout.png "FlexGridLayout") |
-| [`FlexHBoxLayoutStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-layout-flexhboxlayout.html) | 水平方向にアイテムを配置する | ![FlexHBoxLayout](Resource/FlexHBoxLayout.png "FlexHBoxLayout") |
-| [`FlexVBoxLayoutStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-layout-flexvboxlayout.html) | 垂直方向にアイテムを配置する | ![FlexVBoxLayout](Resource/FlexVBoxLayout.png "FlexVBoxLayout") |
+## レイアウトオプション
 
-### レイアウトオプション
+* レイアウト各部の余白を設定する。
 
-レイアウト各部の余白を設定する。
-プロパティやメソッドの詳細は[`mxsdoc.FlexLayoutOptions.ms`](https://imaoki.github.io/mxskb/mxsdoc/flexui-layout-flexlayoutoptions.html)を参照。
+* 詳細は[`mxsdoc.FlexLayoutOptions.ms`](https://imaoki.github.io/mxskb/mxsdoc/flexui-layout-flexlayoutoptions.html)を参照。
 
-| プロパティ | 説明                       |
-| ---------- | -------------------------- |
-| `marginH`  | セル間の水平方向の余白     |
-| `marginV`  | セル間の垂直方向の余白     |
-| `paddingB` | レイアウト外周の下側の余白 |
-| `paddingL` | レイアウト外周の左側の余白 |
-| `paddingR` | レイアウト外周の右側の余白 |
-| `paddingT` | レイアウト外周の上側の余白 |
+```maxscript
+(
+  local layoutOptions = ::flexUI.CreateLayoutOptions()
 
-`::flexUI`の`useGlobalLayoutOptions`プロパティを`true`に設定することでオプションの共有が可能。
+  -- セル間の水平方向の余白
+  layoutOptions.SetMarginH 0
+
+  -- セル間の垂直方向の余白
+  layoutOptions.SetMarginV 0
+
+  -- レイアウト外周の下側の余白
+  layoutOptions.SetPaddingB 0
+
+  -- レイアウト外周の左側の余白
+  layoutOptions.SetPaddingL 0
+
+  -- レイアウト外周の右側の余白
+  layoutOptions.SetPaddingR 0
+
+  -- レイアウト外周の上側の余白
+  layoutOptions.SetPaddingT 0
+
+  -- マージンの一括指定（水平、垂直の順）
+  layoutOptions.SetMargin 0 0
+
+  -- パディングの一括指定（上、右、下、左の順）
+  layoutOptions.SetPadding 0 0 0 0
+)
+```
 
 ## ライセンス
 
