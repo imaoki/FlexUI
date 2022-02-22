@@ -182,13 +182,13 @@
   /* GetMinH */
   -- 既定値
   actual = ::TestValueStruct (testObj.GetMinH())
-  expected = ::TestValueStruct 17
+  expected = ::TestValueStruct 21
   assert (actual.Equals expected == true)
 
   /* GetMinW */
   -- 既定値
   actual = ::TestValueStruct (testObj.GetMinW())
-  expected = ::TestValueStruct 1
+  expected = ::TestValueStruct 11
   assert (actual.Equals expected == true)
 
   /* GetRect */

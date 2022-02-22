@@ -7,7 +7,8 @@
 
     groupBox Gbx1 "GroupBoxControl" height:100 pos:[30, 30] width:100
     groupBox Gbx2 "" height:100 pos:[190, 30] width:100
-    groupBox Gbx3 "" pos:[30, 190] width:100
+    groupBox Gbx3 "GroupBoxControl" pos:[30, 190] width:100
+    groupBox Gbx4 "" pos:[190, 190] width:100
 
     fn setControlVisibility v = (
       local controlCount = RltTest.Controls.Count
@@ -91,6 +92,9 @@
       -- Gbx3.Height = 100
       Gbx3.Width = 100
       Gbx3.Pos = [30, 190]
+      -- Gbx4.Height = 100
+      Gbx4.Width = 100
+      Gbx4.Pos = [190, 190]
 
       showControlRect()
     )
