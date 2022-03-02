@@ -111,17 +111,17 @@ struct FlexUIStruct (
   private fn initialize = (
     this.layoutDefTable = Dictionary #Name
     this.widgetDefTable = Dictionary #Name
-    local pathUtility = ::PathUtilityStruct (getSourceFileName())
+    local pathUtility = ::std.PathUtilityStruct (getSourceFileName())
 
     local layoutDir = pathUtility.GetFullPath @".\Layout"
-    local layoutFiles = ::fileUtility.GetFiles layoutDir "*Layout.ms" recursive:false
+    local layoutFiles = ::std.FileUtility.GetFiles layoutDir "*Layout.ms" recursive:false
     for layoutFile in layoutFiles do (
       local key = (pathUtility.GetFileNameWithoutExtension layoutFile) as Name
       this.layoutDefTable[key] = fileIn layoutFile
     )
 
     local widgetDir = pathUtility.GetFullPath @".\Widget"
-    local widgetFiles = ::fileUtility.GetFiles widgetDir "*Widget.ms" recursive:false
+    local widgetFiles = ::std.FileUtility.GetFiles widgetDir "*Widget.ms" recursive:false
     for widgetFile in widgetFiles do (
       local key = (pathUtility.GetFileNameWithoutExtension widgetFile) as Name
       this.widgetDefTable[key] = fileIn widgetFile

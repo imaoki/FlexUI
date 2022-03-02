@@ -6,7 +6,7 @@
   local sw = DotNetObject "System.Diagnostics.Stopwatch"
 
   local currentFile = getSourceFileName()
-  local pathUtility = ::PathUtilityStruct currentFile
+  local pathUtility = ::std.PathUtilityStruct currentFile
 
   local actual
   local expected
@@ -150,7 +150,7 @@
   testDef = fileIn (pathUtility.GetFullPath @"..\FlexVBoxLayout.ms")
   testObj = testDef()
 
-  testObj.AddObserver (::ObserverStruct updateObject testObj)
+  testObj.AddObserver (::std.ObserverStruct updateObject testObj)
   /* Setup End -------------------------------------------------------------- */
   sw.Start()
   /* Test Start ------------------------------------------------------------- */

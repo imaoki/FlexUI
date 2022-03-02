@@ -6,7 +6,7 @@
   local sw = DotNetObject "System.Diagnostics.Stopwatch"
 
   local currentFile = getSourceFileName()
-  local pathUtility = ::PathUtilityStruct currentFile
+  local pathUtility = ::std.PathUtilityStruct currentFile
 
   local actual
   local expected
@@ -159,7 +159,7 @@
   testDef = fileIn (pathUtility.GetFullPath @"..\FlexGridCell.ms")
   testObj = testDef()
 
-  testObj.AddObserver (::ObserverStruct updateObject testObj)
+  testObj.AddObserver (::std.ObserverStruct updateObject testObj)
   /* Setup End -------------------------------------------------------------- */
   sw.Start()
   /* Test Start ------------------------------------------------------------- */
@@ -338,7 +338,7 @@
   local expectedRowSpan = 3
   local expectedType = #Layout
   testObj = testDef layout 1 2 3 4
-  testObj.AddObserver (::ObserverStruct updateObject testObj)
+  testObj.AddObserver (::std.ObserverStruct updateObject testObj)
   actual = ::TestValueStruct (testObj.GetColumn())
   expected = ::TestValueStruct expectedColumn
   assert (actual.Equals expected == true)
@@ -365,7 +365,7 @@
   local expectedRowSpan = 3
   local expectedType = #Widget
   testObj = testDef widget 1 2 3 4
-  testObj.AddObserver (::ObserverStruct updateObject testObj)
+  testObj.AddObserver (::std.ObserverStruct updateObject testObj)
   actual = ::TestValueStruct (testObj.GetColumn())
   expected = ::TestValueStruct expectedColumn
   assert (actual.Equals expected == true)

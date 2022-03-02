@@ -6,7 +6,7 @@
   local sw = DotNetObject "System.Diagnostics.Stopwatch"
 
   local currentFile = getSourceFileName()
-  local pathUtility = ::PathUtilityStruct currentFile
+  local pathUtility = ::std.PathUtilityStruct currentFile
 
   local actual
   local expected
@@ -147,7 +147,7 @@
   testDef = fileIn (pathUtility.GetFullPath @"..\FlexBoxCell.ms")
   testObj = testDef()
 
-  testObj.AddObserver (::ObserverStruct updateObject testObj)
+  testObj.AddObserver (::std.ObserverStruct updateObject testObj)
   /* Setup End -------------------------------------------------------------- */
   sw.Start()
   /* Test Start ------------------------------------------------------------- */
@@ -290,7 +290,7 @@
   expectedStretch = 2
   expectedType = #Layout
   testObj = testDef layout 2 10
-  testObj.AddObserver (::ObserverStruct updateObject testObj)
+  testObj.AddObserver (::std.ObserverStruct updateObject testObj)
   actual = ::TestValueStruct (testObj.GetItem())
   expected = ::TestValueStruct layout
   assert (actual.Equals expected == true)
@@ -309,7 +309,7 @@
   expectedStretch = 2
   expectedType = #Space
   testObj = testDef 5 2 10
-  testObj.AddObserver (::ObserverStruct updateObject testObj)
+  testObj.AddObserver (::std.ObserverStruct updateObject testObj)
   actual = ::TestValueStruct (testObj.GetItem())
   expected = ::TestValueStruct 5
   assert (actual.Equals expected == true)
@@ -328,7 +328,7 @@
   expectedStretch = 2
   expectedType = #Stretch
   testObj = testDef -1 2 10
-  testObj.AddObserver (::ObserverStruct updateObject testObj)
+  testObj.AddObserver (::std.ObserverStruct updateObject testObj)
   actual = ::TestValueStruct (testObj.GetItem())
   expected = ::TestValueStruct -1
   assert (actual.Equals expected == true)
@@ -347,7 +347,7 @@
   expectedStretch = 2
   expectedType = #Widget
   testObj = testDef widget 2 10
-  testObj.AddObserver (::ObserverStruct updateObject testObj)
+  testObj.AddObserver (::std.ObserverStruct updateObject testObj)
   actual = ::TestValueStruct (testObj.GetItem())
   expected = ::TestValueStruct widget
   assert (actual.Equals expected == true)

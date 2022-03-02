@@ -6,7 +6,7 @@
   local sw = DotNetObject "System.Diagnostics.Stopwatch"
 
   local currentFile = getSourceFileName()
-  local pathUtility = ::PathUtilityStruct currentFile
+  local pathUtility = ::std.PathUtilityStruct currentFile
 
   local actual
   local expected
@@ -125,7 +125,7 @@
   testDef = fileIn (pathUtility.GetFullPath @"..\FlexMaxCurveCtlWidget.ms")
   testObj = testDef()
 
-  testObj.AddObserver (::ObserverStruct updateObject testObj)
+  testObj.AddObserver (::std.ObserverStruct updateObject testObj)
 
   /* プロパティテスト用UI表示 */
   createDialog RltPropertyTest 160 160 \
