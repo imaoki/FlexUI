@@ -19,6 +19,8 @@ struct FlexUIStruct (
   public fn CreateLayoutOptions = (),
   public fn CreateVBoxLayout options:undefined = (),
   public fn CreateWidget control = (),
+  public fn Install = (),
+  public fn Uninstall = (),
 
   private fn initialize = (),
   private fn isValidGroupBoxControlWidget obj = (),
@@ -105,6 +107,34 @@ struct FlexUIStruct (
   ),
 
   /*-
+  インストールする。
+  @returns <OkClass>
+  @remarks 静的メソッド。
+  */
+  public fn Install = (
+    ::FlexUIStruct()
+    if isProperty ::startupLoader "RegisterFile" do (
+      ::startupLoader.RegisterFile (getSourceFileName()) installer:true
+    )
+    format "[install]::flexUI\n"
+    ok
+  ),
+
+  /*-
+  アンインストールする。
+  @returns <OkClass>
+  @remarks 静的メソッド。
+  */
+  public fn Uninstall = (
+    if isProperty ::startupLoader "UnregisterFile" do (
+      ::startupLoader.UnregisterFile (getSourceFileName())
+    )
+    ::flexUI = undefined
+    format "[uninstall]::flexUI\n"
+    ok
+  ),
+
+  /*-
   内部状態を初期化する。
   @returns <OkClass>
   */
@@ -178,10 +208,8 @@ struct FlexUIStruct (
   ),
 
   on Create do (
+    ::flexUI = this
     this.layoutOptionsDef = fileIn @"Model\Layout\FlexLayoutOptions.ms"
     this.initialize()
   )
 )
-::flexUI = ::FlexUIStruct()
-format "[define]::flexUI\n"
-::FlexUIStruct
