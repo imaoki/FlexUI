@@ -277,4 +277,4 @@
 
 ## ライセンス
 
-[MIT License](https://github.com/imaoki/DocGenerator/blob/main/LICENSE)
+[MIT License](https://github.com/imaoki/FlexUI/blob/main/LICENSE)
