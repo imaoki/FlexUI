@@ -155,7 +155,7 @@
     on SpnExplicitH Changed v do setExplicitH()
     on RltTest Open do (
       local pathUtility = ::std.PathUtilityStruct (getSourceFileName())
-      local widgetDef = fileIn (pathUtility.GetFullPath @"..\..\Widget\FlexCheckBoxControlWidget.ms")
+      local widgetDef = fileIn (pathUtility.GetFullPath @"..\..\Model\Widget\FlexCheckBoxControlWidget.ms")
       widget = widgetDef Ckbx
       widget.AddObserver (::std.ObserverStruct updateWidget widget)
       RdbtnAlignmentH.State = findItem #(#Left, #Center, #Right) (widget.GetAlignmentH())

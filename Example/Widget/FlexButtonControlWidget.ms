@@ -155,7 +155,7 @@
     on SpnExplicitH Changed v do setExplicitH()
     on RltTest Open do (
       local pathUtility = ::std.PathUtilityStruct (getSourceFileName())
-      local widgetDef = fileIn (pathUtility.GetFullPath @"..\..\Widget\FlexButtonControlWidget.ms")
+      local widgetDef = fileIn (pathUtility.GetFullPath @"..\..\Model\Widget\FlexButtonControlWidget.ms")
       widget = widgetDef Btn
       widget.AddObserver (::std.ObserverStruct updateWidget widget)
       RdbtnAlignmentH.State = findItem #(#Left, #Center, #Right) (widget.GetAlignmentH())

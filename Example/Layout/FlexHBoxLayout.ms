@@ -123,8 +123,8 @@
     on SpnPaddingL Changed v do setPaddingL()
     on RltTest Open do (
       local pathUtility = ::std.PathUtilityStruct (getSourceFileName())
-      local layoutDef = fileIn (pathUtility.GetFullPath @"..\..\Layout\FlexHBoxLayout.ms")
-      local widgetDef = fileIn (pathUtility.GetFullPath @"..\..\Widget\FlexImgTagWidget.ms")
+      local layoutDef = fileIn (pathUtility.GetFullPath @"..\..\Model\Layout\FlexHBoxLayout.ms")
+      local widgetDef = fileIn (pathUtility.GetFullPath @"..\..\Model\Widget\FlexImgTagWidget.ms")
       local widget1 = widgetDef Itg1
       local widget2 = widgetDef Itg2
       local widget3 = widgetDef Itg3

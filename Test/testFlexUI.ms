@@ -15,7 +15,7 @@
 
   format "[run %]@\"%\"\n" nowTime currentFile
   /* Setup Start ------------------------------------------------------------ */
-  local groupBoxControlWidgetDef = fileIn (pathUtility.GetFullPath @"..\Widget\FlexGroupBoxControlWidget.ms")
+  local groupBoxControlWidgetDef = fileIn (pathUtility.GetFullPath @"..\Model\Widget\FlexGroupBoxControlWidget.ms")
 
   local RltTest
   rollout RltTest "RltTest" (

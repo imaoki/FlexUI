@@ -113,14 +113,14 @@ struct FlexUIStruct (
     this.widgetDefTable = Dictionary #Name
     local pathUtility = ::std.PathUtilityStruct (getSourceFileName())
 
-    local layoutDir = pathUtility.GetFullPath @".\Layout"
+    local layoutDir = pathUtility.GetFullPath @".\Model\Layout"
     local layoutFiles = ::std.FileUtility.GetFiles layoutDir "*Layout.ms" recursive:false
     for layoutFile in layoutFiles do (
       local key = (pathUtility.GetFileNameWithoutExtension layoutFile) as Name
       this.layoutDefTable[key] = fileIn layoutFile
     )
 
-    local widgetDir = pathUtility.GetFullPath @".\Widget"
+    local widgetDir = pathUtility.GetFullPath @".\Model\Widget"
     local widgetFiles = ::std.FileUtility.GetFiles widgetDir "*Widget.ms" recursive:false
     for widgetFile in widgetFiles do (
       local key = (pathUtility.GetFileNameWithoutExtension widgetFile) as Name
@@ -178,7 +178,7 @@ struct FlexUIStruct (
   ),
 
   on Create do (
-    this.layoutOptionsDef = fileIn @"Layout\FlexLayoutOptions.ms"
+    this.layoutOptionsDef = fileIn @"Model\Layout\FlexLayoutOptions.ms"
     this.initialize()
   )
 )

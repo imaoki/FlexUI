@@ -122,9 +122,9 @@
     -- on SpnPaddingL Changed v do setPaddingL()
     on RltTest Open do (
       local pathUtility = ::std.PathUtilityStruct (getSourceFileName())
-      local layoutDef = fileIn (pathUtility.GetFullPath @"..\..\Layout\FlexGroupLayout.ms")
-      local groupBoxControlWidgetDef = fileIn (pathUtility.GetFullPath @"..\..\Widget\FlexGroupBoxControlWidget.ms")
-      local widgetDef = fileIn (pathUtility.GetFullPath @"..\..\Widget\FlexImgTagWidget.ms")
+      local layoutDef = fileIn (pathUtility.GetFullPath @"..\..\Model\Layout\FlexGroupLayout.ms")
+      local groupBoxControlWidgetDef = fileIn (pathUtility.GetFullPath @"..\..\Model\Widget\FlexGroupBoxControlWidget.ms")
+      local widgetDef = fileIn (pathUtility.GetFullPath @"..\..\Model\Widget\FlexImgTagWidget.ms")
       local groupBoxWidget = groupBoxControlWidgetDef Gbx
       local widget1 = widgetDef Itg1
       layout = layoutDef groupBoxWidget
