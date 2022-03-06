@@ -113,7 +113,7 @@ struct FlexUIStruct (
   */
   public fn Install = (
     ::FlexUIStruct()
-    if isProperty ::startupLoader "RegisterFile" do (
+    if isProperty ::startupLoader #RegisterFile do (
       ::startupLoader.RegisterFile (getSourceFileName()) installer:true
     )
     format "[install]::flexUI\n"
@@ -126,7 +126,7 @@ struct FlexUIStruct (
   @remarks 静的メソッド。
   */
   public fn Uninstall = (
-    if isProperty ::startupLoader "UnregisterFile" do (
+    if isProperty ::startupLoader #UnregisterFile do (
       ::startupLoader.UnregisterFile (getSourceFileName())
     )
     ::flexUI = undefined
