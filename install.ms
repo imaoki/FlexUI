@@ -1,5 +1,5 @@
 /*! © 2022 imaoki | MIT License | https://github.com/imaoki */
 (
-  (fileIn "FlexUI.ms").Install()
+  (fileIn @"FlexUI.ms").Install()
   ok
 )

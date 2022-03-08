@@ -362,8 +362,8 @@ struct FlexVBoxLayoutStruct (
 
   on Create do (
     if not this.isValidLayoutOptions this.Options do (
-      this.Options = (fileIn "FlexLayoutOptions.ms")()
+      this.Options = (fileIn @"FlexLayoutOptions.ms")()
     )
-    this.boxCellDef = fileIn "FlexBoxCell.ms"
+    this.boxCellDef = fileIn @"FlexBoxCell.ms"
   )
 )

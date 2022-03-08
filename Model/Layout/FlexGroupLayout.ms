@@ -264,7 +264,7 @@ struct FlexGroupLayoutStruct (
   ),
 
   on Create do (
-    this.boxCellDef = fileIn "FlexBoxCell.ms"
+    this.boxCellDef = fileIn @"FlexBoxCell.ms"
     this.setGroupBoxWidget this._CP1_
   )
 )
