@@ -122,6 +122,7 @@
     on RltTest Resized v do ()
   )
 
+  fileIn (pathUtility.GetFullPath @"..\..\..\definitionPool.ms")
   testDef = fileIn (pathUtility.GetFullPath @"..\FlexMaxCurveCtlWidget.ms")
   testObj = testDef()
 

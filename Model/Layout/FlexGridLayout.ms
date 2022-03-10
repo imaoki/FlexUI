@@ -622,9 +622,9 @@ struct FlexGridLayoutStruct (
 
   on Create do (
     if not this.isValidLayoutOptions this.Options do (
-      this.Options = (fileIn @"FlexLayoutOptions.ms")()
+      this.Options = (::flexUIDefinitionPool[@"Model\Layout\FlexLayoutOptions.ms"])()
     )
-    this.boxCellDef = fileIn @"FlexBoxCell.ms"
-    this.gridCellDef = fileIn @"FlexGridCell.ms"
+    this.boxCellDef = ::flexUIDefinitionPool[@"Model\Layout\FlexBoxCell.ms"]
+    this.gridCellDef = ::flexUIDefinitionPool[@"Model\Layout\FlexGridCell.ms"]
   )
 )

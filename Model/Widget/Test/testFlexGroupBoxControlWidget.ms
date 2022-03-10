@@ -113,6 +113,7 @@
     on RltTest Resized v do ()
   )
 
+  fileIn (pathUtility.GetFullPath @"..\..\..\definitionPool.ms")
   testDef = fileIn (pathUtility.GetFullPath @"..\FlexGroupBoxControlWidget.ms")
   testObj = testDef()
 

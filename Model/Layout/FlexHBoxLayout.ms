@@ -362,8 +362,8 @@ struct FlexHBoxLayoutStruct (
 
   on Create do (
     if not this.isValidLayoutOptions this.Options do (
-      this.Options = (fileIn @"FlexLayoutOptions.ms")()
+      this.Options = (::flexUIDefinitionPool[@"Model\Layout\FlexLayoutOptions.ms"])()
     )
-    this.boxCellDef = fileIn @"FlexBoxCell.ms"
+    this.boxCellDef = ::flexUIDefinitionPool[@"Model\Layout\FlexBoxCell.ms"]
   )
 )

@@ -156,6 +156,7 @@
   local layout = FlexTestLayoutStruct()
   local widget = FlexTestWidgetStruct()
 
+  fileIn (pathUtility.GetFullPath @"..\..\..\definitionPool.ms")
   testDef = fileIn (pathUtility.GetFullPath @"..\FlexGridCell.ms")
   testObj = testDef()
 

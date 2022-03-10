@@ -65,6 +65,7 @@
     ok
   )
 
+  fileIn (pathUtility.GetFullPath @"..\..\..\definitionPool.ms")
   testDef = fileIn (pathUtility.GetFullPath @"..\FlexLayoutOptions.ms")
   testObj = testDef()
 

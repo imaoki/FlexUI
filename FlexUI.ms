@@ -1,4 +1,5 @@
 /*! © 2022 imaoki | MIT License | https://github.com/imaoki */
+fileIn @"definitionPool.ms"
 /*- @var <Struct:FlexUIStruct> */
 global flexUI
 /*-
@@ -152,10 +153,10 @@ struct FlexUIStruct (
     --   format "this.layoutDefTable[%] = fileIn @\"%\"\n" key layoutFile
     --   this.layoutDefTable[key] = fileIn layoutFile
     -- )
-    this.layoutDefTable[#FlexGridLayout] = fileIn @"Model\Layout\FlexGridLayout.ms"
-    this.layoutDefTable[#FlexGroupLayout] = fileIn @"Model\Layout\FlexGroupLayout.ms"
-    this.layoutDefTable[#FlexHBoxLayout] = fileIn @"Model\Layout\FlexHBoxLayout.ms"
-    this.layoutDefTable[#FlexVBoxLayout] = fileIn @"Model\Layout\FlexVBoxLayout.ms"
+    this.layoutDefTable[#FlexGridLayout] = ::flexUIDefinitionPool[@"Model\Layout\FlexGridLayout.ms"]
+    this.layoutDefTable[#FlexGroupLayout] = ::flexUIDefinitionPool[@"Model\Layout\FlexGroupLayout.ms"]
+    this.layoutDefTable[#FlexHBoxLayout] = ::flexUIDefinitionPool[@"Model\Layout\FlexHBoxLayout.ms"]
+    this.layoutDefTable[#FlexVBoxLayout] = ::flexUIDefinitionPool[@"Model\Layout\FlexVBoxLayout.ms"]
 
     -- local widgetFiles = ::std.FileUtility.GetFiles widgetDir "*Widget.ms" recursive:false
     -- for widgetFile in widgetFiles do (
@@ -163,30 +164,30 @@ struct FlexUIStruct (
     --   format "this.widgetDefTable[%] = fileIn @\"%\"\n" key widgetFile
     --   this.widgetDefTable[key] = fileIn widgetFile
     -- )
-    this.widgetDefTable[#FlexAngleControlWidget] = fileIn @"Model\Widget\FlexAngleControlWidget.ms"
-    this.widgetDefTable[#FlexBitmapControlWidget] = fileIn @"Model\Widget\FlexBitmapControlWidget.ms"
-    this.widgetDefTable[#FlexButtonControlWidget] = fileIn @"Model\Widget\FlexButtonControlWidget.ms"
-    this.widgetDefTable[#FlexCheckBoxControlWidget] = fileIn @"Model\Widget\FlexCheckBoxControlWidget.ms"
-    this.widgetDefTable[#FlexCheckButtonControlWidget] = fileIn @"Model\Widget\FlexCheckButtonControlWidget.ms"
-    this.widgetDefTable[#FlexColorPickerControlWidget] = fileIn @"Model\Widget\FlexColorPickerControlWidget.ms"
-    this.widgetDefTable[#FlexComboBoxControlWidget] = fileIn @"Model\Widget\FlexComboBoxControlWidget.ms"
-    this.widgetDefTable[#FlexDotNetControlWidget] = fileIn @"Model\Widget\FlexDotNetControlWidget.ms"
-    this.widgetDefTable[#FlexEditTextControlWidget] = fileIn @"Model\Widget\FlexEditTextControlWidget.ms"
-    this.widgetDefTable[#FlexGroupBoxControlWidget] = fileIn @"Model\Widget\FlexGroupBoxControlWidget.ms"
-    this.widgetDefTable[#FlexImgTagWidget] = fileIn @"Model\Widget\FlexImgTagWidget.ms"
-    this.widgetDefTable[#FlexLabelControlWidget] = fileIn @"Model\Widget\FlexLabelControlWidget.ms"
-    this.widgetDefTable[#FlexLinkControlWidget] = fileIn @"Model\Widget\FlexLinkControlWidget.ms"
-    this.widgetDefTable[#FlexListBoxControlWidget] = fileIn @"Model\Widget\FlexListBoxControlWidget.ms"
-    this.widgetDefTable[#FlexMapButtonControlWidget] = fileIn @"Model\Widget\FlexMapButtonControlWidget.ms"
-    this.widgetDefTable[#FlexMaxCurveCtlWidget] = fileIn @"Model\Widget\FlexMaxCurveCtlWidget.ms"
-    this.widgetDefTable[#FlexMtlButtonControlWidget] = fileIn @"Model\Widget\FlexMtlButtonControlWidget.ms"
-    this.widgetDefTable[#FlexMultiListBoxControlWidget] = fileIn @"Model\Widget\FlexMultiListBoxControlWidget.ms"
-    this.widgetDefTable[#FlexPickerControlWidget] = fileIn @"Model\Widget\FlexPickerControlWidget.ms"
-    this.widgetDefTable[#FlexProgressBarWidget] = fileIn @"Model\Widget\FlexProgressBarWidget.ms"
-    this.widgetDefTable[#FlexRadioControlWidget] = fileIn @"Model\Widget\FlexRadioControlWidget.ms"
-    this.widgetDefTable[#FlexSliderControlWidget] = fileIn @"Model\Widget\FlexSliderControlWidget.ms"
-    this.widgetDefTable[#FlexSpinnerControlWidget] = fileIn @"Model\Widget\FlexSpinnerControlWidget.ms"
-    this.widgetDefTable[#FlexSubRolloutWidget] = fileIn @"Model\Widget\FlexSubRolloutWidget.ms"
+    this.widgetDefTable[#FlexAngleControlWidget] = ::flexUIDefinitionPool[@"Model\Widget\FlexAngleControlWidget.ms"]
+    this.widgetDefTable[#FlexBitmapControlWidget] = ::flexUIDefinitionPool[@"Model\Widget\FlexBitmapControlWidget.ms"]
+    this.widgetDefTable[#FlexButtonControlWidget] = ::flexUIDefinitionPool[@"Model\Widget\FlexButtonControlWidget.ms"]
+    this.widgetDefTable[#FlexCheckBoxControlWidget] = ::flexUIDefinitionPool[@"Model\Widget\FlexCheckBoxControlWidget.ms"]
+    this.widgetDefTable[#FlexCheckButtonControlWidget] = ::flexUIDefinitionPool[@"Model\Widget\FlexCheckButtonControlWidget.ms"]
+    this.widgetDefTable[#FlexColorPickerControlWidget] = ::flexUIDefinitionPool[@"Model\Widget\FlexColorPickerControlWidget.ms"]
+    this.widgetDefTable[#FlexComboBoxControlWidget] = ::flexUIDefinitionPool[@"Model\Widget\FlexComboBoxControlWidget.ms"]
+    this.widgetDefTable[#FlexDotNetControlWidget] = ::flexUIDefinitionPool[@"Model\Widget\FlexDotNetControlWidget.ms"]
+    this.widgetDefTable[#FlexEditTextControlWidget] = ::flexUIDefinitionPool[@"Model\Widget\FlexEditTextControlWidget.ms"]
+    this.widgetDefTable[#FlexGroupBoxControlWidget] = ::flexUIDefinitionPool[@"Model\Widget\FlexGroupBoxControlWidget.ms"]
+    this.widgetDefTable[#FlexImgTagWidget] = ::flexUIDefinitionPool[@"Model\Widget\FlexImgTagWidget.ms"]
+    this.widgetDefTable[#FlexLabelControlWidget] = ::flexUIDefinitionPool[@"Model\Widget\FlexLabelControlWidget.ms"]
+    this.widgetDefTable[#FlexLinkControlWidget] = ::flexUIDefinitionPool[@"Model\Widget\FlexLinkControlWidget.ms"]
+    this.widgetDefTable[#FlexListBoxControlWidget] = ::flexUIDefinitionPool[@"Model\Widget\FlexListBoxControlWidget.ms"]
+    this.widgetDefTable[#FlexMapButtonControlWidget] = ::flexUIDefinitionPool[@"Model\Widget\FlexMapButtonControlWidget.ms"]
+    this.widgetDefTable[#FlexMaxCurveCtlWidget] = ::flexUIDefinitionPool[@"Model\Widget\FlexMaxCurveCtlWidget.ms"]
+    this.widgetDefTable[#FlexMtlButtonControlWidget] = ::flexUIDefinitionPool[@"Model\Widget\FlexMtlButtonControlWidget.ms"]
+    this.widgetDefTable[#FlexMultiListBoxControlWidget] = ::flexUIDefinitionPool[@"Model\Widget\FlexMultiListBoxControlWidget.ms"]
+    this.widgetDefTable[#FlexPickerControlWidget] = ::flexUIDefinitionPool[@"Model\Widget\FlexPickerControlWidget.ms"]
+    this.widgetDefTable[#FlexProgressBarWidget] = ::flexUIDefinitionPool[@"Model\Widget\FlexProgressBarWidget.ms"]
+    this.widgetDefTable[#FlexRadioControlWidget] = ::flexUIDefinitionPool[@"Model\Widget\FlexRadioControlWidget.ms"]
+    this.widgetDefTable[#FlexSliderControlWidget] = ::flexUIDefinitionPool[@"Model\Widget\FlexSliderControlWidget.ms"]
+    this.widgetDefTable[#FlexSpinnerControlWidget] = ::flexUIDefinitionPool[@"Model\Widget\FlexSpinnerControlWidget.ms"]
+    this.widgetDefTable[#FlexSubRolloutWidget] = ::flexUIDefinitionPool[@"Model\Widget\FlexSubRolloutWidget.ms"]
     ok
   ),
 
@@ -240,7 +241,7 @@ struct FlexUIStruct (
 
   on Create do (
     ::flexUI = this
-    this.layoutOptionsDef = fileIn @"Model\Layout\FlexLayoutOptions.ms"
+    this.layoutOptionsDef = ::flexUIDefinitionPool[@"Model\Layout\FlexLayoutOptions.ms"]
     this.initialize()
   )
 )
