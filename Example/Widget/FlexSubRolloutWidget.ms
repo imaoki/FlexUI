@@ -154,9 +154,7 @@
     on CkbxExplicitH Changed state do setExplicitH()
     on SpnExplicitH Changed v do setExplicitH()
     on RltTest Open do (
-      local pathUtility = ::std.PathUtilityStruct (getSourceFileName())
-      local widgetDef = fileIn (pathUtility.GetFullPath @"..\..\Model\Widget\FlexSubRolloutWidget.ms")
-      widget = widgetDef Srlt
+      widget = ::flexUI.CreateWidget Srlt
       widget.AddObserver (::std.ObserverStruct updateWidget widget)
       RdbtnAlignmentH.State = findItem #(#Left, #Center, #Right) (widget.GetAlignmentH())
       RdbtnAlignmentV.State = findItem #(#Top, #Center, #Bottom) (widget.GetAlignmentV())

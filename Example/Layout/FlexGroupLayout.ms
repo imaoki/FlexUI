@@ -121,13 +121,9 @@
     -- on SpnPaddingB Changed v do setPaddingB()
     -- on SpnPaddingL Changed v do setPaddingL()
     on RltTest Open do (
-      local pathUtility = ::std.PathUtilityStruct (getSourceFileName())
-      local layoutDef = fileIn (pathUtility.GetFullPath @"..\..\Model\Layout\FlexGroupLayout.ms")
-      local groupBoxControlWidgetDef = fileIn (pathUtility.GetFullPath @"..\..\Model\Widget\FlexGroupBoxControlWidget.ms")
-      local widgetDef = fileIn (pathUtility.GetFullPath @"..\..\Model\Widget\FlexImgTagWidget.ms")
-      local groupBoxWidget = groupBoxControlWidgetDef Gbx
-      local widget1 = widgetDef Itg1
-      layout = layoutDef groupBoxWidget
+      local groupBoxWidget = ::flexUI.CreateWidget Gbx
+      local widget1 = ::flexUI.CreateWidget Itg1
+      layout = ::flexUI.CreateGroupLayout groupBoxWidget
       -- layout.Options.SetMargin 5 5
       -- layout.Options.SetPadding 5 5 5 5
       -- layout.Options.AddObserver (::std.ObserverStruct updateLayout layout)

@@ -154,9 +154,7 @@
     on CkbxExplicitH Changed state do setExplicitH()
     on SpnExplicitH Changed v do setExplicitH()
     on RltTest Open do (
-      local pathUtility = ::std.PathUtilityStruct (getSourceFileName())
-      local widgetDef = fileIn (pathUtility.GetFullPath @"..\..\Model\Widget\FlexCheckButtonControlWidget.ms")
-      widget = widgetDef Ckbtn
+      widget = ::flexUI.CreateWidget Ckbtn
       widget.AddObserver (::std.ObserverStruct updateWidget widget)
       RdbtnAlignmentH.State = findItem #(#Left, #Center, #Right) (widget.GetAlignmentH())
       RdbtnAlignmentV.State = findItem #(#Top, #Center, #Bottom) (widget.GetAlignmentV())

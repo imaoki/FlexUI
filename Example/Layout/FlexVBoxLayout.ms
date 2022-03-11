@@ -122,13 +122,10 @@
     on SpnPaddingB Changed v do setPaddingB()
     on SpnPaddingL Changed v do setPaddingL()
     on RltTest Open do (
-      local pathUtility = ::std.PathUtilityStruct (getSourceFileName())
-      local layoutDef = fileIn (pathUtility.GetFullPath @"..\..\Model\Layout\FlexVBoxLayout.ms")
-      local widgetDef = fileIn (pathUtility.GetFullPath @"..\..\Model\Widget\FlexImgTagWidget.ms")
-      local widget1 = widgetDef Itg1
-      local widget2 = widgetDef Itg2
-      local widget3 = widgetDef Itg3
-      layout = layoutDef()
+      local widget1 = ::flexUI.CreateWidget Itg1
+      local widget2 = ::flexUI.CreateWidget Itg2
+      local widget3 = ::flexUI.CreateWidget Itg3
+      layout = ::flexUI.CreateVBoxLayout()
       layout.Options.SetMargin 5 5
       layout.Options.SetPadding 5 5 5 5
       layout.Options.AddObserver (::std.ObserverStruct updateLayout layout)
