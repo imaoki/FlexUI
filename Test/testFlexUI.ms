@@ -16,7 +16,7 @@
   format "[run %]@\"%\"\n" nowTime currentFile
   /* Setup Start ------------------------------------------------------------ */
   fileIn (pathUtility.GetFullPath @"..\definitionPool.ms")
-  local groupBoxControlWidgetDef = fileIn (pathUtility.GetFullPath @"..\Model\Widget\FlexGroupBoxControlWidget.ms")
+  local groupBoxControlWidgetDef = ::flexUIDefinitionPool[@"Model\Widget\FlexGroupBoxControlWidget.ms"]
 
   local RltTest
   rollout RltTest "RltTest" (

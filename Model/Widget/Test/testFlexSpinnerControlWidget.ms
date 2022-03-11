@@ -114,7 +114,7 @@
   )
 
   fileIn (pathUtility.GetFullPath @"..\..\..\definitionPool.ms")
-  testDef = fileIn (pathUtility.GetFullPath @"..\FlexSpinnerControlWidget.ms")
+  testDef = ::flexUIDefinitionPool[@"Model\Widget\FlexSpinnerControlWidget.ms"]
   testObj = testDef()
 
   testObj.AddObserver (::std.ObserverStruct updateObject testObj)

@@ -66,7 +66,7 @@
   )
 
   fileIn (pathUtility.GetFullPath @"..\..\..\definitionPool.ms")
-  testDef = fileIn (pathUtility.GetFullPath @"..\FlexLayoutOptions.ms")
+  testDef = ::flexUIDefinitionPool[@"Model\Layout\FlexLayoutOptions.ms"]
   testObj = testDef()
 
   testObj.AddObserver (::std.ObserverStruct updateObject testObj)

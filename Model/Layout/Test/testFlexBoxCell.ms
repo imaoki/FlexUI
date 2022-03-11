@@ -145,7 +145,7 @@
   local widget = FlexTestWidgetStruct()
 
   fileIn (pathUtility.GetFullPath @"..\..\..\definitionPool.ms")
-  testDef = fileIn (pathUtility.GetFullPath @"..\FlexBoxCell.ms")
+  testDef = ::flexUIDefinitionPool[@"Model\Layout\FlexBoxCell.ms"]
   testObj = testDef()
 
   testObj.AddObserver (::std.ObserverStruct updateObject testObj)

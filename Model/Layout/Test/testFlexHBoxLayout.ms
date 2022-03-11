@@ -16,7 +16,7 @@
   format "[run %]@\"%\"\n" nowTime currentFile
   /* Setup Start ------------------------------------------------------------ */
   fileIn (pathUtility.GetFullPath @"..\..\..\definitionPool.ms")
-  local boxCellDef = fileIn (pathUtility.GetFullPath @"..\FlexBoxCell.ms")
+  local boxCellDef = ::flexUIDefinitionPool[@"Model\Layout\FlexBoxCell.ms"]
 
   local FlexTestLayoutStruct
   local FlexTestWidgetStruct
@@ -148,7 +148,7 @@
   local layout2 = undefined
   local widget = FlexTestWidgetStruct()
 
-  testDef = fileIn (pathUtility.GetFullPath @"..\FlexHBoxLayout.ms")
+  testDef = ::flexUIDefinitionPool[@"Model\Layout\FlexHBoxLayout.ms"]
   testObj = testDef()
 
   testObj.AddObserver (::std.ObserverStruct updateObject testObj)

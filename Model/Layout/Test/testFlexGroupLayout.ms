@@ -16,8 +16,8 @@
   format "[run %]@\"%\"\n" nowTime currentFile
   /* Setup Start ------------------------------------------------------------ */
   fileIn (pathUtility.GetFullPath @"..\..\..\definitionPool.ms")
-  local boxCellDef = fileIn (pathUtility.GetFullPath @"..\FlexBoxCell.ms")
-  local groupBoxControlWidgetDef = fileIn (pathUtility.GetFullPath @"..\..\Widget\FlexGroupBoxControlWidget.ms")
+  local boxCellDef = ::flexUIDefinitionPool[@"Model\Layout\FlexBoxCell.ms"]
+  local groupBoxControlWidgetDef = ::flexUIDefinitionPool[@"Model\Widget\FlexGroupBoxControlWidget.ms"]
 
   local FlexTestLayoutStruct
   local FlexTestWidgetStruct
@@ -155,7 +155,7 @@
   local layout2 = undefined
   local widget = FlexTestWidgetStruct()
 
-  testDef = fileIn (pathUtility.GetFullPath @"..\FlexGroupLayout.ms")
+  testDef = ::flexUIDefinitionPool[@"Model\Layout\FlexGroupLayout.ms"]
   testObj = testDef()
 
   testObj.AddObserver (::std.ObserverStruct updateObject testObj)

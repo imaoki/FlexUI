@@ -123,7 +123,7 @@
   )
 
   fileIn (pathUtility.GetFullPath @"..\..\..\definitionPool.ms")
-  testDef = fileIn (pathUtility.GetFullPath @"..\FlexMaxCurveCtlWidget.ms")
+  testDef = ::flexUIDefinitionPool[@"Model\Widget\FlexMaxCurveCtlWidget.ms"]
   testObj = testDef()
 
   testObj.AddObserver (::std.ObserverStruct updateObject testObj)
