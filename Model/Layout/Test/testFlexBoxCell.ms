@@ -105,6 +105,7 @@
     )
   )
 
+  local expectedFixedLength = undefined
   local expectedItem = undefined
   local expectedMinimum = 1
   local expectedStretch = 1
@@ -116,6 +117,11 @@
     if classOf params == Array do (
       for param in params do (
         case param of (
+          (#FixedLength): (
+            actual = ::TestValueStruct (testObj.GetFixedLength())
+            expected = ::TestValueStruct expectedFixedLength
+            assert (actual.Equals expected == true)
+          )
           (#Item): (
             actual = ::TestValueStruct (testObj.GetItem())
             expected = ::TestValueStruct expectedItem
@@ -152,6 +158,12 @@
   /* Setup End -------------------------------------------------------------- */
   sw.Start()
   /* Test Start ------------------------------------------------------------- */
+  /* GetFixedLength */
+  -- 既定値
+  actual = ::TestValueStruct (testObj.GetFixedLength())
+  expected = ::TestValueStruct undefined
+  assert (actual.Equals expected == true)
+
   /* GetItem */
   -- 既定値
   actual = ::TestValueStruct (testObj.GetItem())
@@ -174,6 +186,31 @@
   -- 既定値
   actual = ::TestValueStruct (testObj.GetType())
   expected = ::TestValueStruct undefined
+  assert (actual.Equals expected == true)
+
+  /* SetFixedLength */
+  -- 無効な値
+  actual = ::TestValueStruct (testObj.SetFixedLength widget)
+  expected = ::TestValueStruct undefined
+  assert (actual.Equals expected == true)
+  -- 無効な値
+  actual = ::TestValueStruct (testObj.SetFixedLength #Foo)
+  expected = ::TestValueStruct undefined
+  assert (actual.Equals expected == true)
+  -- 成功
+  expectedFixedLength = 3
+  actual = ::TestValueStruct (testObj.SetFixedLength 3)
+  expected = ::TestValueStruct expectedFixedLength
+  assert (actual.Equals expected == true)
+  -- 浮動小数
+  expectedFixedLength = 2
+  actual = ::TestValueStruct (testObj.SetFixedLength 2.0)
+  expected = ::TestValueStruct expectedFixedLength
+  assert (actual.Equals expected == true)
+  -- 範囲外
+  expectedFixedLength = 1
+  actual = ::TestValueStruct (testObj.SetFixedLength 0)
+  expected = ::TestValueStruct expectedFixedLength
   assert (actual.Equals expected == true)
 
   /* SetItem */
@@ -203,36 +240,24 @@
   actual = ::TestValueStruct (testObj.SetItem layout)
   expected = ::TestValueStruct expectedItem
   assert (actual.Equals expected == true)
-  -- actual = ::TestValueStruct (testObj.GetType())
-  -- expected = ::TestValueStruct #Layout
-  -- assert (actual.Equals expected == true)
   -- スペース
   expectedItem = 1
   expectedType = #Space
   actual = ::TestValueStruct (testObj.SetItem 1)
   expected = ::TestValueStruct expectedItem
   assert (actual.Equals expected == true)
-  -- actual = ::TestValueStruct (testObj.GetType())
-  -- expected = ::TestValueStruct #Space
-  -- assert (actual.Equals expected == true)
   -- ストレッチ
   expectedItem = -1
   expectedType = #Stretch
   actual = ::TestValueStruct (testObj.SetItem -1)
   expected = ::TestValueStruct expectedItem
   assert (actual.Equals expected == true)
-  -- actual = ::TestValueStruct (testObj.GetType())
-  -- expected = ::TestValueStruct #Stretch
-  -- assert (actual.Equals expected == true)
   -- ウィジェット
   expectedItem = widget
   expectedType = #Widget
   actual = ::TestValueStruct (testObj.SetItem widget)
   expected = ::TestValueStruct expectedItem
   assert (actual.Equals expected == true)
-  -- actual = ::TestValueStruct (testObj.GetType())
-  -- expected = ::TestValueStruct #Widget
-  -- assert (actual.Equals expected == true)
 
   /* SetMinimum */
   -- 無効な値
@@ -286,80 +311,96 @@
 
   /* 作成パラメータ */
   -- レイアウト
+  expectedFixedLength = 20
   expectedItem = layout
   expectedMinimum = 10
   expectedStretch = 2
   expectedType = #Layout
-  testObj = testDef layout 2 10
+  testObj = testDef layout 2 10 20
   testObj.AddObserver (::std.ObserverStruct updateObject testObj)
+  actual = ::TestValueStruct (testObj.GetFixedLength())
+  expected = ::TestValueStruct expectedFixedLength
+  assert (actual.Equals expected == true)
   actual = ::TestValueStruct (testObj.GetItem())
-  expected = ::TestValueStruct layout
+  expected = ::TestValueStruct expectedItem
   assert (actual.Equals expected == true)
   actual = ::TestValueStruct (testObj.GetMinimum())
-  expected = ::TestValueStruct 10
+  expected = ::TestValueStruct expectedMinimum
   assert (actual.Equals expected == true)
   actual = ::TestValueStruct (testObj.GetStretch())
-  expected = ::TestValueStruct 2
+  expected = ::TestValueStruct expectedStretch
   assert (actual.Equals expected == true)
   actual = ::TestValueStruct (testObj.GetType())
-  expected = ::TestValueStruct #Layout
+  expected = ::TestValueStruct expectedType
   assert (actual.Equals expected == true)
   -- スペース
+  expectedFixedLength = 20
   expectedItem = 5
   expectedMinimum = 10
   expectedStretch = 2
   expectedType = #Space
-  testObj = testDef 5 2 10
+  testObj = testDef 5 2 10 20
   testObj.AddObserver (::std.ObserverStruct updateObject testObj)
+  actual = ::TestValueStruct (testObj.GetFixedLength())
+  expected = ::TestValueStruct expectedFixedLength
+  assert (actual.Equals expected == true)
   actual = ::TestValueStruct (testObj.GetItem())
-  expected = ::TestValueStruct 5
+  expected = ::TestValueStruct expectedItem
   assert (actual.Equals expected == true)
   actual = ::TestValueStruct (testObj.GetMinimum())
-  expected = ::TestValueStruct 10
+  expected = ::TestValueStruct expectedMinimum
   assert (actual.Equals expected == true)
   actual = ::TestValueStruct (testObj.GetStretch())
-  expected = ::TestValueStruct 2
+  expected = ::TestValueStruct expectedStretch
   assert (actual.Equals expected == true)
   actual = ::TestValueStruct (testObj.GetType())
-  expected = ::TestValueStruct #Space
+  expected = ::TestValueStruct expectedType
   assert (actual.Equals expected == true)
   -- ストレッチ
+  expectedFixedLength = 20
   expectedItem = -1
   expectedMinimum = 10
   expectedStretch = 2
   expectedType = #Stretch
-  testObj = testDef -1 2 10
+  testObj = testDef -1 2 10 20
   testObj.AddObserver (::std.ObserverStruct updateObject testObj)
+  actual = ::TestValueStruct (testObj.GetFixedLength())
+  expected = ::TestValueStruct expectedFixedLength
+  assert (actual.Equals expected == true)
   actual = ::TestValueStruct (testObj.GetItem())
-  expected = ::TestValueStruct -1
+  expected = ::TestValueStruct expectedItem
   assert (actual.Equals expected == true)
   actual = ::TestValueStruct (testObj.GetMinimum())
-  expected = ::TestValueStruct 10
+  expected = ::TestValueStruct expectedMinimum
   assert (actual.Equals expected == true)
   actual = ::TestValueStruct (testObj.GetStretch())
-  expected = ::TestValueStruct 2
+  expected = ::TestValueStruct expectedStretch
   assert (actual.Equals expected == true)
   actual = ::TestValueStruct (testObj.GetType())
-  expected = ::TestValueStruct #Stretch
+  expected = ::TestValueStruct expectedType
   assert (actual.Equals expected == true)
   -- ウィジェット
+  expectedFixedLength = 20
   expectedItem = widget
   expectedMinimum = 10
   expectedStretch = 2
   expectedType = #Widget
-  testObj = testDef widget 2 10
+  testObj = testDef widget 2 10 20
   testObj.AddObserver (::std.ObserverStruct updateObject testObj)
+  actual = ::TestValueStruct (testObj.GetFixedLength())
+  expected = ::TestValueStruct expectedFixedLength
+  assert (actual.Equals expected == true)
   actual = ::TestValueStruct (testObj.GetItem())
-  expected = ::TestValueStruct widget
+  expected = ::TestValueStruct expectedItem
   assert (actual.Equals expected == true)
   actual = ::TestValueStruct (testObj.GetMinimum())
-  expected = ::TestValueStruct 10
+  expected = ::TestValueStruct expectedMinimum
   assert (actual.Equals expected == true)
   actual = ::TestValueStruct (testObj.GetStretch())
-  expected = ::TestValueStruct 2
+  expected = ::TestValueStruct expectedStretch
   assert (actual.Equals expected == true)
   actual = ::TestValueStruct (testObj.GetType())
-  expected = ::TestValueStruct #Widget
+  expected = ::TestValueStruct expectedType
   assert (actual.Equals expected == true)
 
   -- testObj.Dump()

@@ -110,8 +110,10 @@
   )
 
   local expectedCells = #()
+  local expectedColumnFixedLengths = #()
   local expectedColumnMinimumWidths = #()
   local expectedColumnStretches = #()
+  local expectedRowFixedLengths = #()
   local expectedRowMinimumHeights = #()
   local expectedRowStretches = #()
 
@@ -121,6 +123,12 @@
     if classOf params == Array do (
       for param in params do (
         case param of (
+          (#ColumnFixedLength): (
+            local cells = testObj.GetColumnCells()
+            actual = ::TestValueStruct (for cell in cells collect cell.GetFixedLength())
+            expected = ::TestValueStruct expectedColumnFixedLengths
+            assert (actual.Equals expected == true)
+          )
           (#ColumnMinimumWidth): (
             local cells = testObj.GetColumnCells()
             actual = ::TestValueStruct (for cell in cells collect cell.GetMinimum())
@@ -139,6 +147,12 @@
             assert (actual.Equals expected == true)
           )
           (#RectUpdated): ()
+          (#RowFixedLength): (
+            local cells = testObj.GetRowCells()
+            actual = ::TestValueStruct (for cell in cells collect cell.GetFixedLength())
+            expected = ::TestValueStruct expectedRowFixedLengths
+            assert (actual.Equals expected == true)
+          )
           (#RowMinimumHeight): (
             local cells = testObj.GetRowCells()
             actual = ::TestValueStruct (for cell in cells collect cell.GetMinimum())
@@ -170,6 +184,7 @@
   local widget1 = FlexTestWidgetStruct 1
   local widget2 = FlexTestWidgetStruct 2
   local widget3 = FlexTestWidgetStruct 3
+  local widget4 = FlexTestWidgetStruct 4
 
   testDef = ::flexUIDefinitionPool[@"Model\Layout\FlexGridLayout.ms"]
   testObj = testDef()
@@ -282,7 +297,7 @@
   actual = ::TestValueStruct (testObj.AddWidget widget2 4 3)
   expected = ::TestValueStruct undefined
   assert (actual.Equals expected == true)
-  -- 成功
+  -- 成功（ストレッチ）
   expectedCells = #(
     gridCellDef layout1 1 1,
     gridCellDef layout2 2 1,
@@ -298,6 +313,19 @@
   actual = ::TestValueStruct (testObj.AddWidget widget3 5 1)
   expected = ::TestValueStruct undefined
   assert (actual.Equals expected == true)
+  -- 成功（固定長）
+  expectedCells = #(
+    gridCellDef layout1 1 1,
+    gridCellDef layout2 2 1,
+    gridCellDef layout3 3 1 2 2,
+    gridCellDef widget1 1 2 2 2,
+    gridCellDef widget2 3 3,
+    gridCellDef widget3 4 3,
+    gridCellDef widget4 5 1 1 3
+  )
+  actual = ::TestValueStruct (testObj.AddWidget widget4 5 1 rowSpan:1 columnSpan:3)
+  expected = ::TestValueStruct expectedCells[7]
+  assert (actual.Equals expected == true)
 
   /* GetCells */
   expectedCells = #(
@@ -306,7 +334,8 @@
     gridCellDef layout3 3 1 2 2,
     gridCellDef widget1 1 2 2 2,
     gridCellDef widget2 3 3,
-    gridCellDef widget3 4 3
+    gridCellDef widget3 4 3,
+    gridCellDef widget4 5 1 1 3
   )
   actual = ::TestValueStruct (testObj.GetCells())
   expected = ::TestValueStruct expectedCells
@@ -327,8 +356,20 @@
     boxCellDef -1 1,
     boxCellDef -1 1,
     boxCellDef -1 1,
+    boxCellDef -1 1,
     boxCellDef -1 1
   )
+  assert (actual.Equals expected == true)
+
+  /* SetColumnFixedLength */
+  expectedColumnFixedLengths = #(10, undefined, undefined)
+  actual = ::TestValueStruct (testObj.SetColumnFixedLength 1 10)
+  expected = ::TestValueStruct 10
+  assert (actual.Equals expected == true)
+  -- 既定値に戻す
+  expectedColumnFixedLengths = #(undefined, undefined, undefined)
+  actual = ::TestValueStruct (testObj.SetColumnFixedLength 1 undefined)
+  expected = ::TestValueStruct undefined
   assert (actual.Equals expected == true)
 
   /* SetColumnMinimumWidth */
@@ -343,14 +384,20 @@
   expected = ::TestValueStruct 2
   assert (actual.Equals expected == true)
 
+  /* SetRowFixedLength */
+  expectedRowFixedLengths = #(undefined, undefined, undefined, undefined, 20)
+  actual = ::TestValueStruct (testObj.SetRowFixedLength 5 20)
+  expected = ::TestValueStruct 20
+  assert (actual.Equals expected == true)
+
   /* SetRowMinimumHeight */
-  expectedRowMinimumHeights = #(1, 1, 10, 1)
+  expectedRowMinimumHeights = #(1, 1, 10, 1, 1)
   actual = ::TestValueStruct (testObj.SetRowMinimumHeight 3 10)
   expected = ::TestValueStruct 10
   assert (actual.Equals expected == true)
 
   /* SetRowStretch */
-  expectedRowStretches = #(1, 1, 2, 1)
+  expectedRowStretches = #(1, 1, 2, 1, 1)
   actual = ::TestValueStruct (testObj.SetRowStretch 3 2)
   expected = ::TestValueStruct 2
   assert (actual.Equals expected == true)
@@ -360,14 +407,15 @@
   testObj.Options.SetMargin 10 10
   testObj.Options.SetPadding 10 10 10 10
   -- 通常
-  actual = ::TestValueStruct (testObj.SetRect (Box2 10 10 80 100))
+  actual = ::TestValueStruct (testObj.SetRect (Box2 10 10 80 130))
   expected = ::TestValueStruct #(
     Box2 20 20 10 10,
     Box2 20 40 10 10,
     Box2 20 60 40 40,
     Box2 40 20 40 30,
     Box2 70 60 10 20,
-    Box2 70 90 10 10
+    Box2 70 90 10 10,
+    Box2 20 110 60 20
   )
   assert (actual.Equals expected == true)
   -- 最小値
@@ -378,7 +426,8 @@
     Box2 20 42 21 21,
     Box2 31 20 21 12,
     Box2 51 42 1 10,
-    Box2 51 62 1 1
+    Box2 51 62 1 1,
+    Box2 20 73 32 20
   )
   assert (actual.Equals expected == true)
 
@@ -392,8 +441,10 @@
   layout4.AddWidget widget1 1 2 rowSpan:2 columnSpan:2
   layout4.AddWidget widget2 3 3
   layout4.AddWidget widget3 4 3
+  layout4.AddWidget widget4 5 1 rowSpan:1 columnSpan:3
   layout4.SetColumnMinimumWidth 2 10
   layout4.SetColumnStretch 2 2
+  layout4.SetRowFixedLength 5 20
   layout4.SetRowMinimumHeight 3 10
   layout4.SetRowStretch 3 2
   actual = ::TestValueStruct testObj

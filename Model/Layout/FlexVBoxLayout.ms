@@ -14,10 +14,10 @@ struct FlexVBoxLayoutStruct (
   private boxCellDef,
 
   /*
-  public fn AddLayout layout stretch:1 = (),
+  public fn AddLayout layout fixedLength:undefined minimum:1 stretch:1 = (),
   public fn AddSpace input = (),
   public fn AddStretch stretch:1 = (),
-  public fn AddWidget widget stretch:1 = (),
+  public fn AddWidget widget fixedLength:undefined minimum:1 stretch:1 = (),
   public fn GetCells = (),
   public fn SetRect rect = (),
 
@@ -30,13 +30,14 @@ struct FlexVBoxLayoutStruct (
   /*-
   レイアウトを追加する。
   @param layout <Struct>
+  @param fixedLength: <Integer> 高さの固定値。`1`以上の整数。既定値は`undefined`。
   @param minimum: <Integer> 高さの最小値。`1`以上の整数。既定値は`1`。
   @param stretch: <Integer> ストレッチ係数。`1`以上の整数。既定値は`1`。
   @returns <Struct:FlexBoxCellStruct|UndefinedClass>
   @remarks 無効な値の場合は`undefined`を返す。
   */
-  public fn AddLayout layout minimum:1 stretch:1 = (
-    local cell = this.boxCellDef layout stretch minimum
+  public fn AddLayout layout fixedLength:undefined minimum:1 stretch:1 = (
+    local cell = this.boxCellDef layout stretch minimum fixedLength
     if cell.GetType() == #Layout and layout != this then (
       append this.cells cell
       this.notify #(#LayoutAdded)
@@ -86,14 +87,15 @@ struct FlexVBoxLayoutStruct (
   /*-
   ウィジェットを追加する。
   @param widget <Struct>
+  @param fixedLength: <Integer> 高さの固定値。`1`以上の整数。既定値は`undefined`。
   @param minimum: <Integer> 高さの最小値。`1`以上の整数。既定値は`1`。
   @param stretch: <Integer> ストレッチ係数。`1`以上の整数。既定値は`1`。
   @returns <Struct:FlexBoxCellStruct|UndefinedClass>
   @remarks 無効な値の場合は`undefined`を返す。
   ウィジェットの重複登録は出来ない。
   */
-  public fn AddWidget widget minimum:1 stretch:1 = (
-    local cell = this.boxCellDef widget stretch minimum
+  public fn AddWidget widget fixedLength:undefined minimum:1 stretch:1 = (
+    local cell = this.boxCellDef widget stretch minimum fixedLength
     if cell.GetType() == #Widget and this.findWidget widget == 0 then (
       append this.cells cell
       this.notify #(#WidgetAdded)
@@ -135,6 +137,7 @@ struct FlexVBoxLayoutStruct (
     for i = 1 to cellCount do (
       if i > 1 do totalFixed += marginV
       local cell = this.cells[i]
+      local cellFixedLength = cell.GetFixedLength()
       local cellItem = cell.GetItem()
       local cellMinimum = cell.GetMinimum()
       local cellStretch = cell.GetStretch()
@@ -149,9 +152,16 @@ struct FlexVBoxLayoutStruct (
           totalFixed += cellItem
         )
         else (
-          append cellLengths cellStretch
-          append cellLengthTypes #Stretch
-          totalStretch += cellStretch
+          if classOf cellFixedLength == Integer then (
+            append cellLengths cellFixedLength
+            append cellLengthTypes #Fixed
+            totalFixed += cellFixedLength
+          )
+          else (
+            append cellLengths cellStretch
+            append cellLengthTypes #Stretch
+            totalStretch += cellStretch
+          )
         )
       )
       else (

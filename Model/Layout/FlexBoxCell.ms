@@ -4,7 +4,7 @@
 @remarks インスタンス作成時のパラメータ指定順は以下の通り。
 
 ```maxscript
-::FlexBoxCellStruct item stretch minimum
+::FlexBoxCellStruct item stretch minimum fixedLength
 ```
 */
 struct FlexBoxCellStruct (
@@ -14,7 +14,11 @@ struct FlexBoxCellStruct (
   public _CP2_ = 1,
   /*- @prop <Integer> 作成パラメータ3。セルの最小値。既定値は`1`。 */
   public _CP3_ = 1,
+  /*- @prop <Integer|UndefinedClass> 作成パラメータ4。セルの固定長。既定値は`undefined`。 */
+  public _CP4_,
 
+  /*- @prop <Integer|UndefinedClass> セルの固定長。既定値は`undefined`。 */
+  private fixedLength,
   /*- @prop <Struct|Integer> セルのアイテム。既定値は`undefined`。 */
   private item,
   /*- @prop <Integer> セルの最小値。既定値は`1`。 */
@@ -23,10 +27,12 @@ struct FlexBoxCellStruct (
   private stretch = 1,
 
   /*
+  public fn GetFixedLength = (),
   public fn GetItem = (),
   public fn GetMinimum = (),
   public fn GetStretch = (),
   public fn GetType = (),
+  public fn SetFixedLength input = (),
   public fn SetItem obj = (),
   public fn SetMinimum input = (),
   public fn SetStretch input = (),
@@ -38,6 +44,14 @@ struct FlexBoxCellStruct (
   private fn isValidWidget obj = (),
   private fn typeOf obj = (),
   */
+
+  /*-
+  セルの固定長を取得する。
+  @returns <Integer|UndefinedClass>
+  */
+  public fn GetFixedLength = (
+    this.fixedLength
+  ),
 
   /*-
   セルのアイテムを取得する。
@@ -76,6 +90,28 @@ struct FlexBoxCellStruct (
   */
   public fn GetType = (
     this.typeOf this.item
+  ),
+
+  /*-
+  セルの固定長を設定する。
+  @param input <Integer|UndefinedClass> `1`以上の整数、または`undefined`。
+  @returns <Integer|UndefinedClass>
+  @remarks 無効な値を指定した場合は何もしない。
+  */
+  public fn SetFixedLength input = (
+    if classOf input == UndefinedClass then (
+      this.fixedLength = input
+      this.notify #(#FixedLength)
+    )
+    else (
+      if superClassOf input == Number do (
+        input = input as Integer
+        if input < 1 do input = 1
+        this.fixedLength = input
+        this.notify #(#FixedLength)
+      )
+    )
+    this.GetFixedLength()
   ),
 
   /*-
@@ -196,6 +232,7 @@ struct FlexBoxCellStruct (
   public fn Dump indent:"" out:listener = (
     format "%FlexBoxCellStruct\n" indent to:out
     format "%  type:%\n" indent (this.GetType()) to:out
+    format "%  fixedLength:%\n" indent this.fixedLength to:out
     format "%  minimum:%\n" indent this.minimum to:out
     format "%  stretch:%\n" indent this.stretch to:out
     if this.isValidLayout this.item or this.isValidWidget this.item then (
@@ -220,6 +257,9 @@ struct FlexBoxCellStruct (
         and obj.StructName() == this.StructName()
 
     local isEqualProperties = true \
+        and isProperty obj #GetFixedLength \
+        and classOf obj.GetFixedLength == MAXScriptFunction \
+        and obj.GetFixedLength() == this.GetFixedLength() \
         and isProperty obj #GetItem \
         and classOf obj.GetItem == MAXScriptFunction \
         and isProperty obj #GetMinimum \
@@ -303,5 +343,6 @@ struct FlexBoxCellStruct (
     this.SetItem this._CP1_
     this.SetStretch this._CP2_
     this.SetMinimum this._CP3_
+    this.SetFixedLength this._CP4_
   )
 )

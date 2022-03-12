@@ -25,9 +25,11 @@ struct FlexGridLayoutStruct (
   public fn GetCells = (),
   public fn GetColumnCells = (),
   public fn GetRowCells = (),
+  public fn SetColumnFixedLength column fixedLength = (),
   public fn SetColumnMinimumWidth column minimum = (),
   public fn SetColumnStretch column stretch = (),
   public fn SetRect rect = (),
+  public fn SetRowFixedLength row fixedLength = (),
   public fn SetRowMinimumHeight row minimum = (),
   public fn SetRowStretch row stretch = (),
 
@@ -120,6 +122,25 @@ struct FlexGridLayoutStruct (
   ),
 
   /*-
+  列の固定幅を設定する。
+  @param column <Integer> 対象の列。`1`以上の整数。
+  @param fixedLength <Integer|UndefinedClass> 固定幅。`1`以上の整数、または`undefined`。
+  @returns <Integer|UndefinedClass>
+  @remarks 無効な値を指定した場合は何もしない。
+  */
+  public fn SetColumnFixedLength column fixedLength = (
+    local columnFixedLength = undefined
+    if superClassOf column == Number do (
+      column = column as Integer
+      if column > 0 do (
+        columnFixedLength = this.columnCells[column].SetFixedLength fixedLength
+        this.notify #(#ColumnFixedLength)
+      )
+    )
+    columnFixedLength
+  ),
+
+  /*-
   列の最小幅を設定する。
   @param column <Integer> 対象の列。`1`以上の整数。
   @param minimum <Integer> 最小幅。`1`以上の整数。
@@ -186,6 +207,25 @@ struct FlexGridLayoutStruct (
     )
     this.notify #(#RectUpdated)
     cellRects
+  ),
+
+  /*-
+  行の固定高を設定する。
+  @param row <Integer> 対象の列。`1`以上の整数。
+  @param minimum <Integer> 固定高。`1`以上の整数。
+  @returns <Integer|UndefinedClass>
+  @remarks 無効な値を指定した場合は何もしない。
+  */
+  public fn SetRowFixedLength row fixedLength = (
+    local rowFixedLength = undefined
+    if superClassOf row == Number do (
+      row = row as Integer
+      if row > 0 do (
+        rowFixedLength = this.rowCells[row].SetFixedLength fixedLength
+        this.notify #(#RowFixedLength)
+      )
+    )
+    rowFixedLength
   ),
 
   /*-
@@ -311,14 +351,22 @@ struct FlexGridLayoutStruct (
     for i = 1 to cellCount do (
       if i > 1 do totalFixed += marginH
       local cell = this.columnCells[i]
+      local cellFixedLength = cell.GetFixedLength()
       local cellItem = cell.GetItem()
       local cellMinimum = cell.GetMinimum()
       local cellStretch = cell.GetStretch()
       append cellItems cellItem
-      append cellLengths cellStretch
-      append cellLengthTypes #Stretch
       append cellMinimums cellMinimum
-      totalStretch += cellStretch
+      if classOf cellFixedLength == Integer then (
+        append cellLengths cellFixedLength
+        append cellLengthTypes #Fixed
+        totalFixed += cellFixedLength
+      )
+      else (
+        append cellLengths cellStretch
+        append cellLengthTypes #Stretch
+        totalStretch += cellStretch
+      )
     )
     -- 単位係数あたりの幅の比率を算出
     local needsRecalculation = true
@@ -387,14 +435,22 @@ struct FlexGridLayoutStruct (
     for i = 1 to cellCount do (
       if i > 1 do totalFixed += marginV
       local cell = this.rowCells[i]
+      local cellFixedLength = cell.GetFixedLength()
       local cellItem = cell.GetItem()
       local cellMinimum = cell.GetMinimum()
       local cellStretch = cell.GetStretch()
       append cellItems cellItem
-      append cellLengths cellStretch
-      append cellLengthTypes #Stretch
       append cellMinimums cellMinimum
-      totalStretch += cellStretch
+      if classOf cellFixedLength == Integer then (
+        append cellLengths cellFixedLength
+        append cellLengthTypes #Fixed
+        totalFixed += cellFixedLength
+      )
+      else (
+        append cellLengths cellStretch
+        append cellLengthTypes #Stretch
+        totalStretch += cellStretch
+      )
     )
     -- 単位係数あたりの高さの比率を算出
     local needsRecalculation = true

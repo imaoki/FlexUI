@@ -144,9 +144,11 @@
     ok
   )
 
-  local layout1 = undefined
-  local layout2 = undefined
-  local widget = FlexTestWidgetStruct()
+  local layout1 = FlexTestLayoutStruct()
+  local layout2 = FlexTestLayoutStruct()
+  local layout3 = undefined
+  local widget1 = FlexTestWidgetStruct 1
+  local widget2 = FlexTestWidgetStruct 2
 
   testDef = ::flexUIDefinitionPool[@"Model\Layout\FlexHBoxLayout.ms"]
   testObj = testDef()
@@ -164,13 +166,20 @@
   actual = ::TestValueStruct (testObj.AddLayout testObj)
   expected = ::TestValueStruct undefined
   assert (actual.Equals expected == true)
-  -- 成功
-  layout1 = testDef()
+  -- 成功（ストレッチ）
   expectedCells = #(
     boxCellDef layout1
   )
   actual = ::TestValueStruct (testObj.AddLayout layout1)
   expected = ::TestValueStruct expectedCells[1]
+  assert (actual.Equals expected == true)
+  -- 成功（固定長）
+  expectedCells = #(
+    boxCellDef layout1,
+    boxCellDef layout2 1 1 20
+  )
+  actual = ::TestValueStruct (testObj.AddLayout layout2 fixedLength:20)
+  expected = ::TestValueStruct expectedCells[2]
   assert (actual.Equals expected == true)
 
   /* AddSpace */
@@ -185,21 +194,23 @@
   -- 成功
   expectedCells = #(
     boxCellDef layout1,
+    boxCellDef layout2 1 1 20,
     boxCellDef 10
   )
   actual = ::TestValueStruct (testObj.AddSpace 10)
-  expected = ::TestValueStruct expectedCells[2]
+  expected = ::TestValueStruct expectedCells[3]
   assert (actual.Equals expected == true)
 
   /* AddStretch */
   -- 成功
   expectedCells = #(
     boxCellDef layout1,
+    boxCellDef layout2 1 1 20,
     boxCellDef 10,
     boxCellDef -1 2
   )
   actual = ::TestValueStruct (testObj.AddStretch stretch:2)
-  expected = ::TestValueStruct expectedCells[3]
+  expected = ::TestValueStruct expectedCells[4]
   assert (actual.Equals expected == true)
 
   /* AddWidget */
@@ -211,27 +222,42 @@
   actual = ::TestValueStruct (testObj.AddWidget layout1)
   expected = ::TestValueStruct undefined
   assert (actual.Equals expected == true)
-  -- 成功
+  -- 成功（ストレッチ）
   expectedCells = #(
     boxCellDef layout1,
+    boxCellDef layout2 1 1 20,
     boxCellDef 10,
     boxCellDef -1 2,
-    boxCellDef widget 1 10
+    boxCellDef widget1 1 10
   )
-  actual = ::TestValueStruct (testObj.AddWidget widget minimum:10)
-  expected = ::TestValueStruct expectedCells[4]
+  actual = ::TestValueStruct (testObj.AddWidget widget1 minimum:10)
+  expected = ::TestValueStruct expectedCells[5]
   assert (actual.Equals expected == true)
   -- 重複登録はできない
-  actual = ::TestValueStruct (testObj.AddWidget widget minimum:10)
+  actual = ::TestValueStruct (testObj.AddWidget widget1 minimum:10)
   expected = ::TestValueStruct undefined
+  assert (actual.Equals expected == true)
+  -- 成功（固定長）
+  expectedCells = #(
+    boxCellDef layout1,
+    boxCellDef layout2 1 1 20,
+    boxCellDef 10,
+    boxCellDef -1 2,
+    boxCellDef widget1 1 10,
+    boxCellDef widget2 1 1 20
+  )
+  actual = ::TestValueStruct (testObj.AddWidget widget2 fixedLength:20)
+  expected = ::TestValueStruct expectedCells[6]
   assert (actual.Equals expected == true)
 
   /* GetCells */
   expectedCells = #(
     boxCellDef layout1,
+    boxCellDef layout2 1 1 20,
     boxCellDef 10,
     boxCellDef -1 2,
-    boxCellDef widget 1 10
+    boxCellDef widget1 1 10,
+    boxCellDef widget2 1 1 20
   )
   actual = ::TestValueStruct (testObj.GetCells())
   expected = ::TestValueStruct expectedCells
@@ -242,34 +268,40 @@
   testObj.Options.SetMargin 10 10
   testObj.Options.SetPadding 10 10 10 10
   -- 通常
-  actual = ::TestValueStruct (testObj.SetRect (Box2 10 10 100 100))
+  actual = ::TestValueStruct (testObj.SetRect (Box2 10 10 160 160))
   expected = ::TestValueStruct #(
-    Box2 20 20 10 80,
-    Box2 40 20 10 80,
-    Box2 60 20 20 80,
-    Box2 90 20 10 80
+    Box2 20 20 10 140,
+    Box2 40 20 20 140,
+    Box2 70 20 10 140,
+    Box2 90 20 20 140,
+    Box2 120 20 10 140,
+    Box2 140 20 20 140
   )
   assert (actual.Equals expected == true)
   -- 最小値
   actual = ::TestValueStruct (testObj.SetRect (Box2 10 10 10 10))
   expected = ::TestValueStruct #(
     Box2 20 20 1 1,
-    Box2 31 20 10 1,
-    Box2 51 20 1 1,
-    Box2 62 20 10 1
+    Box2 31 20 20 1,
+    Box2 61 20 10 1,
+    Box2 81 20 1 1,
+    Box2 92 20 10 1,
+    Box2 112 20 20 1
   )
   assert (actual.Equals expected == true)
 
   -- testObj.Dump()
 
   /* Equals */
-  layout2 = testDef()
-  layout2.AddLayout layout1
-  layout2.AddSpace 10
-  layout2.AddStretch stretch:2
-  layout2.AddWidget widget minimum:10
+  layout3 = testDef()
+  layout3.AddLayout layout1
+  layout3.AddLayout layout2 fixedLength:20
+  layout3.AddSpace 10
+  layout3.AddStretch stretch:2
+  layout3.AddWidget widget1 minimum:10
+  layout3.AddWidget widget2 fixedLength:20
   actual = ::TestValueStruct testObj
-  expected = ::TestValueStruct layout2
+  expected = ::TestValueStruct layout3
   assert (actual.Equals expected == true)
   /* Test End --------------------------------------------------------------- */
   sw.Stop()
