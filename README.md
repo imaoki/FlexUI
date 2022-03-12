@@ -111,14 +111,20 @@
   -- 行の最小高を設定（行、高さの順）
   gridLayout.SetRowMinimumHeight 1 10
 
-  -- 行のストレッチ係数を設定（行、ストレッチ係数の順）
-  gridLayout.SetRowStretch 2 2
-
   -- 列の最小幅を設定（列、幅の順）
   gridLayout.SetColumnMinimumWidth 2 10
 
+  -- 行のストレッチ係数を設定（行、ストレッチ係数の順）
+  gridLayout.SetRowStretch 2 2
+
   -- 列のストレッチ係数を設定（列、ストレッチ係数の順）
   gridLayout.SetColumnStretch 3 2
+
+  -- 行を固定長にする（行、固定長の順）
+  gridLayout.SetRowFixedLength 1 20
+
+  -- 列を固定長にする（列、固定長の順）
+  gridLayout.SetColumnFixedLength 1 20
 
   -- 矩形を設定
   gridLayout.SetRect (Box2 0 0 100 100)
@@ -163,6 +169,12 @@
 
   -- ウィジェットを追加（ストレッチ係数`3`）
   hBoxLayout.AddWidget widget stretch:1
+
+  -- レイアウトを固定長で追加
+  hBoxLayout.AddLayout groupLayout fixedLength:20
+
+  -- ウィジェットを固定長で追加
+  hBoxLayout.AddWidget widget fixedLength:20
 
   -- 矩形を設定
   hBoxLayout.SetRect (Box2 0 0 100 100)
