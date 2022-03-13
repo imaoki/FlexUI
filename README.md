@@ -37,6 +37,8 @@
 
 * [imaoki/Standard](https://github.com/imaoki/Standard)
 
+  テストおよびサンプルでのみ利用。
+
 ## 動作確認
 
 `3ds Max 2022.3 Update`
