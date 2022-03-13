@@ -19,7 +19,7 @@ struct FlexUIStruct (
   public fn CreateHBoxLayout options:undefined = (),
   public fn CreateLayoutOptions = (),
   public fn CreateVBoxLayout options:undefined = (),
-  public fn CreateWidget control = (),
+  public fn CreateWidget control explicitW:undefined explicitH:undefined = (),
   public fn Install = (),
   public fn Uninstall = (),
 
@@ -95,14 +95,18 @@ struct FlexUIStruct (
   /*-
   ウィジェットを作成する。
   @param control <RolloutControl> ロールアウトコントロール。
+  @param explicitW: <Integer|UndefinedClass> キャプションを含まない明示的な幅。`0`以上の整数、または`undefined`。既定値は`undefined`。
+  @param explicitH: <Integer|UndefinedClass> キャプションを含まない明示的な高さ。`0`以上の整数、または`undefined`。既定値は`undefined`。
   @returns <Struct|UndefinedClass>
   @remarks 不明なコントロールの場合は`undefined`を返す。
   */
-  public fn CreateWidget control = (
+  public fn CreateWidget control explicitW:undefined explicitH:undefined = (
     local widget = undefined
     local key = ("Flex" + (classOf control) as String + "Widget") as Name
     if hasDictValue this.widgetDefTable key do (
       widget = this.widgetDefTable[key] control
+      widget.SetExplicitH explicitH
+      widget.SetExplicitW explicitW
     )
     widget
   ),
@@ -203,7 +207,7 @@ struct FlexUIStruct (
   ),
 
   /*- @prop <String> バージョン番号。メジャー、マイナー、パッチの順。 */
-  private version = "1.1.0",
+  private version = "1.2.0",
 
   /*- @returns <Name> */
   public fn StructName = #FlexUIStruct,

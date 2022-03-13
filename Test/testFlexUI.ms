@@ -67,6 +67,7 @@
   )
 
   local groupBoxWidget = groupBoxControlWidgetDef RltTest.Gbx
+  local widget = undefined
 
   testDef = fileIn (pathUtility.GetFullPath @"..\FlexUI.ms")
   testObj = testDef()
@@ -136,6 +137,14 @@
   assert (testInstance (testObj.CreateWidget RltTest.Sld) #FlexSliderControlWidgetStruct)
   assert (testInstance (testObj.CreateWidget RltTest.Spn) #FlexSpinnerControlWidgetStruct)
   assert (testInstance (testObj.CreateWidget RltTest.Srlt) #FlexSubRolloutWidgetStruct)
+  -- 明示的なサイズ
+  widget = testObj.CreateWidget RltTest.Btn explicitW:40 explicitH:60
+  actual = ::TestValueStruct (widget.GetExplicitH())
+  expected = ::TestValueStruct 60
+  assert (actual.Equals expected == true)
+  actual = ::TestValueStruct (widget.GetExplicitW())
+  expected = ::TestValueStruct 40
+  assert (actual.Equals expected == true)
   /* Test End --------------------------------------------------------------- */
   sw.Stop()
   /* Teardown Start --------------------------------------------------------- */
