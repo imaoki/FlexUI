@@ -15,11 +15,33 @@
 
 * ウィジェット
 
-  ![WidgetSample](Resource/WidgetSample.gif "WidgetSample")
+  `FlexUI\Example\Widget\FlexEditTextControlWidget.ms`
+
+  ![Sample-Widget](Resource/Sample-Widget.gif "Sample-Widget")
 
 * レイアウト
 
-  ![LayoutSample](Resource/LayoutSample.gif "LayoutSample")
+  `FlexUI\Example\Layout\FlexGridLayout.ms`
+
+  ![Sample-Layout](Resource/Sample-Layout.gif "Sample-Layout")
+
+* 電卓
+
+  `FlexUI\Example\Calc.ms`
+
+  ![Sample-Calc](Resource/Sample-Calc.png "Sample-Calc")
+
+* エクスプローラ
+
+  `FlexUI\Example\Explorer.ms`
+
+  ![Sample-Explorer](Resource/Sample-Explorer.png "Sample-Explorer")
+
+* フォーム
+
+  `FlexUI\Example\Form.ms`
+
+  ![Sample-Form](Resource/Sample-Form.png "Sample-Form")
 
 ## 要件
 
