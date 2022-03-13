@@ -53,14 +53,14 @@ struct FlexButtonControlWidgetStruct (
   /*- @prop <Integer|UndefinedClass> キャプションを含まない明示的な幅。既定値は`undefined`。 */
   private explicitW,
 
-  /*- @prop <Integer> キャプションを含まない既定の高さ。既定値は`21`。 */
-  private defaultH = 21,
+  /*- @prop <Integer> キャプションを含まない既定の高さ。既定値は`-1`。 */
+  private defaultH = -1,
   /*- @prop <Integer> キャプションを含まない既定の幅。既定値は`-1`。 */
   private defaultW = -1,
-  /*- @prop <Integer> キャプションを含まない最小の高さ。既定値は`21`。 */
-  private minH = 21,
-  /*- @prop <Integer> キャプションを含まない最小の幅。既定値は`16`。 */
-  private minW = 16,
+  /*- @prop <Integer> キャプションを含まない最小の高さ。既定値は`1`。 */
+  private minH = 1,
+  /*- @prop <Integer> キャプションを含まない最小の幅。既定値は`1`。 */
+  private minW = 1,
   /*- @prop <BooleanClass> 高さが変更可能かどうか。既定値は`true`。 */
   private resizableH = true,
   /*- @prop <BooleanClass> 幅が変更可能かどうか。既定値は`true`。 */

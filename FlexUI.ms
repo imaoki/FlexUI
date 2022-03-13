@@ -207,7 +207,7 @@ struct FlexUIStruct (
   ),
 
   /*- @prop <String> バージョン番号。メジャー、マイナー、パッチの順。 */
-  private version = "1.2.0",
+  private version = "1.2.1",
 
   /*- @returns <Name> */
   public fn StructName = #FlexUIStruct,

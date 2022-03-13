@@ -97,7 +97,7 @@
       assert (actual.Equals expected == true)
 
       /* SetRect */
-      expectedRect = Box2 30 30 100 21
+      expectedRect = Box2 30 30 100 100
       actual = ::TestValueStruct (testObj.SetRect (Box2 30 30 100 100))
       expected = ::TestValueStruct expectedRect
       assert (actual.Equals expected == true)
@@ -159,7 +159,7 @@
   /* GetDefaultH */
   -- 既定値
   actual = ::TestValueStruct (testObj.GetDefaultH())
-  expected = ::TestValueStruct 21
+  expected = ::TestValueStruct -1
   assert (actual.Equals expected == true)
 
   /* GetDefaultW */
@@ -183,13 +183,13 @@
   /* GetMinH */
   -- 既定値
   actual = ::TestValueStruct (testObj.GetMinH())
-  expected = ::TestValueStruct 21
+  expected = ::TestValueStruct 1
   assert (actual.Equals expected == true)
 
   /* GetMinW */
   -- 既定値
   actual = ::TestValueStruct (testObj.GetMinW())
-  expected = ::TestValueStruct 16
+  expected = ::TestValueStruct 1
   assert (actual.Equals expected == true)
 
   /* GetRect */
