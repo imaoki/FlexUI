@@ -212,13 +212,28 @@
 )
 ```
 
-## グローバル変数
+## 制限
+
+* `RolloutFloater`には非対応。
+
+  `Resized`イベントの発生するダイアログでのみ使用可能。
+
+* `FlexComboBoxControlWidgetStruct`は`dropDownList`にのみ対応する。
+  `comboBox`には非対応。
+
+* `curveControl`のサイズ変更には非対応。
+
+* `slider`の`orient`パラメータは`#Horizontal`にのみ対応。
+
+## 補足情報
+
+### グローバル変数
 
 * 通常はグローバル変数`::flexUI`を通して操作する。
 
 * 詳細は[`mxsdoc.FlexUI.ms`](https://imaoki.github.io/mxskb/mxsdoc/flexui-flexui.html)を参照。
 
-## ウィジェットの種類
+### ウィジェットの種類
 
 | ウィジェット                                                                                                                    | コントロール     | 幅   | 高   | 画像                                                                                                         |
 | ------------------------------------------------------------------------------------------------------------------------------- | ---------------- | ---- | ---- | ------------------------------------------------------------------------------------------------------------ |
@@ -247,16 +262,7 @@
 | [`FlexSpinnerControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexspinnercontrolwidget.html)           | `spinner`        | 可変 | 固定 | ![FlexSpinnerControlWidget](Resource/FlexSpinnerControlWidget.png "FlexSpinnerControlWidget")                |
 | [`FlexSubRolloutWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexsubrolloutwidget.html)                   | `subRollout`     | 可変 | 可変 | ![FlexSubRolloutWidget](Resource/FlexSubRolloutWidget.png "FlexSubRolloutWidget")                            |
 
-### 制限
-
-* `FlexComboBoxControlWidgetStruct`は`dropDownList`にのみ対応する。
-  `comboBox`には非対応。
-
-* `curveControl`のサイズ変更には非対応。
-
-* `slider`の`orient`パラメータは`#Horizontal`にのみ対応。
-
-## レイアウトの種類
+### レイアウトの種類
 
 | レイアウト                                                                                          | 説明                            | 画像                                                               |
 | --------------------------------------------------------------------------------------------------- | ------------------------------- | ------------------------------------------------------------------ |
@@ -265,7 +271,7 @@
 | [`FlexHBoxLayoutStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-layout-flexhboxlayout.html)   | 水平方向にアイテムを配置する    | ![FlexHBoxLayout](Resource/FlexHBoxLayout.png "FlexHBoxLayout")    |
 | [`FlexVBoxLayoutStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-layout-flexvboxlayout.html)   | 垂直方向にアイテムを配置する    | ![FlexVBoxLayout](Resource/FlexVBoxLayout.png "FlexVBoxLayout")    |
 
-## レイアウトオプション
+### レイアウトオプション
 
 * レイアウト各部の余白を設定する。
 
