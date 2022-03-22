@@ -26,7 +26,6 @@
     radioButtons Rdbtn "RadioControl" labels:#("a", "b", "c")
     slider Sld "SliderControl"
     spinner Spn "SpinnerControl"
-    subRollout Srlt "SubRollout"
 
     on RltTest Open do (
       local nameTexts = #()

@@ -191,7 +191,6 @@ struct FlexUIStruct (
     this.widgetDefTable[#FlexRadioControlWidget] = ::flexUIDefinitionPool[@"Model\Widget\FlexRadioControlWidget.ms"]
     this.widgetDefTable[#FlexSliderControlWidget] = ::flexUIDefinitionPool[@"Model\Widget\FlexSliderControlWidget.ms"]
     this.widgetDefTable[#FlexSpinnerControlWidget] = ::flexUIDefinitionPool[@"Model\Widget\FlexSpinnerControlWidget.ms"]
-    this.widgetDefTable[#FlexSubRolloutWidget] = ::flexUIDefinitionPool[@"Model\Widget\FlexSubRolloutWidget.ms"]
     ok
   ),
 
@@ -207,7 +206,7 @@ struct FlexUIStruct (
   ),
 
   /*- @prop <String> バージョン番号。メジャー、マイナー、パッチの順。 */
-  private version = "1.2.1",
+  private version = "1.3.0",
 
   /*- @returns <Name> */
   public fn StructName = #FlexUIStruct,

@@ -44,7 +44,6 @@
     radioButtons Rdbtn "RadioControl" labels:#("a", "b", "c")
     slider Sld "SliderControl"
     spinner Spn "SpinnerControl"
-    subRollout Srlt "SubRollout"
 
     on RltTest Open do ()
     on RltTest Resized v do ()
@@ -136,7 +135,6 @@
   assert (testInstance (testObj.CreateWidget RltTest.Rdbtn) #FlexRadioControlWidgetStruct)
   assert (testInstance (testObj.CreateWidget RltTest.Sld) #FlexSliderControlWidgetStruct)
   assert (testInstance (testObj.CreateWidget RltTest.Spn) #FlexSpinnerControlWidgetStruct)
-  assert (testInstance (testObj.CreateWidget RltTest.Srlt) #FlexSubRolloutWidgetStruct)
   -- 明示的なサイズ
   widget = testObj.CreateWidget RltTest.Btn explicitW:40 explicitH:60
   actual = ::TestValueStruct (widget.GetExplicitH())

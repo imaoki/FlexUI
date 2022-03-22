@@ -45,6 +45,5 @@ FlexLayoutOptions.ms
 ::flexUIDefinitionPool[@"Model\Widget\FlexRadioControlWidget.ms"] = fileIn @"Model\Widget\FlexRadioControlWidget.ms"
 ::flexUIDefinitionPool[@"Model\Widget\FlexSliderControlWidget.ms"] = fileIn @"Model\Widget\FlexSliderControlWidget.ms"
 ::flexUIDefinitionPool[@"Model\Widget\FlexSpinnerControlWidget.ms"] = fileIn @"Model\Widget\FlexSpinnerControlWidget.ms"
-::flexUIDefinitionPool[@"Model\Widget\FlexSubRolloutWidget.ms"] = fileIn @"Model\Widget\FlexSubRolloutWidget.ms"
 
 ::flexUIDefinitionPool
