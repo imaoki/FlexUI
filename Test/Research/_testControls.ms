@@ -53,9 +53,9 @@
         for j = 1 to control.Hwnd.Count do (
           format "  [%]:%\n" j (Windows.GetHwndData control.Hwnd[j])
         )
-        local nameText = ::stringUtility.ToPascalCase control.Name
-        local classText = ::stringUtility.ToPascalCase (classOf control as String)
-        local superClassText = ::stringUtility.ToPascalCase (superClassOf control as String)
+        local nameText = ::std.StringUtility.ToPascalCase control.Name
+        local classText = ::std.StringUtility.ToPascalCase (classOf control as String)
+        local superClassText = ::std.StringUtility.ToPascalCase (superClassOf control as String)
 
         local getHeight = true
         local setHeight = true
@@ -90,32 +90,32 @@
       )
       local out = StringStream ""
       format "| % | % | % | % | % | % | % |\n" \
-          (::stringUtility.PadRight "Name" nameLength " ") \
-          (::stringUtility.PadRight "Class" classLength " ") \
-          (::stringUtility.PadRight "Get Height" getHeightLength " ") \
-          (::stringUtility.PadRight "Set Height" setHeightLength " ") \
-          (::stringUtility.PadRight "Get Width" getWidthLength " ") \
-          (::stringUtility.PadRight "Set Width" setWidthLength " ") \
-          (::stringUtility.PadRight "Pos" posLength " ") \
+          (::std.StringUtility.PadRight "Name" nameLength " ") \
+          (::std.StringUtility.PadRight "Class" classLength " ") \
+          (::std.StringUtility.PadRight "Get Height" getHeightLength " ") \
+          (::std.StringUtility.PadRight "Set Height" setHeightLength " ") \
+          (::std.StringUtility.PadRight "Get Width" getWidthLength " ") \
+          (::std.StringUtility.PadRight "Set Width" setWidthLength " ") \
+          (::std.StringUtility.PadRight "Pos" posLength " ") \
           to:out
       format "| % | % | % | % | % | % | % |\n" \
-          (::stringUtility.PadRight "" nameLength "-") \
-          (::stringUtility.PadRight "" classLength "-") \
-          (::stringUtility.PadRight "" getHeightLength "-") \
-          (::stringUtility.PadRight "" setHeightLength "-") \
-          (::stringUtility.PadRight "" getWidthLength "-") \
-          (::stringUtility.PadRight "" setWidthLength "-") \
-          (::stringUtility.PadRight "" posLength "-") \
+          (::std.StringUtility.PadRight "" nameLength "-") \
+          (::std.StringUtility.PadRight "" classLength "-") \
+          (::std.StringUtility.PadRight "" getHeightLength "-") \
+          (::std.StringUtility.PadRight "" setHeightLength "-") \
+          (::std.StringUtility.PadRight "" getWidthLength "-") \
+          (::std.StringUtility.PadRight "" setWidthLength "-") \
+          (::std.StringUtility.PadRight "" posLength "-") \
           to:out
       for i = 1 to controlCount do (
         format "| % | % | % | % | % | % | % |\n" \
-            (::stringUtility.PadRight nameTexts[i] nameLength " ") \
-            (::stringUtility.PadRight classTexts[i] classLength " ") \
-            (::stringUtility.PadRight getHeightTexts[i] getHeightLength " ") \
-            (::stringUtility.PadRight setHeightTexts[i] setHeightLength " ") \
-            (::stringUtility.PadRight getWidthTexts[i] getWidthLength " ") \
-            (::stringUtility.PadRight setWidthTexts[i] setWidthLength " ") \
-            (::stringUtility.PadRight posTexts[i] posLength " ") \
+            (::std.StringUtility.PadRight nameTexts[i] nameLength " ") \
+            (::std.StringUtility.PadRight classTexts[i] classLength " ") \
+            (::std.StringUtility.PadRight getHeightTexts[i] getHeightLength " ") \
+            (::std.StringUtility.PadRight setHeightTexts[i] setHeightLength " ") \
+            (::std.StringUtility.PadRight getWidthTexts[i] getWidthLength " ") \
+            (::std.StringUtility.PadRight setWidthTexts[i] setWidthLength " ") \
+            (::std.StringUtility.PadRight posTexts[i] posLength " ") \
             to:out
       )
       format "%" (out as String)
