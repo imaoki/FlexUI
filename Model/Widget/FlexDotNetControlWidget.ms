@@ -52,6 +52,8 @@ struct FlexDotNetControlWidgetStruct (
   private explicitH,
   /*- @prop <Integer|UndefinedClass> キャプションを含まない明示的な幅。既定値は`undefined`。 */
   private explicitW,
+  /*- @prop <Box2> 最後に設定した矩形。既定値は`Box2 0 0 1 1`。 */
+  private lastRect = Box2 0 0 1 1,
 
   /*- @prop <Integer> キャプションを含まない既定の高さ。既定値は`-1`。 */
   private defaultH = -1,
@@ -81,6 +83,7 @@ struct FlexDotNetControlWidgetStruct (
   public fn GetRect = (),
   public fn GetResizableH = (),
   public fn GetResizableW = (),
+  public fn GetVisibility = (),
   public fn SetAlignmentH input = (),
   public fn SetAlignmentV input = (),
   public fn SetCaptionMargin input = (),
@@ -89,6 +92,7 @@ struct FlexDotNetControlWidgetStruct (
   public fn SetExplicitH input = (),
   public fn SetExplicitW input = (),
   public fn SetRect rect = (),
+  public fn SetVisibility input = (),
 
   private fn getClientRect hwnd = (),
   private fn isFixedH = (),
@@ -242,6 +246,19 @@ struct FlexDotNetControlWidgetStruct (
   ),
 
   /*-
+  ロールアウトコントロールの可視性を取得する。
+  @returns <BooleanClass>
+  @remarks 値を取得できない場合は`undefined`を返す。
+  */
+  public fn GetVisibility = (
+    local isVisible = undefined
+    if this.isValidControl this.control do (
+      isVisible = this.control.Visible
+    )
+    isVisible
+  ),
+
+  /*-
   全体の水平方向の位置合わせを設定する。
   @param input <Name>
   | 値        | 位置                             |
@@ -380,60 +397,83 @@ struct FlexDotNetControlWidgetStruct (
   @returns <Box2|UndefinedClass>
   */
   public fn SetRect rect = (
+    this.lastRect = copy rect
     local rectX = rect.X as Integer
     local rectY = rect.Y as Integer
     local rectW = rect.W as Integer
     local rectH = rect.H as Integer
     if classOf rect == Box2 and this.isValidControl this.control do (
       if this.control.Hwnd.Count == 1 do (
-        local hwnd1 = this.control.Hwnd[1]
-        -- 矩形を適用
-        local x = copy rectX
-        local y = copy rectY
-        local w = copy rectW
-        local h = copy rectH
-        -- 既定サイズを適用
-        if this.defaultW >= 0 do w = copy this.defaultW
-        if this.defaultH >= 0 do h = copy this.defaultH
-        -- 明示的サイズを適用
-        if this.isValidExplicitW() do w = copy this.explicitW
-        if this.isValidExplicitH() do h = copy this.explicitH
-        -- 固定サイズの場合は現在のサイズを継承
-        local hwnd1Rect = this.getClientRect hwnd1
-        if not this.resizableW do w = hwnd1Rect.W
-        if not this.resizableH do h = hwnd1Rect.H
-        -- 最小サイズを適用
-        if w < this.minW do w = copy this.minW
-        if h < this.minH do h = copy this.minH
-        if w < 0 do w = 0
-        if h < 0 do h = 0
-        -- 水平方向の位置揃え
-        if rectW > w and this.isFixedW() do (
-          case this.alignmentH of (
-            (#Left): ()
-            (#Center): x += (rectW / 2) as Integer - (w / 2) as Integer
-            (#Right): x += rectW - w
-            default: ()
+        if this.control.Visible then (
+          local hwnd1 = this.control.Hwnd[1]
+          -- 矩形を適用
+          local x = copy rectX
+          local y = copy rectY
+          local w = copy rectW
+          local h = copy rectH
+          -- 既定サイズを適用
+          if this.defaultW >= 0 do w = copy this.defaultW
+          if this.defaultH >= 0 do h = copy this.defaultH
+          -- 明示的サイズを適用
+          if this.isValidExplicitW() do w = copy this.explicitW
+          if this.isValidExplicitH() do h = copy this.explicitH
+          -- 固定サイズの場合は現在のサイズを継承
+          local hwnd1Rect = this.getClientRect hwnd1
+          if not this.resizableW do w = hwnd1Rect.W
+          if not this.resizableH do h = hwnd1Rect.H
+          -- 最小サイズを適用
+          if w < this.minW do w = copy this.minW
+          if h < this.minH do h = copy this.minH
+          if w < 0 do w = 0
+          if h < 0 do h = 0
+          -- 水平方向の位置揃え
+          if rectW > w and this.isFixedW() do (
+            case this.alignmentH of (
+              (#Left): ()
+              (#Center): x += (rectW / 2) as Integer - (w / 2) as Integer
+              (#Right): x += rectW - w
+              default: ()
+            )
           )
-        )
-        -- 垂直方向の位置揃え
-        if rectH > h and this.isFixedH() do (
-          case this.alignmentV of (
-            (#Top): ()
-            (#Center): y += (rectH / 2) as Integer - (h / 2) as Integer
-            (#Bottom): y += rectH - h
-            default: ()
+          -- 垂直方向の位置揃え
+          if rectH > h and this.isFixedH() do (
+            case this.alignmentV of (
+              (#Top): ()
+              (#Center): y += (rectH / 2) as Integer - (h / 2) as Integer
+              (#Bottom): y += rectH - h
+              default: ()
+            )
           )
+          -- コントロールの矩形を設定
+          -- Windows.SetWindowPos hwnd1 x y w h true
+          this.control.Pos = [x, y]
+          this.control.Width = w
+          this.control.Height = h
+          this.notify #(#RectUpdated)
         )
-        -- コントロールの矩形を設定
-        -- Windows.SetWindowPos hwnd1 x y w h true
-        this.control.Pos = [x, y]
-        this.control.Width = w
-        this.control.Height = h
-        this.notify #(#RectUpdated)
+        else (
+          this.control.Pos = [-10, -10]
+          this.control.Width = 1
+          this.control.Height = 1
+        )
       )
     )
     this.GetRect()
+  ),
+
+  /*-
+  ロールアウトコントロールの可視性を設定する。
+  @param input <BooleanClass>
+  @returns <BooleanClass>
+  @remarks 無効な値の場合は何もしない。
+  */
+  public fn SetVisibility input = (
+    if classOf input == BooleanClass and this.isValidControl this.control do (
+      this.control.Visible = input
+      this.notify #(#Visibility)
+      this.SetRect this.lastRect
+    )
+    this.GetVisibility()
   ),
 
   /*-

@@ -23,6 +23,7 @@
   local expectedExplicitH = undefined
   local expectedExplicitW = undefined
   local expectedRect = undefined
+  local expectedVisibility = undefined
 
   local updateObject
   fn updateObject context params type: = (
@@ -70,6 +71,11 @@
             expected = ::TestValueStruct expectedRect
             assert (actual.Equals expected == true)
           )
+          (#Visibility): (
+            actual = ::TestValueStruct (testObj.GetVisibility())
+            expected = ::TestValueStruct expectedVisibility
+            assert (actual.Equals expected == true)
+          )
           default: ()
         )
       )
@@ -114,6 +120,18 @@
       /* GetRect */
       actual = ::TestValueStruct (testObj.GetRect())
       expected = ::TestValueStruct expectedRect
+      assert (actual.Equals expected == true)
+
+      /* GetVisibility */
+      expectedVisibility = true
+      actual = ::TestValueStruct (testObj.GetVisibility())
+      expected = ::TestValueStruct expectedVisibility
+      assert (actual.Equals expected == true)
+
+      /* SetVisibility */
+      expectedVisibility = false
+      actual = ::TestValueStruct (testObj.SetVisibility false)
+      expected = ::TestValueStruct expectedVisibility
       assert (actual.Equals expected == true)
 
       /* UI非表示 */
@@ -230,6 +248,12 @@
   -- 既定値
   actual = ::TestValueStruct (testObj.GetResizableW())
   expected = ::TestValueStruct false
+  assert (actual.Equals expected == true)
+
+  /* GetVisibility */
+  -- 既定値
+  actual = ::TestValueStruct (testObj.GetVisibility())
+  expected = ::TestValueStruct undefined
   assert (actual.Equals expected == true)
 
   /* SetAlignmentH */
@@ -386,6 +410,23 @@
   expectedRect = Box2 0 0 100 123
   actual = ::TestValueStruct (testObj.SetRect (Box2 0 0 100 100))
   expected = ::TestValueStruct expectedRect
+  assert (actual.Equals expected == true)
+
+  /* SetVisibility */
+  -- 無効な値
+  expectedVisibility = true
+  actual = ::TestValueStruct (testObj.SetVisibility #Foo)
+  expected = ::TestValueStruct expectedVisibility
+  assert (actual.Equals expected == true)
+  -- 無効な値
+  expectedVisibility = true
+  actual = ::TestValueStruct (testObj.SetVisibility 1)
+  expected = ::TestValueStruct expectedVisibility
+  assert (actual.Equals expected == true)
+  -- 成功
+  expectedVisibility = false
+  actual = ::TestValueStruct (testObj.SetVisibility false)
+  expected = ::TestValueStruct expectedVisibility
   assert (actual.Equals expected == true)
 
   /* UI表示 */

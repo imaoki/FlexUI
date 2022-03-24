@@ -22,7 +22,34 @@
   local FlexTestWidgetStruct
 
   struct FlexTestLayoutStruct (
-    public fn SetRect rect = (),
+    /*- @prop <BooleanClass> */
+    private isVisible = true,
+
+    /*-
+    @returns <BooleanClass>
+    */
+    public fn GetVisibility = (
+      this.isVisible
+    ),
+
+    /*-
+    @param rect <Box2>
+    @returns <Array[<Box2>]>
+    */
+    public fn SetRect rect = (
+      #()
+    ),
+
+    /*-
+    @param input <BooleanClass>
+    @returns <BooleanClass>
+    */
+    public fn SetVisibility input = (
+      if classOf input == BooleanClass do (
+        this.isVisible = input
+      )
+      this.GetVisibility()
+    ),
 
     /*- @returns <Name> */
     public fn StructName = #FlexTestLayoutStruct,
@@ -62,6 +89,8 @@
 
     /*- @prop <Integer|UndefinedClass> */
     private id,
+    /*- @prop <BooleanClass> */
+    private isVisible = true,
 
     /*-
     @returns <Integer|UndefinedClass>
@@ -70,7 +99,31 @@
       this.id
     ),
 
-    public fn SetRect rect = (),
+    /*-
+    @returns <BooleanClass>
+    */
+    public fn GetVisibility = (
+      this.isVisible
+    ),
+
+    /*-
+    @param rect <Box2>
+    @returns <Array[<Box2>]>
+    */
+    public fn SetRect rect = (
+      #()
+    ),
+
+    /*-
+    @param input <BooleanClass>
+    @returns <BooleanClass>
+    */
+    public fn SetVisibility input = (
+      if classOf input == BooleanClass do (
+        this.isVisible = input
+      )
+      this.GetVisibility()
+    ),
 
     /*- @returns <Name> */
     public fn StructName = #FlexTestWidgetStruct,
@@ -98,7 +151,10 @@
 
       local isEqualProperties = isProperty obj #GetId \
           and classOf obj.GetId == MAXScriptFunction \
-          and obj.GetId() == this.GetId()
+          and obj.GetId() == this.GetId() \
+          and isProperty obj #GetVisibility \
+          and classOf obj.GetVisibility == MAXScriptFunction \
+          and obj.GetVisibility() == this.GetVisibility()
 
       isEqualStructName and isEqualProperties
     ),
@@ -109,6 +165,7 @@
   )
 
   local expectedCells = #()
+  local expectedVisibility = true
 
   local updateObject
   fn updateObject context params type: = (
@@ -130,6 +187,11 @@
           (#StretchAdded): (
             actual = ::TestValueStruct (testObj.GetCells())
             expected = ::TestValueStruct expectedCells
+            assert (actual.Equals expected == true)
+          )
+          (#VisibilityChanged): (
+            actual = ::TestValueStruct (testObj.GetVisibility())
+            expected = ::TestValueStruct expectedVisibility
             assert (actual.Equals expected == true)
           )
           (#WidgetAdded): (
@@ -263,6 +325,12 @@
   expected = ::TestValueStruct expectedCells
   assert (actual.Equals expected == true)
 
+  /* GetVisibility */
+  expectedVisibility = true
+  actual = ::TestValueStruct (testObj.GetVisibility())
+  expected = ::TestValueStruct expectedVisibility
+  assert (actual.Equals expected == true)
+
   /* SetRect */
   -- 余白を設定
   testObj.Options.SetMargin 10 10
@@ -288,6 +356,12 @@
     Box2 20 92 1 10,
     Box2 20 112 1 20
   )
+  assert (actual.Equals expected == true)
+
+  /* SetVisibility */
+  expectedVisibility = false
+  actual = ::TestValueStruct (testObj.SetVisibility false)
+  expected = ::TestValueStruct expectedVisibility
   assert (actual.Equals expected == true)
 
   -- testObj.Dump()

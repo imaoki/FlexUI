@@ -25,6 +25,7 @@ struct FlexGridLayoutStruct (
   public fn GetCells = (),
   public fn GetColumnCells = (),
   public fn GetRowCells = (),
+  public fn GetVisibility = (),
   public fn SetColumnFixedLength column fixedLength = (),
   public fn SetColumnMinimumWidth column minimum = (),
   public fn SetColumnStretch column stretch = (),
@@ -32,6 +33,7 @@ struct FlexGridLayoutStruct (
   public fn SetRowFixedLength row fixedLength = (),
   public fn SetRowMinimumHeight row minimum = (),
   public fn SetRowStretch row stretch = (),
+  public fn SetVisibility input = (),
 
   private fn addGrid row column rowSpan columnSpan = (),
   private fn findWidget widget = (),
@@ -119,6 +121,36 @@ struct FlexGridLayoutStruct (
   */
   public fn GetRowCells = (
     this.rowCells
+  ),
+
+  /*-
+  セルのアイテムの可視性を取得する。
+  @returns <BooleanClass|UndefinedClass>
+  @remarks 値を取得できない場合や真偽混合の場合は`undefined`を返す。
+  */
+  public fn GetVisibility = (
+    local visibility = unsupplied
+    for cell in this.cells do (
+      local cellItem = cell.GetItem()
+      local cellType = cell.GetType()
+      if (cellType == #Layout or cellType == #Widget) \
+          and isProperty cellItem #GetVisibility \
+          and classOf cellItem.GetVisibility == MAXScriptFunction do (
+        local isVisible = cellItem.GetVisibility()
+        if visibility == unsupplied do (
+          visibility = isVisible
+        )
+        if classOf visibility != UndefinedClass do (
+          if isVisible != visibility do (
+            visibility = undefined
+          )
+        )
+      )
+    )
+    if visibility == unsupplied do (
+      visibility = undefined
+    )
+    visibility
   ),
 
   /*-
@@ -264,6 +296,28 @@ struct FlexGridLayoutStruct (
       )
     )
     rowStretch
+  ),
+
+  /*-
+  セルのアイテムの可視性を設定する。
+  @param input <BooleanClass>
+  @returns <BooleanClass|UndefinedClass>
+  @remarks 無効な値の場合は何もしない。
+  */
+  public fn SetVisibility input = (
+    if classOf input == BooleanClass do (
+      for cell in this.cells do (
+        local cellItem = cell.GetItem()
+        local cellType = cell.GetType()
+        if (cellType == #Layout or cellType == #Widget) \
+            and isProperty cellItem #SetVisibility \
+            and classOf cellItem.SetVisibility == MAXScriptFunction do (
+          cellItem.SetVisibility input
+        )
+      )
+      this.notify #(#VisibilityChanged)
+    )
+    this.GetVisibility()
   ),
 
   /*-

@@ -12,6 +12,7 @@
     spinner SpnExplicitW "" fieldWidth:40 range:[0, 10000, 100] scale:1 type:#Integer
     checkBox CkbxExplicitH "ExplicitH" checked:false
     spinner SpnExplicitH "" fieldWidth:40 range:[0, 10000, 100] scale:1 type:#Integer
+    checkBox CkbxVisibility "Visibility" checked:true
 
     local controlCaption = "RadioControl"
     local widget = undefined
@@ -61,6 +62,7 @@
       SpnExplicitW.Pos = [180, h - 45]
       CkbxExplicitH.Pos = [70, h - 25]
       SpnExplicitH.Pos = [180, h - 25]
+      CkbxVisibility.Pos = [200, h - 45]
       ok
     )
 
@@ -126,6 +128,11 @@
       ok
     )
 
+    fn setVisibility = (
+      widget.SetVisibility CkbxVisibility.Checked
+      ok
+    )
+
     fn updateWidget context params type: = (
       -- format "updateWidget params:% type:%\n" params type
       if classOf params == Array do (
@@ -139,6 +146,7 @@
             (#ExplicitH): updateControl()
             (#ExplicitW): updateControl()
             (#RectUpdated): ()
+            (#Visibility): ()
             default: ()
           )
         )
@@ -154,6 +162,7 @@
     on SpnExplicitW Changed v do setExplicitW()
     on CkbxExplicitH Changed state do setExplicitH()
     on SpnExplicitH Changed v do setExplicitH()
+    on CkbxVisibility Changed state do setVisibility()
     on RltTest Open do (
       widget = ::flexUI.CreateWidget Rdbtn
       widget.AddObserver (::std.ObserverStruct updateWidget widget)
@@ -162,6 +171,7 @@
       RdbtnPosition.State = findItem #(#Left, #Top) (widget.GetCaptionPosition())
       SpnExplicitW.Range.X = widget.GetMinW()
       SpnExplicitH.Range.X = widget.GetMinH()
+      CkbxVisibility.Checked = widget.GetVisibility()
       updateControl()
     )
     on RltTest Resized v do updateControl()

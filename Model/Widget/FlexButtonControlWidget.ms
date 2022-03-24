@@ -81,6 +81,7 @@ struct FlexButtonControlWidgetStruct (
   public fn GetRect = (),
   public fn GetResizableH = (),
   public fn GetResizableW = (),
+  public fn GetVisibility = (),
   public fn SetAlignmentH input = (),
   public fn SetAlignmentV input = (),
   public fn SetCaptionMargin input = (),
@@ -89,6 +90,7 @@ struct FlexButtonControlWidgetStruct (
   public fn SetExplicitH input = (),
   public fn SetExplicitW input = (),
   public fn SetRect rect = (),
+  public fn SetVisibility input = (),
 
   private fn getClientRect hwnd = (),
   private fn isFixedH = (),
@@ -239,6 +241,19 @@ struct FlexButtonControlWidgetStruct (
   */
   public fn GetResizableW = (
     this.resizableW
+  ),
+
+  /*-
+  ロールアウトコントロールの可視性を取得する。
+  @returns <BooleanClass>
+  @remarks 値を取得できない場合は`undefined`を返す。
+  */
+  public fn GetVisibility = (
+    local isVisible = undefined
+    if this.isValidControl this.control do (
+      isVisible = this.control.Visible
+    )
+    isVisible
   ),
 
   /*-
@@ -431,6 +446,20 @@ struct FlexButtonControlWidgetStruct (
       )
     )
     this.GetRect()
+  ),
+
+  /*-
+  ロールアウトコントロールの可視性を設定する。
+  @param input <BooleanClass>
+  @returns <BooleanClass>
+  @remarks 無効な値の場合は何もしない。
+  */
+  public fn SetVisibility input = (
+    if classOf input == BooleanClass and this.isValidControl this.control do (
+      this.control.Visible = input
+      this.notify #(#Visibility)
+    )
+    this.GetVisibility()
   ),
 
   /*-
