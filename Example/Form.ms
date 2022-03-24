@@ -103,8 +103,19 @@
       layout.AddWidget realWorldMapSizeWidget 13 1 columnSpan:2
       layout.SetColumnStretch 1 2
       layout.SetColumnStretch 2 3
+      layout.SetRowMinimumHeight 1 16
+      layout.SetRowMinimumHeight 2 16
+      layout.SetRowMinimumHeight 3 16
+      layout.SetRowMinimumHeight 4 16
+      layout.SetRowMinimumHeight 5 16
+      layout.SetRowMinimumHeight 6 16
       layout.SetRowFixedLength 7 35
       layout.SetRowFixedLength 8 35
+      layout.SetRowMinimumHeight 9 15
+      layout.SetRowMinimumHeight 10 16
+      layout.SetRowMinimumHeight 11 16
+      layout.SetRowMinimumHeight 12 15
+      layout.SetRowMinimumHeight 13 15
       updateControl()
     )
     on RltForm Resized v do updateControl()
