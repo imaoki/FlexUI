@@ -90,6 +90,9 @@
   /* CreateHBoxLayout */
   assert (testInstance (testObj.CreateHBoxLayout()) #FlexHBoxLayoutStruct)
 
+  /* CreateStackedLayout */
+  assert (testInstance (testObj.CreateStackedLayout()) #FlexStackedLayoutStruct)
+
   /* CreateVBoxLayout */
   assert (testInstance (testObj.CreateVBoxLayout()) #FlexVBoxLayoutStruct)
 

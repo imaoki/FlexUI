@@ -18,6 +18,7 @@ struct FlexUIStruct (
   public fn CreateGroupLayout groupBoxWidget = (),
   public fn CreateHBoxLayout options:undefined = (),
   public fn CreateLayoutOptions = (),
+  public fn CreateStackedLayout options:undefined = (),
   public fn CreateVBoxLayout options:undefined = (),
   public fn CreateWidget control explicitW:undefined explicitH:undefined = (),
   public fn Install = (),
@@ -76,6 +77,20 @@ struct FlexUIStruct (
   */
   public fn CreateLayoutOptions = (
     this.layoutOptionsDef()
+  ),
+
+  /*-
+  Stackedレイアウトを作成する。
+  @param options: <Struct:FlexLayoutOptionsStruct|UndefinedClass> レイアウトオプション。既定値は`undefined`。
+  @returns <Struct:FlexStackedLayoutStruct|UndefinedClass>
+  */
+  public fn CreateStackedLayout options:undefined = (
+    local layout = undefined
+    local key = #FlexStackedLayout
+    if hasDictValue this.layoutDefTable key do (
+      layout = this.layoutDefTable[key] options
+    )
+    layout
   ),
 
   /*-
@@ -160,6 +175,7 @@ struct FlexUIStruct (
     this.layoutDefTable[#FlexGridLayout] = ::flexUIDefinitionPool[@"Model\Layout\FlexGridLayout.ms"]
     this.layoutDefTable[#FlexGroupLayout] = ::flexUIDefinitionPool[@"Model\Layout\FlexGroupLayout.ms"]
     this.layoutDefTable[#FlexHBoxLayout] = ::flexUIDefinitionPool[@"Model\Layout\FlexHBoxLayout.ms"]
+    this.layoutDefTable[#FlexStackedLayout] = ::flexUIDefinitionPool[@"Model\Layout\FlexStackedLayout.ms"]
     this.layoutDefTable[#FlexVBoxLayout] = ::flexUIDefinitionPool[@"Model\Layout\FlexVBoxLayout.ms"]
 
     -- local widgetFiles = ::std.FileUtility.GetFiles widgetDir "*Widget.ms" recursive:false
@@ -206,7 +222,7 @@ struct FlexUIStruct (
   ),
 
   /*- @prop <String> バージョン番号。メジャー、マイナー、パッチの順。 */
-  private version = "1.3.0",
+  private version = "2.0.0",
 
   /*- @returns <Name> */
   public fn StructName = #FlexUIStruct,

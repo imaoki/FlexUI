@@ -13,6 +13,7 @@ FlexBoxCell.ms
 FlexLayoutOptions.ms
 */
 ::flexUIDefinitionPool[@"Model\Layout\FlexHBoxLayout.ms"] = fileIn @"Model\Layout\FlexHBoxLayout.ms"
+::flexUIDefinitionPool[@"Model\Layout\FlexStackedLayout.ms"] = fileIn @"Model\Layout\FlexStackedLayout.ms"
 ::flexUIDefinitionPool[@"Model\Layout\FlexVBoxLayout.ms"] = fileIn @"Model\Layout\FlexVBoxLayout.ms"
 /*
 FlexBoxCell.ms
