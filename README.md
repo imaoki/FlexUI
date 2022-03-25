@@ -1,312 +1,492 @@
 # FlexUI
 
-ロールアウトコントロールをフレキシブルに配置するためのフレームワーク。
+Framework for flexible placement of rollout controls.
+<!-- ロールアウトコントロールをフレキシブルに配置するためのフレームワーク。 -->
 
-## 特徴
+## Features
+<!-- 特徴 -->
 
-* Qtライクな使用感。
+* Qt like feel.
+<!-- Qtライクな使用感。 -->
 
-* 24種類のロールアウトコントロールに対応。
-  （`comboBox`と`timer`は非対応）
+* Supports 23 types of rollout controls.
+  (`comboBox`, `subRollout` and `timer` are not supported)
+<!-- 23種のロールアウトコントロールに対応。 -->
+<!-- （`comboBox`、`subRollout`、`timer`は非対応） -->
 
-* `progressBar`や`spinner`等、通常はサイズ変更できないコントロールもサイズ変更可能。
+* Controls that normally cannot be resized, such as `progressBar` and `spinner`, can be resized.
+<!-- `progressBar`や`spinner`等、通常はサイズ変更できないコントロールもサイズ変更可能。 -->
 
-## サンプル
+## Examples
+<!-- 例 -->
 
-* ウィジェット（`FlexUI\Example\Widget\FlexEditTextControlWidget.ms`）
+* Widget(`FlexUI\Example\Widget\FlexEditTextControlWidget.ms`)
 
-  ![Sample-Widget](Resource/Sample-Widget.gif "Sample-Widget")
+  ![Example-Widget](Resource/Example-Widget.gif "Example-Widget")
 
-* レイアウト（`FlexUI\Example\Layout\FlexGridLayout.ms`）
+* Layout(`FlexUI\Example\Layout\FlexGridLayout.ms`)
 
-  ![Sample-Layout](Resource/Sample-Layout.gif "Sample-Layout")
+  ![Example-Layout](Resource/Example-Layout.gif "Example-Layout")
 
-* 電卓（`FlexUI\Example\Calc.ms`）
+* Calc(`FlexUI\Example\Calc.ms`)
 
-  ![Sample-Calc](Resource/Sample-Calc.png "Sample-Calc")
+  ![Example-Calc](Resource/Example-Calc.png "Example-Calc")
 
-* エクスプローラ（`FlexUI\Example\Explorer.ms`）
+* Explorer(`FlexUI\Example\Explorer.ms`)
 
-  ![Sample-Explorer](Resource/Sample-Explorer.png "Sample-Explorer")
+  ![Example-Explorer](Resource/Example-Explorer.png "Example-Explorer")
 
-* フォーム（`FlexUI\Example\Form.ms`）
+* Form(`FlexUI\Example\Form.ms`)
 
-  ![Sample-Form](Resource/Sample-Form.png "Sample-Form")
+  ![Example-Form](Resource/Example-Form.png "Example-Form")
 
-## 要件
+* TabPage(`FlexUI\Example\TabPage.ms`)
+
+  ![Example-TabPage](Resource/Example-TabPage.png "Example-TabPage")
+
+## Requirements
+<!-- 要件 -->
 
 * [imaoki/Standard](https://github.com/imaoki/Standard)
 
-  テストおよびサンプルでのみ利用。
+  Used for testing and examples only.
+<!-- テストおよび例でのみ利用。 -->
 
-## 動作確認
+## Development Environment
+<!-- 開発環境 -->
 
 `3ds Max 2022.3 Update`
 
-## インストール
+## Install
+<!-- インストールする -->
 
-01. 依存スクリプトがある場合は予めインストールしておく。
+01. Dependent scripts should be installed beforehand.
+<!-- 依存スクリプトは予めインストールしておく。 -->
 
-02. `install.ms`を実行する。
+02. Execute `install.ms`.
+<!-- `install.ms`を実行する。 -->
 
-## アンインストール
+## Uninstall
+<!-- アンインストールする -->
 
-`uninstall.ms`を実行する。
+Execute `uninstall.ms`.
+<!-- `uninstall.ms`を実行する。 -->
 
-## スタンドアローン版
+## Standalone version
+<!-- スタンドアローン版 -->
 
-### インストール
+### Install
+<!-- インストールする -->
 
-01. 依存スクリプトがある場合は予めインストールしておく。
+01. Dependent scripts should be installed beforehand.
+<!-- 依存スクリプトは予めインストールしておく。 -->
 
-02. `Distribution\FlexUI.min.ms`を実行する。
+02. Execute `Distribution\FlexUI.min.ms`.
+<!-- `Distribution\FlexUI.min.ms`を実行する。 -->
 
-### アンインストール
+### Uninstall
+<!-- アンインストールする -->
 
 ```maxscript
 ::flexUI.Uninstall()
 ```
 
-## 使い方
+## Usage
+<!-- 使い方 -->
 
-### ウィジェット
+### Widget
 
-* ウィジェットは全種類が共通のプロパティとメソッドを持つ。
+* All types of widgets have common properties and methods.
+<!-- ウィジェットは全種類が共通のプロパティとメソッドを持つ。 -->
 
-* 既定のサイズ、最小サイズ、およびリサイズの可/不可はロールアウトコントロールの特性に合わせて定数として定義されている。
+* Default size, minimum size, and resizable/unresizable are defined as constants according to the characteristics of the rollout control.
+<!-- 既定のサイズ、最小サイズ、およびリサイズの可/不可はロールアウトコントロールの特性に合わせて定数として定義されている。 -->
 
 ```maxscript
 (
   local widget = ::flexUI.CreateWidget Edt
 
-  -- 全体の水平方向の位置合わせ
+  -- Overall horizontal alignment
   widget.SetAlignmentH #Center
 
-  -- 全体の垂直方向の位置合わせ
+  -- Overall vertical alignment
   widget.SetAlignmentV #Center
 
-  -- キャプションと本体との余白ピクセル
+  -- Margin pixels between caption and body
   widget.SetCaptionMargin 3
 
-  -- キャプションの表示位置
+  -- Caption placement
   widget.SetCaptionPosition #Left
 
-  -- キャプションを含まない明示的な高さ
+  -- Explicit height without caption
   widget.SetExplicitH undefined
 
-  -- キャプションを含まない明示的な幅
+  -- Explicit width without caption
   widget.SetExplicitW undefined
 
-  -- 矩形を設定
+  -- Set control visibility
+  widget.SetVisibility false
+
+  -- Set rectangle
   widget.SetRect (Box2 0 0 100 100)
 )
 ```
 
-### レイアウト
+### Layout
 
-#### Gridレイアウト
+#### GridLayout
 
-* 仮想のグリッド上にアイテムを配置するレイアウト。
+* Layout that places items on a virtual grid.
+<!-- 仮想グリッド上にアイテムを配置するレイアウト。 -->
 
-* グリッドの数は必要に応じて自動的に拡張される。
+* Grid automatically expands as needed.
+<!-- グリッドは必要に応じて自動的に拡張される。 -->
 
 ```maxscript
 (
-  -- レイアウトオプションは任意で指定する
+  -- Layout options are optional
   local layoutOptions = ::flexUI.CreateLayoutOptions()
   local gridLayout = ::flexUI.CreateGridLayout options:layoutOptions
 
-  -- レイアウトを追加（開始行、開始列の順）
+  -- Add layout (row, column)
   gridLayout.AddLayout vBoxLayout 1 1
 
-  -- ウィジェットを追加（開始行、開始列、専有する行数、専有する列数の順）
+  -- Add widget (row, column, rowSpan, columnSpan)
   gridLayout.AddWidget widget 2 3 rowSpan:1 columnSpan:3
 
-  -- 行の最小高を設定（行、高さの順）
+  -- Set minimum row height (row, height)
   gridLayout.SetRowMinimumHeight 1 10
 
-  -- 列の最小幅を設定（列、幅の順）
+  -- Set minimum column width (column, width)
   gridLayout.SetColumnMinimumWidth 2 10
 
-  -- 行のストレッチ係数を設定（行、ストレッチ係数の順）
+  -- Set row stretch factor (row, stretch factor)
   gridLayout.SetRowStretch 2 2
 
-  -- 列のストレッチ係数を設定（列、ストレッチ係数の順）
+  -- Set column stretch factor (column, stretch factor)
   gridLayout.SetColumnStretch 3 2
 
-  -- 行を固定長にする（行、固定長の順）
+  -- Set rows to fixed length (row, fixed length)
   gridLayout.SetRowFixedLength 1 20
 
-  -- 列を固定長にする（列、固定長の順）
+  -- Set columns to fixed length (columns, fixed length)
   gridLayout.SetColumnFixedLength 1 20
 
-  -- 矩形を設定
+  -- Set layout visibility
+  gridLayout.SetVisibility false
+
+  -- Set rectangle
   gridLayout.SetRect (Box2 0 0 100 100)
 )
 ```
 
-#### Groupレイアウト
+#### GroupLayout
 
-* `GroupBoxControl`用のレイアウト。
+* Layout for `GroupBoxControl`.
+<!-- `GroupBoxControl`用のレイアウト。 -->
 
 ```maxscript
 (
+  -- `GroupBoxControl` widget is required
   local groupBoxWidget = ::flexUI.CreateWidget Gbx
   local groupLayout = ::flexUI.CreateGroupLayout groupBoxWidget
 
-  -- レイアウトまたはウィジェットを追加
+  -- Add a layout or widget
   groupLayout.SetCell widget
 
-  -- 矩形を設定
+  -- Set layout visibility
+  groupLayout.SetVisibility false
+
+  -- Set rectangle
   groupLayout.SetRect (Box2 0 0 100 100)
 )
 ```
 
-#### HBoxレイアウト
+#### HBoxLayout
 
-* 水平方向にアイテムを配置するレイアウト。
+* Layout for horizontal item placement.
+<!-- 水平方向にアイテムを配置するレイアウト。 -->
 
 ```maxscript
 (
-  -- レイアウトオプションは任意で指定する
+  -- Layout options are optional
   local layoutOptions = ::flexUI.CreateLayoutOptions()
   local hBoxLayout = ::flexUI.CreateHBoxLayout options:layoutOptions
 
-  -- レイアウトを追加（ストレッチ係数は既定の`1`）
+  -- Add layout (stretch factor defaults to `1`)
   hBoxLayout.AddLayout groupLayout
 
-  -- 固定スペースを追加
+  -- Add fixed space
   hBoxLayout.AddSpace 10
 
-  -- ストレッチを追加（ストレッチ係数`2`）
+  -- Add stretch (stretch factor `2`)
   hBoxLayout.AddStretch stretch:2
 
-  -- ウィジェットを追加（ストレッチ係数`3`）
-  hBoxLayout.AddWidget widget stretch:1
+  -- Add widget (stretch factor `3`)
+  hBoxLayout.AddWidget widget stretch:3
 
-  -- レイアウトを固定長で追加
+  -- Add layout with fixed length
   hBoxLayout.AddLayout groupLayout fixedLength:20
 
-  -- ウィジェットを固定長で追加
+  -- Add widget with fixed length
   hBoxLayout.AddWidget widget fixedLength:20
 
-  -- 矩形を設定
+  -- Set layout visibility
+  hBoxLayout.SetVisibility false
+
+  -- Set rectangle
   hBoxLayout.SetRect (Box2 0 0 100 100)
 )
 ```
 
-#### VBoxレイアウト
+#### VBoxLayout
 
-* 垂直方向にアイテムを配置するレイアウト。
+* Layout for vertical item placement.
+<!-- 垂直方向にアイテムを配置するレイアウト。 -->
 
-* メソッドはHBoxレイアウトと共通。
+* Methods are common to HBoxLayout.
+<!-- メソッドはHBoxLayoutと共通。 -->
 
 ```maxscript
 (
-  -- レイアウトオプションは任意で指定する
+  -- Layout options are optional
   local layoutOptions = ::flexUI.CreateLayoutOptions()
   local vBoxLayout = ::flexUI.CreateVBoxLayout options:layoutOptions
 
-  -- 矩形を設定
+  -- Set rectangle
   vBoxLayout.SetRect (Box2 0 0 100 100)
 )
 ```
 
-## 制限
+#### StackedLayout
 
-* `RolloutFloater`には非対応。
+* Layout showing only one of the registered items.
+<!-- 登録されたアイテムの内一つのみを表示するレイアウト。 -->
 
-  `Resized`イベントの発生するダイアログでのみ使用可能。
+```maxscript
+(
+  -- Layout options are optional
+  local layoutOptions = ::flexUI.CreateLayoutOptions()
+  local stackedLayout = ::flexUI.CreateStackedLayout options:layoutOptions
 
-* `FlexComboBoxControlWidgetStruct`は`dropDownList`にのみ対応する。
-  `comboBox`には非対応。
+  -- Add layout
+  stackedLayout.AddLayout layout
 
-* `curveControl`のサイズ変更には非対応。
+  -- Add widget
+  stackedLayout.AddWidget widget
 
-* `slider`の`orient`パラメータは`#Horizontal`にのみ対応。
+  -- Add layout (specify index to insert)
+  stackedLayout.AddLayout layout index:2
 
-## 補足情報
+  -- Add widget (specify index to insert)
+  stackedLayout.AddWidget widget index:2
 
-### グローバル変数
+  -- Set current index
+  stackedLayout.SetCurrentIndex 2
 
-* 通常はグローバル変数`::flexUI`を通して操作する。
+  -- Get current index and update control for page switching
+  DdlPage.Selection = stackedLayout.GetCurrentIndex()
 
-* 詳細は[`mxsdoc.FlexUI.ms`](https://imaoki.github.io/mxskb/mxsdoc/flexui-flexui.html)を参照。
+  -- Set rectangle
+  stackedLayout.SetRect (Box2 0 0 100 100)
+)
+```
 
-### ウィジェットの種類
+## Limitations
+<!-- 制限 -->
 
-| ウィジェット                                                                                                                    | コントロール     | 幅   | 高   | 画像                                                                                                         |
-| ------------------------------------------------------------------------------------------------------------------------------- | ---------------- | ---- | ---- | ------------------------------------------------------------------------------------------------------------ |
-| [`FlexAngleControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexanglecontrolwidget.html)               | `angle`          | 可変 | 可変 | ![FlexAngleControlWidget](Resource/FlexAngleControlWidget.png "FlexAngleControlWidget")                      |
-| [`FlexBitmapControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexbitmapcontrolwidget.html)             | `bitmap`         | 可変 | 可変 | ![FlexBitmapControlWidget](Resource/FlexBitmapControlWidget.png "FlexBitmapControlWidget")                   |
-| [`FlexButtonControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexbuttoncontrolwidget.html)             | `button`         | 可変 | 可変 | ![FlexButtonControlWidget](Resource/FlexButtonControlWidget.png "FlexButtonControlWidget")                   |
-| [`FlexCheckBoxControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexcheckboxcontrolwidget.html)         | `checkBox`       | 固定 | 固定 | ![FlexCheckBoxControlWidget](Resource/FlexCheckBoxControlWidget.png "FlexCheckBoxControlWidget")             |
-| [`FlexCheckButtonControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexcheckbuttoncontrolwidget.html)   | `checkButton`    | 可変 | 可変 | ![FlexCheckButtonControlWidget](Resource/FlexCheckButtonControlWidget.png "FlexCheckButtonControlWidget")    |
-| [`FlexColorPickerControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexcolorpickercontrolwidget.html)   | `colorPicker`    | 可変 | 可変 | ![FlexColorPickerControlWidget](Resource/FlexColorPickerControlWidget.png "FlexColorPickerControlWidget")    |
-| [`FlexComboBoxControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexcomboboxcontrolwidget.html)         | `dropDownList`   | 可変 | 固定 | ![FlexComboBoxControlWidget](Resource/FlexComboBoxControlWidget.png "FlexComboBoxControlWidget")             |
-| [`FlexDotNetControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexdotnetcontrolwidget.html)             | `dotNetControl`  | 可変 | 可変 | ![FlexDotNetControlWidget](Resource/FlexDotNetControlWidget.png "FlexDotNetControlWidget")                   |
-| [`FlexEditTextControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexedittextcontrolwidget.html)         | `editText`       | 可変 | 可変 | ![FlexEditTextControlWidget](Resource/FlexEditTextControlWidget.png "FlexEditTextControlWidget")             |
-| [`FlexGroupBoxControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexgroupboxcontrolwidget.html)         | `groupBox`       | 可変 | 可変 | ![FlexGroupBoxControlWidget](Resource/FlexGroupBoxControlWidget.png "FlexGroupBoxControlWidget")             |
-| [`FlexImgTagWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-fleximgtagwidget.html)                           | `imgTag`         | 可変 | 可変 | ![FlexImgTagWidget](Resource/FlexImgTagWidget.png "FlexImgTagWidget")                                        |
-| [`FlexLabelControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexlabelcontrolwidget.html)               | `label`          | 固定 | 固定 | ![FlexLabelControlWidget](Resource/FlexLabelControlWidget.png "FlexLabelControlWidget")                      |
-| [`FlexLinkControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexlinkcontrolwidget.html)                 | `hyperLink`      | 固定 | 固定 | ![FlexLinkControlWidget](Resource/FlexLinkControlWidget.png "FlexLinkControlWidget")                         |
-| [`FlexListBoxControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexlistboxcontrolwidget.html)           | `listBox`        | 可変 | 可変 | ![FlexListBoxControlWidget](Resource/FlexListBoxControlWidget.png "FlexListBoxControlWidget")                |
-| [`FlexMapButtonControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexmapbuttoncontrolwidget.html)       | `mapButton`      | 可変 | 可変 | ![FlexMapButtonControlWidget](Resource/FlexMapButtonControlWidget.png "FlexMapButtonControlWidget")          |
-| [`FlexMaxCurveCtlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexmaxcurvectlwidget.html)                 | `curveControl`   | 固定 | 固定 | ![FlexMaxCurveCtlWidget](Resource/FlexMaxCurveCtlWidget.png "FlexMaxCurveCtlWidget")                         |
-| [`FlexMtlButtonControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexmtlbuttoncontrolwidget.html)       | `materialButton` | 可変 | 可変 | ![FlexMtlButtonControlWidget](Resource/FlexMtlButtonControlWidget.png "FlexMtlButtonControlWidget")          |
-| [`FlexMultiListBoxControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexmultilistboxcontrolwidget.html) | `multiListBox`   | 可変 | 可変 | ![FlexMultiListBoxControlWidget](Resource/FlexMultiListBoxControlWidget.png "FlexMultiListBoxControlWidget") |
-| [`FlexPickerControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexpickercontrolwidget.html)             | `pickButton`     | 可変 | 可変 | ![FlexPickerControlWidget](Resource/FlexPickerControlWidget.png "FlexPickerControlWidget")                   |
-| [`FlexProgressBarWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexprogressbarwidget.html)                 | `progressBar`    | 可変 | 可変 | ![FlexProgressBarWidget](Resource/FlexProgressBarWidget.png "FlexProgressBarWidget")                         |
-| [`FlexRadioControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexradiocontrolwidget.html)               | `radioButtons`   | 可変 | 可変 | ![FlexRadioControlWidget](Resource/FlexRadioControlWidget.png "FlexRadioControlWidget")                      |
-| [`FlexSliderControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexslidercontrolwidget.html)             | `slider`         | 可変 | 固定 | ![FlexSliderControlWidget](Resource/FlexSliderControlWidget.png "FlexSliderControlWidget")                   |
-| [`FlexSpinnerControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexspinnercontrolwidget.html)           | `spinner`        | 可変 | 固定 | ![FlexSpinnerControlWidget](Resource/FlexSpinnerControlWidget.png "FlexSpinnerControlWidget")                |
-| [`FlexSubRolloutWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexsubrolloutwidget.html)                   | `subRollout`     | 可変 | 可変 | ![FlexSubRolloutWidget](Resource/FlexSubRolloutWidget.png "FlexSubRolloutWidget")                            |
+* Not supported for `RolloutFloater` and `SubRollout`.
 
-### レイアウトの種類
+  Only available on dialogs with `Resized` events.
+<!-- `RolloutFloater`および`SubRollout`には非対応。 -->
+<!-- `Resized`イベントの発生するダイアログでのみ使用可能。 -->
 
-| レイアウト                                                                                          | 説明                            | 画像                                                               |
-| --------------------------------------------------------------------------------------------------- | ------------------------------- | ------------------------------------------------------------------ |
-| [`FlexGridLayoutStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-layout-flexgridlayout.html)   | グリッドにアイテムを配置する    | ![FlexGridLayout](Resource/FlexGridLayout.png "FlexGridLayout")    |
-| [`FlexGroupLayoutStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-layout-flexgrouplayout.html) | `GroupBoxControl`用のレイアウト | ![FlexGroupLayout](Resource/FlexGroupLayout.png "FlexGroupLayout") |
-| [`FlexHBoxLayoutStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-layout-flexhboxlayout.html)   | 水平方向にアイテムを配置する    | ![FlexHBoxLayout](Resource/FlexHBoxLayout.png "FlexHBoxLayout")    |
-| [`FlexVBoxLayoutStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-layout-flexvboxlayout.html)   | 垂直方向にアイテムを配置する    | ![FlexVBoxLayout](Resource/FlexVBoxLayout.png "FlexVBoxLayout")    |
+* `FlexComboBoxControlWidgetStruct` supports only `dropDownList`.
 
-### レイアウトオプション
+  The `comboBox`, which seems to be used infrequently because it cannot be distinguished from the `dropDownList` at present, was made unsupported.
+<!-- `FlexComboBoxControlWidgetStruct`は`dropDownList`にのみ対応する。 -->
+<!-- 現状では`dropDownList`との判別ができないため使用頻度の低そうな`comboBox`を非対応とした。 -->
 
-* レイアウト各部の余白を設定する。
+* Not supported for `curveControl` resizing.
+<!-- `curveControl`のサイズ変更には非対応。 -->
 
-* 詳細は[`mxsdoc.FlexLayoutOptions.ms`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-layout-flexlayoutoptions.html)を参照。
+* The `orient` parameter of `slider` is only supported for `#Horizontal`.
+<!-- `slider`の`orient`パラメータは`#Horizontal`にのみ対応。 -->
+
+## Additional Information
+<!-- 追加情報 -->
+
+### Global Variable
+<!-- グローバル変数 -->
+
+* Usually, it is operated through the global variable `::flexUI`.
+<!-- 通常はグローバル変数`::flexUI`を通して操作する。 -->
+
+* See [`mxsdoc.FlexUI.ms`](https://imaoki.github.io/mxskb/mxsdoc/flexui-flexui.html) for details.
+<!-- 詳細は[`mxsdoc.FlexUI.ms`](https://imaoki.github.io/mxskb/mxsdoc/flexui-flexui.html)を参照。 -->
+
+### Widget Type
+<!-- ウィジェットの種類 -->
+
+| Widget                                                                                                                                | Control Class    | Width    | Height   | Image                                                                                                        |
+| ------------------------------------------------------------------------------------------------------------------------------------- | ---------------- | -------- | -------- | ------------------------------------------------------------------------------------------------------------ |
+| [`FlexAngleControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexanglecontrolwidget.html)               | `angle`          | Variable | Variable | ![FlexAngleControlWidget](Resource/FlexAngleControlWidget.png "FlexAngleControlWidget")                      |
+| [`FlexBitmapControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexbitmapcontrolwidget.html)             | `bitmap`         | Variable | Variable | ![FlexBitmapControlWidget](Resource/FlexBitmapControlWidget.png "FlexBitmapControlWidget")                   |
+| [`FlexButtonControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexbuttoncontrolwidget.html)             | `button`         | Variable | Variable | ![FlexButtonControlWidget](Resource/FlexButtonControlWidget.png "FlexButtonControlWidget")                   |
+| [`FlexCheckBoxControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexcheckboxcontrolwidget.html)         | `checkBox`       | Fixed    | Fixed    | ![FlexCheckBoxControlWidget](Resource/FlexCheckBoxControlWidget.png "FlexCheckBoxControlWidget")             |
+| [`FlexCheckButtonControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexcheckbuttoncontrolwidget.html)   | `checkButton`    | Variable | Variable | ![FlexCheckButtonControlWidget](Resource/FlexCheckButtonControlWidget.png "FlexCheckButtonControlWidget")    |
+| [`FlexColorPickerControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexcolorpickercontrolwidget.html)   | `colorPicker`    | Variable | Variable | ![FlexColorPickerControlWidget](Resource/FlexColorPickerControlWidget.png "FlexColorPickerControlWidget")    |
+| [`FlexComboBoxControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexcomboboxcontrolwidget.html)         | `dropDownList`   | Variable | Fixed    | ![FlexComboBoxControlWidget](Resource/FlexComboBoxControlWidget.png "FlexComboBoxControlWidget")             |
+| [`FlexDotNetControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexdotnetcontrolwidget.html)             | `dotNetControl`  | Variable | Variable | ![FlexDotNetControlWidget](Resource/FlexDotNetControlWidget.png "FlexDotNetControlWidget")                   |
+| [`FlexEditTextControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexedittextcontrolwidget.html)         | `editText`       | Variable | Variable | ![FlexEditTextControlWidget](Resource/FlexEditTextControlWidget.png "FlexEditTextControlWidget")             |
+| [`FlexGroupBoxControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexgroupboxcontrolwidget.html)         | `groupBox`       | Variable | Variable | ![FlexGroupBoxControlWidget](Resource/FlexGroupBoxControlWidget.png "FlexGroupBoxControlWidget")             |
+| [`FlexImgTagWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-fleximgtagwidget.html)                           | `imgTag`         | Variable | Variable | ![FlexImgTagWidget](Resource/FlexImgTagWidget.png "FlexImgTagWidget")                                        |
+| [`FlexLabelControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexlabelcontrolwidget.html)               | `label`          | Fixed    | Fixed    | ![FlexLabelControlWidget](Resource/FlexLabelControlWidget.png "FlexLabelControlWidget")                      |
+| [`FlexLinkControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexlinkcontrolwidget.html)                 | `hyperLink`      | Fixed    | Fixed    | ![FlexLinkControlWidget](Resource/FlexLinkControlWidget.png "FlexLinkControlWidget")                         |
+| [`FlexListBoxControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexlistboxcontrolwidget.html)           | `listBox`        | Variable | Variable | ![FlexListBoxControlWidget](Resource/FlexListBoxControlWidget.png "FlexListBoxControlWidget")                |
+| [`FlexMapButtonControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexmapbuttoncontrolwidget.html)       | `mapButton`      | Variable | Variable | ![FlexMapButtonControlWidget](Resource/FlexMapButtonControlWidget.png "FlexMapButtonControlWidget")          |
+| [`FlexMaxCurveCtlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexmaxcurvectlwidget.html)                 | `curveControl`   | Fixed    | Fixed    | ![FlexMaxCurveCtlWidget](Resource/FlexMaxCurveCtlWidget.png "FlexMaxCurveCtlWidget")                         |
+| [`FlexMtlButtonControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexmtlbuttoncontrolwidget.html)       | `materialButton` | Variable | Variable | ![FlexMtlButtonControlWidget](Resource/FlexMtlButtonControlWidget.png "FlexMtlButtonControlWidget")          |
+| [`FlexMultiListBoxControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexmultilistboxcontrolwidget.html) | `multiListBox`   | Variable | Variable | ![FlexMultiListBoxControlWidget](Resource/FlexMultiListBoxControlWidget.png "FlexMultiListBoxControlWidget") |
+| [`FlexPickerControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexpickercontrolwidget.html)             | `pickButton`     | Variable | Variable | ![FlexPickerControlWidget](Resource/FlexPickerControlWidget.png "FlexPickerControlWidget")                   |
+| [`FlexProgressBarWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexprogressbarwidget.html)                 | `progressBar`    | Variable | Variable | ![FlexProgressBarWidget](Resource/FlexProgressBarWidget.png "FlexProgressBarWidget")                         |
+| [`FlexRadioControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexradiocontrolwidget.html)               | `radioButtons`   | Variable | Variable | ![FlexRadioControlWidget](Resource/FlexRadioControlWidget.png "FlexRadioControlWidget")                      |
+| [`FlexSliderControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexslidercontrolwidget.html)             | `slider`         | Variable | Fixed    | ![FlexSliderControlWidget](Resource/FlexSliderControlWidget.png "FlexSliderControlWidget")                   |
+| [`FlexSpinnerControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexspinnercontrolwidget.html)           | `spinner`        | Variable | Fixed    | ![FlexSpinnerControlWidget](Resource/FlexSpinnerControlWidget.png "FlexSpinnerControlWidget")                |
+
+#### Widget Notifications
+<!-- ウィジェットの通知 -->
+
+Common to all widgets.
+<!-- 全てのウィジェットで共通。 -->
+
+| `params`           | Timing                                              |
+| ------------------ | --------------------------------------------------- |
+| `#AlignmentH`      | After setting `alignmentH`                          |
+| `#AlignmentV`      | After setting `alignmentV`                          |
+| `#CaptionMargin`   | After setting `captionMargin`                       |
+| `#CaptionPosition` | After setting `captionPosition`                     |
+| `#Control`         | After setting `control`                             |
+| `#ExplicitH`       | After setting `explicitH`                           |
+| `#ExplicitW`       | After setting `explicitW`                           |
+| `#RectUpdated`     | After setting the rollout control rectangle         |
+| `#Visibility`      | After setting the visibility of the rollout control |
+
+### Layout Type
+<!-- レイアウトの種類 -->
+
+| Layout                                                                                                        | Description                                     | Image                                                                    |
+| ------------------------------------------------------------------------------------------------------------- | ----------------------------------------------- | ------------------------------------------------------------------------ |
+| [`FlexGridLayoutStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-layout-flexgridlayout.html)       | Layout that places items on a virtual grid      | ![FlexGridLayout](Resource/FlexGridLayout.png "FlexGridLayout")          |
+| [`FlexGroupLayoutStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-layout-flexgrouplayout.html)     | Layout for `GroupBoxControl`                    | ![FlexGroupLayout](Resource/FlexGroupLayout.png "FlexGroupLayout")       |
+| [`FlexHBoxLayoutStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-layout-flexhboxlayout.html)       | Layout for horizontal item placement            | ![FlexHBoxLayout](Resource/FlexHBoxLayout.png "FlexHBoxLayout")          |
+| [`FlexVBoxLayoutStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-layout-flexvboxlayout.html)       | Layout for vertical item placement              | ![FlexVBoxLayout](Resource/FlexVBoxLayout.png "FlexVBoxLayout")          |
+| [`FlexStackedLayoutStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-layout-flexstackedlayout.html) | Layout showing only one of the registered items | ![FlexStackedLayout](Resource/FlexStackedLayout.png "FlexStackedLayout") |
+
+#### Layout Notifications
+<!-- レイアウトの通知 -->
+
+##### `FlexGridLayoutStruct`
+
+| `params`              | Timing                                  |
+| --------------------- | --------------------------------------- |
+| `#ColumnFixedLength`  | After setting the fixed width of column |
+| `#ColumnMinimumWidth` | After setting the minimum column width  |
+| `#ColumnStretch`      | After setting the column stretch factor |
+| `#LayoutAdded`        | After adding a layout                   |
+| `#RectUpdated`        | After setting the layout rectangle      |
+| `#RowFixedLength`     | After setting the fixed height of row   |
+| `#RowMinimumHeight`   | After setting the minimum row height    |
+| `#RowStretch`         | After setting the row stretch factor    |
+| `#VisibilityChanged`  | After setting layout visibility         |
+| `#WidgetAdded`        | After adding a widget                   |
+
+##### `FlexGroupLayoutStruct`
+
+| `params`             | Timing                             |
+| -------------------- | ---------------------------------- |
+| `#CellSet`           | After setting the cell             |
+| `#RectUpdated`       | After setting the layout rectangle |
+| `#VisibilityChanged` | After setting layout visibility    |
+
+##### `FlexHBoxLayoutStruct`
+
+| `params`             | Timing                             |
+| -------------------- | ---------------------------------- |
+| `#LayoutAdded`       | After adding a layout              |
+| `#RectUpdated`       | After setting the layout rectangle |
+| `#SpaceAdded`        | After adding fixed space           |
+| `#StretchAdded`      | After adding stretchable space     |
+| `#VisibilityChanged` | After setting layout visibility    |
+| `#WidgetAdded`       | After adding a widget              |
+
+##### `FlexVBoxLayoutStruct`
+
+Similar to `FlexHBoxLayoutStruct`.
+<!-- `FlexHBoxLayoutStruct`と同様。 -->
+
+##### `FlexStackedLayoutStruct`
+
+| `params`             | Timing                             |
+| -------------------- | ---------------------------------- |
+| `#CurrentIndex`      | After setting the `currentIndex`   |
+| `#LayoutAdded`       | After adding a layout              |
+| `#RectUpdated`       | After setting the layout rectangle |
+| `#VisibilityChanged` | After setting layout visibility    |
+| `#WidgetAdded`       | After adding a widget              |
+
+### Layout Options
+<!-- レイアウトオプション -->
+
+* Set the margins for each part of the layout.
+<!-- レイアウト各部の余白を設定する。 -->
+
+* See [`mxsdoc.FlexLayoutOptions.ms`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-layout-flexlayoutoptions.html) for details.
+<!-- 詳細は[`mxsdoc.FlexLayoutOptions.ms`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-layout-flexlayoutoptions.html)を参照。 -->
 
 ```maxscript
 (
   local layoutOptions = ::flexUI.CreateLayoutOptions()
 
-  -- セル間の水平方向の余白
+  -- Horizontal margins between cells
   layoutOptions.SetMarginH 0
 
-  -- セル間の垂直方向の余白
+  -- Vertical margins between cells
   layoutOptions.SetMarginV 0
 
-  -- レイアウト外周の下側の余白
+  -- Bottom margin of layout
   layoutOptions.SetPaddingB 0
 
-  -- レイアウト外周の左側の余白
+  -- Left margin of layout
   layoutOptions.SetPaddingL 0
 
-  -- レイアウト外周の右側の余白
+  -- Right margin of layout
   layoutOptions.SetPaddingR 0
 
-  -- レイアウト外周の上側の余白
+  -- Top margin of layout
   layoutOptions.SetPaddingT 0
 
-  -- マージンの一括指定（水平、垂直の順）
+  -- Set margins at once (horizontal, vertical)
   layoutOptions.SetMargin 0 0
 
-  -- パディングの一括指定（上、右、下、左の順）
+  -- Set padding at once (top, right, bottom, left)
   layoutOptions.SetPadding 0 0 0 0
 )
 ```
 
-## ライセンス
+#### Layout Option Notifications
+<!-- レイアウトオプションの通知 -->
+
+| `params`    | Timing                   |
+| ----------- | ------------------------ |
+| `#MarginH`  | After setting `marginH`  |
+| `#MarginV`  | After setting `marginV`  |
+| `#PaddingB` | After setting `paddingB` |
+| `#PaddingL` | After setting `paddingL` |
+| `#PaddingR` | After setting `paddingR` |
+| `#PaddingT` | After setting `paddingT` |
+
+## License
+<!-- ライセンス -->
 
 [MIT License](https://github.com/imaoki/FlexUI/blob/main/LICENSE)
