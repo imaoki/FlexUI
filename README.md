@@ -7,37 +7,38 @@ Framework for flexible placement of rollout controls.
 <!-- 特徴 -->
 
 * Controls that normally cannot be resized can be resized.
-<!-- 通常はサイズが変更できないコントロールもサイズ変更が可能。 -->
+  <!-- 通常はサイズが変更できないコントロールもサイズ変更が可能。 -->
 
 * Supports 23 types of rollout controls.
+
   (`comboBox`, `subRollout` and `timer` are not supported)
-<!-- 23種のロールアウトコントロールに対応。 -->
-<!-- （`comboBox`、`subRollout`、`timer`は非対応） -->
+  <!-- 23種のロールアウトコントロールに対応。 -->
+  <!-- （`comboBox`、`subRollout`、`timer`は非対応） -->
 
 ## Examples
 <!-- 例 -->
 
-* Widget(`FlexUI\Example\Widget\FlexEditTextControlWidget.ms`)
+* Widget(`Example\Widget\FlexEditTextControlWidget.ms`)
 
   ![Example-Widget](Resource/Example-Widget.gif "Example-Widget")
 
-* Layout(`FlexUI\Example\Layout\FlexGridLayout.ms`)
+* Layout(`Example\Layout\FlexGridLayout.ms`)
 
   ![Example-Layout](Resource/Example-Layout.gif "Example-Layout")
 
-* Calc(`FlexUI\Example\Calc.ms`)
+* Calc(`Example\Calc.ms`)
 
   ![Example-Calc](Resource/Example-Calc.png "Example-Calc")
 
-* Explorer(`FlexUI\Example\Explorer.ms`)
+* Explorer(`Example\Explorer.ms`)
 
   ![Example-Explorer](Resource/Example-Explorer.png "Example-Explorer")
 
-* Form(`FlexUI\Example\Form.ms`)
+* Form(`Example\Form.ms`)
 
   ![Example-Form](Resource/Example-Form.png "Example-Form")
 
-* TabPage(`FlexUI\Example\TabPage.ms`)
+* TabPage(`Example\TabPage.ms`)
 
   ![Example-TabPage](Resource/Example-TabPage.png "Example-TabPage")
 
@@ -47,7 +48,7 @@ Framework for flexible placement of rollout controls.
 * [imaoki/Standard](https://github.com/imaoki/Standard)
 
   Used for testing and examples only.
-<!-- テストおよび例でのみ利用。 -->
+  <!-- テストおよび例でのみ利用。 -->
 
 ## Development Environment
 <!-- 開発環境 -->
@@ -58,10 +59,10 @@ Framework for flexible placement of rollout controls.
 <!-- インストールする -->
 
 01. Dependent scripts should be installed beforehand.
-<!-- 依存スクリプトは予めインストールしておく。 -->
+    <!-- 依存スクリプトは予めインストールしておく。 -->
 
 02. Execute `install.ms`.
-<!-- `install.ms`を実行する。 -->
+    <!-- `install.ms`を実行する。 -->
 
 ## Uninstall
 <!-- アンインストールする -->
@@ -76,10 +77,10 @@ Execute `uninstall.ms`.
 <!-- インストールする -->
 
 01. Dependent scripts should be installed beforehand.
-<!-- 依存スクリプトは予めインストールしておく。 -->
+    <!-- 依存スクリプトは予めインストールしておく。 -->
 
 02. Execute `Distribution\FlexUI.min.ms`.
-<!-- `Distribution\FlexUI.min.ms`を実行する。 -->
+    <!-- `Distribution\FlexUI.min.ms`を実行する。 -->
 
 ### Uninstall
 <!-- アンインストールする -->
@@ -94,10 +95,10 @@ Execute `uninstall.ms`.
 ### Widget
 
 * All types of widgets have common properties and methods.
-<!-- ウィジェットは全種類が共通のプロパティとメソッドを持つ。 -->
+  <!-- ウィジェットは全種類が共通のプロパティとメソッドを持つ。 -->
 
 * Default size, minimum size, and resizable/unresizable are defined as constants according to the characteristics of the rollout control.
-<!-- 既定のサイズ、最小サイズ、およびリサイズの可/不可はロールアウトコントロールの特性に合わせて定数として定義されている。 -->
+  <!-- 既定のサイズ、最小サイズ、およびリサイズの可/不可はロールアウトコントロールの特性に合わせて定数として定義されている。 -->
 
 ```maxscript
 (
@@ -134,10 +135,10 @@ Execute `uninstall.ms`.
 #### GridLayout
 
 * Layout that places items on a virtual grid.
-<!-- 仮想グリッド上にアイテムを配置するレイアウト。 -->
+  <!-- 仮想グリッド上にアイテムを配置するレイアウト。 -->
 
 * Grid automatically expands as needed.
-<!-- グリッドは必要に応じて自動的に拡張される。 -->
+  <!-- グリッドは必要に応じて自動的に拡張される。 -->
 
 ```maxscript
 (
@@ -180,7 +181,7 @@ Execute `uninstall.ms`.
 #### GroupLayout
 
 * Layout for `GroupBoxControl`.
-<!-- `GroupBoxControl`用のレイアウト。 -->
+  <!-- `GroupBoxControl`用のレイアウト。 -->
 
 ```maxscript
 (
@@ -202,7 +203,7 @@ Execute `uninstall.ms`.
 #### HBoxLayout
 
 * Layout for horizontal item placement.
-<!-- 水平方向にアイテムを配置するレイアウト。 -->
+  <!-- 水平方向にアイテムを配置するレイアウト。 -->
 
 ```maxscript
 (
@@ -239,10 +240,10 @@ Execute `uninstall.ms`.
 #### VBoxLayout
 
 * Layout for vertical item placement.
-<!-- 垂直方向にアイテムを配置するレイアウト。 -->
+  <!-- 垂直方向にアイテムを配置するレイアウト。 -->
 
 * Methods are common to HBoxLayout.
-<!-- メソッドはHBoxLayoutと共通。 -->
+  <!-- メソッドはHBoxLayoutと共通。 -->
 
 ```maxscript
 (
@@ -258,7 +259,7 @@ Execute `uninstall.ms`.
 #### StackedLayout
 
 * Layout showing only one of the registered items.
-<!-- 登録されたアイテムの内一つのみを表示するレイアウト。 -->
+  <!-- 登録されたアイテムの内一つのみを表示するレイアウト。 -->
 
 ```maxscript
 (
@@ -295,20 +296,20 @@ Execute `uninstall.ms`.
 * Not supported for `RolloutFloater` and `SubRollout`.
 
   Only available on dialogs with `Resized` events.
-<!-- `RolloutFloater`および`SubRollout`には非対応。 -->
-<!-- `Resized`イベントの発生するダイアログでのみ使用可能。 -->
+  <!-- `RolloutFloater`および`SubRollout`には非対応。 -->
+  <!-- `Resized`イベントの発生するダイアログでのみ使用可能。 -->
 
 * `FlexComboBoxControlWidgetStruct` supports only `dropDownList`.
 
   The `comboBox`, which seems to be used infrequently because it cannot be distinguished from the `dropDownList` at present, was made unsupported.
-<!-- `FlexComboBoxControlWidgetStruct`は`dropDownList`にのみ対応する。 -->
-<!-- 現状では`dropDownList`との判別ができないため使用頻度の低そうな`comboBox`を非対応とした。 -->
+  <!-- `FlexComboBoxControlWidgetStruct`は`dropDownList`にのみ対応する。 -->
+  <!-- 現状では`dropDownList`との判別ができないため使用頻度の低そうな`comboBox`を非対応とした。 -->
 
 * Not supported for `curveControl` resizing.
-<!-- `curveControl`のサイズ変更には非対応。 -->
+  <!-- `curveControl`のサイズ変更には非対応。 -->
 
 * The `orient` parameter of `slider` is only supported for `#Horizontal`.
-<!-- `slider`の`orient`パラメータは`#Horizontal`にのみ対応。 -->
+  <!-- `slider`の`orient`パラメータは`#Horizontal`にのみ対応。 -->
 
 ## Additional Information
 <!-- 追加情報 -->
@@ -317,10 +318,10 @@ Execute `uninstall.ms`.
 <!-- グローバル変数 -->
 
 * Usually, it is operated through the global variable `::flexUI`.
-<!-- 通常はグローバル変数`::flexUI`を通して操作する。 -->
+  <!-- 通常はグローバル変数`::flexUI`を通して操作する。 -->
 
 * See [`mxsdoc.FlexUI.ms`](https://imaoki.github.io/mxskb/mxsdoc/flexui-flexui.html) for details.
-<!-- 詳細は[`mxsdoc.FlexUI.ms`](https://imaoki.github.io/mxskb/mxsdoc/flexui-flexui.html)を参照。 -->
+  <!-- 詳細は[`mxsdoc.FlexUI.ms`](https://imaoki.github.io/mxskb/mxsdoc/flexui-flexui.html)を参照。 -->
 
 ### Widget Type
 <!-- ウィジェットの種類 -->
@@ -366,10 +367,10 @@ Execute `uninstall.ms`.
 <!-- レイアウトオプション -->
 
 * Set the margins for each part of the layout.
-<!-- レイアウト各部の余白を設定する。 -->
+  <!-- レイアウト各部の余白を設定する。 -->
 
 * See [`mxsdoc.FlexLayoutOptions.ms`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-layout-flexlayoutoptions.html) for details.
-<!-- 詳細は[`mxsdoc.FlexLayoutOptions.ms`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-layout-flexlayoutoptions.html)を参照。 -->
+  <!-- 詳細は[`mxsdoc.FlexLayoutOptions.ms`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-layout-flexlayoutoptions.html)を参照。 -->
 
 ```maxscript
 (
