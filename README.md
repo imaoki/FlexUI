@@ -6,16 +6,13 @@ Framework for flexible placement of rollout controls.
 ## Features
 <!-- 特徴 -->
 
-* Qt like feel.
-<!-- Qtライクな使用感。 -->
+* Controls that normally cannot be resized can be resized.
+<!-- 通常はサイズが変更できないコントロールもサイズ変更が可能。 -->
 
 * Supports 23 types of rollout controls.
   (`comboBox`, `subRollout` and `timer` are not supported)
 <!-- 23種のロールアウトコントロールに対応。 -->
 <!-- （`comboBox`、`subRollout`、`timer`は非対応） -->
-
-* Controls that normally cannot be resized, such as `progressBar` and `spinner`, can be resized.
-<!-- `progressBar`や`spinner`等、通常はサイズ変更できないコントロールもサイズ変更可能。 -->
 
 ## Examples
 <!-- 例 -->
@@ -354,24 +351,6 @@ Execute `uninstall.ms`.
 | [`FlexSliderControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexslidercontrolwidget.html)             | `slider`         | Variable | Fixed    | ![FlexSliderControlWidget](Resource/FlexSliderControlWidget.png "FlexSliderControlWidget")                   |
 | [`FlexSpinnerControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexspinnercontrolwidget.html)           | `spinner`        | Variable | Fixed    | ![FlexSpinnerControlWidget](Resource/FlexSpinnerControlWidget.png "FlexSpinnerControlWidget")                |
 
-#### Widget Notifications
-<!-- ウィジェットの通知 -->
-
-Common to all widgets.
-<!-- 全てのウィジェットで共通。 -->
-
-| `params`           | Timing                                              |
-| ------------------ | --------------------------------------------------- |
-| `#AlignmentH`      | After setting `alignmentH`                          |
-| `#AlignmentV`      | After setting `alignmentV`                          |
-| `#CaptionMargin`   | After setting `captionMargin`                       |
-| `#CaptionPosition` | After setting `captionPosition`                     |
-| `#Control`         | After setting `control`                             |
-| `#ExplicitH`       | After setting `explicitH`                           |
-| `#ExplicitW`       | After setting `explicitW`                           |
-| `#RectUpdated`     | After setting the rollout control rectangle         |
-| `#Visibility`      | After setting the visibility of the rollout control |
-
 ### Layout Type
 <!-- レイアウトの種類 -->
 
@@ -382,58 +361,6 @@ Common to all widgets.
 | [`FlexHBoxLayoutStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-layout-flexhboxlayout.html)       | Layout for horizontal item placement            | ![FlexHBoxLayout](Resource/FlexHBoxLayout.png "FlexHBoxLayout")          |
 | [`FlexVBoxLayoutStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-layout-flexvboxlayout.html)       | Layout for vertical item placement              | ![FlexVBoxLayout](Resource/FlexVBoxLayout.png "FlexVBoxLayout")          |
 | [`FlexStackedLayoutStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-layout-flexstackedlayout.html) | Layout showing only one of the registered items | ![FlexStackedLayout](Resource/FlexStackedLayout.png "FlexStackedLayout") |
-
-#### Layout Notifications
-<!-- レイアウトの通知 -->
-
-##### `FlexGridLayoutStruct`
-
-| `params`              | Timing                                  |
-| --------------------- | --------------------------------------- |
-| `#ColumnFixedLength`  | After setting the fixed width of column |
-| `#ColumnMinimumWidth` | After setting the minimum column width  |
-| `#ColumnStretch`      | After setting the column stretch factor |
-| `#LayoutAdded`        | After adding a layout                   |
-| `#RectUpdated`        | After setting the layout rectangle      |
-| `#RowFixedLength`     | After setting the fixed height of row   |
-| `#RowMinimumHeight`   | After setting the minimum row height    |
-| `#RowStretch`         | After setting the row stretch factor    |
-| `#VisibilityChanged`  | After setting layout visibility         |
-| `#WidgetAdded`        | After adding a widget                   |
-
-##### `FlexGroupLayoutStruct`
-
-| `params`             | Timing                             |
-| -------------------- | ---------------------------------- |
-| `#CellSet`           | After setting the cell             |
-| `#RectUpdated`       | After setting the layout rectangle |
-| `#VisibilityChanged` | After setting layout visibility    |
-
-##### `FlexHBoxLayoutStruct`
-
-| `params`             | Timing                             |
-| -------------------- | ---------------------------------- |
-| `#LayoutAdded`       | After adding a layout              |
-| `#RectUpdated`       | After setting the layout rectangle |
-| `#SpaceAdded`        | After adding fixed space           |
-| `#StretchAdded`      | After adding stretchable space     |
-| `#VisibilityChanged` | After setting layout visibility    |
-| `#WidgetAdded`       | After adding a widget              |
-
-##### `FlexVBoxLayoutStruct`
-
-Similar to `FlexHBoxLayoutStruct`.
-<!-- `FlexHBoxLayoutStruct`と同様。 -->
-
-##### `FlexStackedLayoutStruct`
-
-| `params`             | Timing                             |
-| -------------------- | ---------------------------------- |
-| `#CurrentIndex`      | After setting the `currentIndex`   |
-| `#LayoutAdded`       | After adding a layout              |
-| `#RectUpdated`       | After setting the layout rectangle |
-| `#VisibilityChanged` | After setting layout visibility    |
-| `#WidgetAdded`       | After adding a widget              |
 
 ### Layout Options
 <!-- レイアウトオプション -->
@@ -474,8 +401,78 @@ Similar to `FlexHBoxLayoutStruct`.
 )
 ```
 
-#### Layout Option Notifications
-<!-- レイアウトオプションの通知 -->
+### Notifications
+<!-- 通知 -->
+
+#### Widget
+
+Common to all widgets.
+<!-- 全てのウィジェットで共通。 -->
+
+| `params`           | Timing                                              |
+| ------------------ | --------------------------------------------------- |
+| `#AlignmentH`      | After setting `alignmentH`                          |
+| `#AlignmentV`      | After setting `alignmentV`                          |
+| `#CaptionMargin`   | After setting `captionMargin`                       |
+| `#CaptionPosition` | After setting `captionPosition`                     |
+| `#Control`         | After setting `control`                             |
+| `#ExplicitH`       | After setting `explicitH`                           |
+| `#ExplicitW`       | After setting `explicitW`                           |
+| `#RectUpdated`     | After setting the rollout control rectangle         |
+| `#Visibility`      | After setting the visibility of the rollout control |
+
+#### Layout
+
+##### FlexGridLayoutStruct
+
+| `params`              | Timing                                  |
+| --------------------- | --------------------------------------- |
+| `#ColumnFixedLength`  | After setting the fixed width of column |
+| `#ColumnMinimumWidth` | After setting the minimum column width  |
+| `#ColumnStretch`      | After setting the column stretch factor |
+| `#LayoutAdded`        | After adding a layout                   |
+| `#RectUpdated`        | After setting the layout rectangle      |
+| `#RowFixedLength`     | After setting the fixed height of row   |
+| `#RowMinimumHeight`   | After setting the minimum row height    |
+| `#RowStretch`         | After setting the row stretch factor    |
+| `#VisibilityChanged`  | After setting layout visibility         |
+| `#WidgetAdded`        | After adding a widget                   |
+
+##### FlexGroupLayoutStruct
+
+| `params`             | Timing                             |
+| -------------------- | ---------------------------------- |
+| `#CellSet`           | After setting the cell             |
+| `#RectUpdated`       | After setting the layout rectangle |
+| `#VisibilityChanged` | After setting layout visibility    |
+
+##### FlexHBoxLayoutStruct
+
+| `params`             | Timing                             |
+| -------------------- | ---------------------------------- |
+| `#LayoutAdded`       | After adding a layout              |
+| `#RectUpdated`       | After setting the layout rectangle |
+| `#SpaceAdded`        | After adding fixed space           |
+| `#StretchAdded`      | After adding stretchable space     |
+| `#VisibilityChanged` | After setting layout visibility    |
+| `#WidgetAdded`       | After adding a widget              |
+
+##### FlexVBoxLayoutStruct
+
+Similar to `FlexHBoxLayoutStruct`.
+<!-- `FlexHBoxLayoutStruct`と同様。 -->
+
+##### FlexStackedLayoutStruct
+
+| `params`             | Timing                             |
+| -------------------- | ---------------------------------- |
+| `#CurrentIndex`      | After setting the `currentIndex`   |
+| `#LayoutAdded`       | After adding a layout              |
+| `#RectUpdated`       | After setting the layout rectangle |
+| `#VisibilityChanged` | After setting layout visibility    |
+| `#WidgetAdded`       | After adding a widget              |
+
+#### Layout Options
 
 | `params`    | Timing                   |
 | ----------- | ------------------------ |
