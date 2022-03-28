@@ -45,7 +45,7 @@ struct FlexStackedLayoutStruct (
     local cell = this.boxCellDef layout
     if cell.GetType() == #Layout and layout != this then (
       this.addCell cell index
-      this.notify #(#LayoutAdded)
+      this.notify #LayoutAdded cell
     )
     else (
       cell = undefined
@@ -65,7 +65,7 @@ struct FlexStackedLayoutStruct (
     local cell = this.boxCellDef widget
     if cell.GetType() == #Widget and this.findWidget widget == 0 then (
       this.addCell cell index
-      this.notify #(#WidgetAdded)
+      this.notify #WidgetAdded cell
     )
     else (
       cell = undefined
@@ -106,7 +106,7 @@ struct FlexStackedLayoutStruct (
     if classOf index == Integer and 0 <= index and index <= this.cells.Count do (
       this.currentIndex = index
       this.updateCellVisibility()
-      this.notify #(#CurrentIndex)
+      this.notify #CurrentIndex this.currentIndex
     )
     this.GetCurrentIndex()
   ),
@@ -139,7 +139,7 @@ struct FlexStackedLayoutStruct (
       )
       cellRect
     )
-    this.notify #(#RectUpdated)
+    this.notify #RectUpdated cellRects
     cellRects
   ),
 
@@ -153,7 +153,7 @@ struct FlexStackedLayoutStruct (
     if classOf input == BooleanClass do (
       this.visibility = input
       this.updateCellVisibility()
-      this.notify #(#VisibilityChanged)
+      this.notify #VisibilityChanged undefined
     )
     this.GetVisibility()
   ),
@@ -340,13 +340,13 @@ struct FlexStackedLayoutStruct (
   ),
 
   /*-
-  @param params <Array[<Name>]|Any>
-  @param type: <Name>
+  @param type <Name>
+  @param param <Any>
   @returns <OkClass>
   */
-  private fn notify params type: = (
+  private fn notify type param = (
     for observer in this.observers do (
-      observer.Callback observer.Context params type:type
+      observer.Callback observer.Context type param
     )
     ok
   ),

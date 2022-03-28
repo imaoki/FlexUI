@@ -42,7 +42,7 @@ struct FlexHBoxLayoutStruct (
     local cell = this.boxCellDef layout stretch minimum fixedLength
     if cell.GetType() == #Layout and layout != this then (
       append this.cells cell
-      this.notify #(#LayoutAdded)
+      this.notify #LayoutAdded cell
     )
     else (
       cell = undefined
@@ -60,7 +60,7 @@ struct FlexHBoxLayoutStruct (
     local cell = this.boxCellDef input
     if cell.GetType() == #Space then (
       append this.cells cell
-      this.notify #(#SpaceAdded)
+      this.notify #SpaceAdded cell
     )
     else (
       cell = undefined
@@ -78,7 +78,7 @@ struct FlexHBoxLayoutStruct (
     local cell = this.boxCellDef -1 stretch
     if cell.GetType() == #Stretch then (
       append this.cells cell
-      this.notify #(#StretchAdded)
+      this.notify #StretchAdded cell
     )
     else (
       cell = undefined
@@ -100,7 +100,7 @@ struct FlexHBoxLayoutStruct (
     local cell = this.boxCellDef widget stretch minimum fixedLength
     if cell.GetType() == #Widget and this.findWidget widget == 0 then (
       append this.cells cell
-      this.notify #(#WidgetAdded)
+      this.notify #WidgetAdded cell
     )
     else (
       cell = undefined
@@ -250,7 +250,7 @@ struct FlexHBoxLayoutStruct (
       cellX += cellW
       cellRect
     )
-    this.notify #(#RectUpdated)
+    this.notify #RectUpdated cellRects
     cellRects
   ),
 
@@ -271,7 +271,7 @@ struct FlexHBoxLayoutStruct (
           cellItem.SetVisibility input
         )
       )
-      this.notify #(#VisibilityChanged)
+      this.notify #VisibilityChanged undefined
     )
     this.GetVisibility()
   ),
@@ -413,13 +413,13 @@ struct FlexHBoxLayoutStruct (
   ),
 
   /*-
-  @param params <Array[<Name>]|Any>
-  @param type: <Name>
+  @param type <Name>
+  @param param <Any>
   @returns <OkClass>
   */
-  private fn notify params type: = (
+  private fn notify type param = (
     for observer in this.observers do (
-      observer.Callback observer.Context params type:type
+      observer.Callback observer.Context type param
     )
     ok
   ),

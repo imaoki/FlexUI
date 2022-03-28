@@ -101,14 +101,14 @@ struct FlexBoxCellStruct (
   public fn SetFixedLength input = (
     if classOf input == UndefinedClass then (
       this.fixedLength = input
-      this.notify #(#FixedLength)
+      this.notify #FixedLength this.fixedLength
     )
     else (
       if superClassOf input == Number do (
         input = input as Integer
         if input < 1 do input = 1
         this.fixedLength = input
-        this.notify #(#FixedLength)
+        this.notify #FixedLength this.fixedLength
       )
     )
     this.GetFixedLength()
@@ -124,7 +124,7 @@ struct FlexBoxCellStruct (
     local itemType = this.typeOf obj
     if classOf itemType == Name do (
       this.item = obj
-      this.notify #(#Item)
+      this.notify #Item this.item
     )
     this.GetItem()
   ),
@@ -140,7 +140,7 @@ struct FlexBoxCellStruct (
       input = input as Integer
       if input < 1 do input = 1
       this.minimum = input
-      this.notify #(#Minimum)
+      this.notify #Minimum this.minimum
     )
     this.GetMinimum()
   ),
@@ -156,7 +156,7 @@ struct FlexBoxCellStruct (
       input = input as Integer
       if input < 1 do input = 1
       this.stretch = input
-      this.notify #(#Stretch)
+      this.notify #Stretch this.stretch
     )
     this.GetStretch()
   ),
@@ -328,13 +328,13 @@ struct FlexBoxCellStruct (
   ),
 
   /*-
-  @param params <Array[<Name>]|Any>
-  @param type: <Name>
+  @param type <Name>
+  @param param <Any>
   @returns <OkClass>
   */
-  private fn notify params type: = (
+  private fn notify type param = (
     for observer in this.observers do (
-      observer.Callback observer.Context params type:type
+      observer.Callback observer.Context type param
     )
     ok
   ),

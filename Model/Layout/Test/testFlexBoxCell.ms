@@ -111,38 +111,34 @@
   local expectedStretch = 1
   local expectedType = undefined
 
-  local updateObject
-  fn updateObject context params type: = (
-    -- format "updateObject params:% type:%\n" params type
-    if classOf params == Array do (
-      for param in params do (
-        case param of (
-          (#FixedLength): (
-            actual = ::TestValueStruct (testObj.GetFixedLength())
-            expected = ::TestValueStruct expectedFixedLength
-            assert (actual.Equals expected == true)
-          )
-          (#Item): (
-            actual = ::TestValueStruct (testObj.GetItem())
-            expected = ::TestValueStruct expectedItem
-            assert (actual.Equals expected == true)
-            actual = ::TestValueStruct (testObj.GetType())
-            expected = ::TestValueStruct expectedType
-            assert (actual.Equals expected == true)
-          )
-          (#Minimum): (
-            actual = ::TestValueStruct (testObj.GetMinimum())
-            expected = ::TestValueStruct expectedMinimum
-            assert (actual.Equals expected == true)
-          )
-          (#Stretch): (
-            actual = ::TestValueStruct (testObj.GetStretch())
-            expected = ::TestValueStruct expectedStretch
-            assert (actual.Equals expected == true)
-          )
-          default: ()
-        )
+  local testNotification
+  fn testNotification context type param = (
+    -- format "testNotification type:% param:%\n" type param
+    case type of (
+      (#FixedLength): (
+        actual = ::TestValueStruct (testObj.GetFixedLength())
+        expected = ::TestValueStruct expectedFixedLength
+        assert (actual.Equals expected == true)
       )
+      (#Item): (
+        actual = ::TestValueStruct (testObj.GetItem())
+        expected = ::TestValueStruct expectedItem
+        assert (actual.Equals expected == true)
+        actual = ::TestValueStruct (testObj.GetType())
+        expected = ::TestValueStruct expectedType
+        assert (actual.Equals expected == true)
+      )
+      (#Minimum): (
+        actual = ::TestValueStruct (testObj.GetMinimum())
+        expected = ::TestValueStruct expectedMinimum
+        assert (actual.Equals expected == true)
+      )
+      (#Stretch): (
+        actual = ::TestValueStruct (testObj.GetStretch())
+        expected = ::TestValueStruct expectedStretch
+        assert (actual.Equals expected == true)
+      )
+      default: ()
     )
     ok
   )
@@ -154,7 +150,7 @@
   testDef = ::flexUIDefinitionPool[@"Model\Layout\FlexBoxCell.ms"]
   testObj = testDef()
 
-  testObj.AddObserver (::std.ObserverStruct updateObject testObj)
+  testObj.AddObserver (::std.ObserverStruct testNotification testObj)
   /* Setup End -------------------------------------------------------------- */
   sw.Start()
   /* Test Start ------------------------------------------------------------- */
@@ -317,7 +313,7 @@
   expectedStretch = 2
   expectedType = #Layout
   testObj = testDef layout 2 10 20
-  testObj.AddObserver (::std.ObserverStruct updateObject testObj)
+  testObj.AddObserver (::std.ObserverStruct testNotification testObj)
   actual = ::TestValueStruct (testObj.GetFixedLength())
   expected = ::TestValueStruct expectedFixedLength
   assert (actual.Equals expected == true)
@@ -340,7 +336,7 @@
   expectedStretch = 2
   expectedType = #Space
   testObj = testDef 5 2 10 20
-  testObj.AddObserver (::std.ObserverStruct updateObject testObj)
+  testObj.AddObserver (::std.ObserverStruct testNotification testObj)
   actual = ::TestValueStruct (testObj.GetFixedLength())
   expected = ::TestValueStruct expectedFixedLength
   assert (actual.Equals expected == true)
@@ -363,7 +359,7 @@
   expectedStretch = 2
   expectedType = #Stretch
   testObj = testDef -1 2 10 20
-  testObj.AddObserver (::std.ObserverStruct updateObject testObj)
+  testObj.AddObserver (::std.ObserverStruct testNotification testObj)
   actual = ::TestValueStruct (testObj.GetFixedLength())
   expected = ::TestValueStruct expectedFixedLength
   assert (actual.Equals expected == true)
@@ -386,7 +382,7 @@
   expectedStretch = 2
   expectedType = #Widget
   testObj = testDef widget 2 10 20
-  testObj.AddObserver (::std.ObserverStruct updateObject testObj)
+  testObj.AddObserver (::std.ObserverStruct testNotification testObj)
   actual = ::TestValueStruct (testObj.GetFixedLength())
   expected = ::TestValueStruct expectedFixedLength
   assert (actual.Equals expected == true)

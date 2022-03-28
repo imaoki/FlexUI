@@ -132,23 +132,19 @@
       ok
     )
 
-    fn updateWidget context params type: = (
-      -- format "updateWidget params:% type:%\n" params type
-      if classOf params == Array do (
-        for param in params do (
-          case param of (
-            (#AlignmentH): updateControl()
-            (#AlignmentV): updateControl()
-            (#CaptionMargin): updateControl()
-            (#CaptionPosition): updateControl()
-            (#Control): ()
-            (#ExplicitH): updateControl()
-            (#ExplicitW): updateControl()
-            (#RectUpdated): ()
-            (#Visibility): ()
-            default: ()
-          )
-        )
+    fn updateWidget context type param = (
+      -- format "updateWidget type:% param:%\n" type param
+      case type of (
+        (#AlignmentH): updateControl()
+        (#AlignmentV): updateControl()
+        (#CaptionMargin): updateControl()
+        (#CaptionPosition): updateControl()
+        (#Control): ()
+        (#ExplicitH): updateControl()
+        (#ExplicitW): updateControl()
+        (#RectUpdated): ()
+        (#Visibility): ()
+        default: ()
       )
       ok
     )

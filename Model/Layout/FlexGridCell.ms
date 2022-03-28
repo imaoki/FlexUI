@@ -113,7 +113,7 @@ struct FlexGridCellStruct (
       input = input as Integer
       if input < 1 do input = 1
       this.column = input
-      this.notify #(#Column)
+      this.notify #Column this.column
     )
     this.GetColumn()
   ),
@@ -129,7 +129,7 @@ struct FlexGridCellStruct (
       input = input as Integer
       if input < 1 do input = 1
       this.columnSpan = input
-      this.notify #(#ColumnSpan)
+      this.notify #ColumnSpan this.columnSpan
     )
     this.GetColumnSpan()
   ),
@@ -144,7 +144,7 @@ struct FlexGridCellStruct (
     local itemType = this.typeOf obj
     if classOf itemType == Name do (
       this.item = obj
-      this.notify #(#Item)
+      this.notify #Item this.item
     )
     this.GetItem()
   ),
@@ -160,7 +160,7 @@ struct FlexGridCellStruct (
       input = input as Integer
       if input < 1 do input = 1
       this.row = input
-      this.notify #(#Row)
+      this.notify #Row this.row
     )
     this.GetRow()
   ),
@@ -176,7 +176,7 @@ struct FlexGridCellStruct (
       input = input as Integer
       if input < 1 do input = 1
       this.rowSpan = input
-      this.notify #(#RowSpan)
+      this.notify #RowSpan this.rowSpan
     )
     this.GetRowSpan()
   ),
@@ -334,13 +334,13 @@ struct FlexGridCellStruct (
   ),
 
   /*-
-  @param params <Array[<Name>]|Any>
-  @param type: <Name>
+  @param type <Name>
+  @param param <Any>
   @returns <OkClass>
   */
-  private fn notify params type: = (
+  private fn notify type param = (
     for observer in this.observers do (
-      observer.Callback observer.Context params type:type
+      observer.Callback observer.Context type param
     )
     ok
   ),

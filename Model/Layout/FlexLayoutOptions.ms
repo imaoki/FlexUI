@@ -124,7 +124,7 @@ struct FlexLayoutOptionsStruct (
       input = input as Integer
       if input < 0 do input = 0
       this.marginH = input
-      this.notify #(#MarginH)
+      this.notify #MarginH this.marginH
     )
     this.GetMarginH()
   ),
@@ -140,7 +140,7 @@ struct FlexLayoutOptionsStruct (
       input = input as Integer
       if input < 0 do input = 0
       this.marginV = input
-      this.notify #(#MarginV)
+      this.notify #MarginV this.marginV
     )
     this.GetMarginV()
   ),
@@ -174,7 +174,7 @@ struct FlexLayoutOptionsStruct (
       input = input as Integer
       if input < 0 do input = 0
       this.paddingB = input
-      this.notify #(#PaddingB)
+      this.notify #PaddingB this.paddingB
     )
     this.GetPaddingB()
   ),
@@ -190,7 +190,7 @@ struct FlexLayoutOptionsStruct (
       input = input as Integer
       if input < 0 do input = 0
       this.paddingL = input
-      this.notify #(#PaddingL)
+      this.notify #PaddingL this.paddingL
     )
     this.GetPaddingL()
   ),
@@ -206,7 +206,7 @@ struct FlexLayoutOptionsStruct (
       input = input as Integer
       if input < 0 do input = 0
       this.paddingR = input
-      this.notify #(#PaddingR)
+      this.notify #PaddingR this.paddingR
     )
     this.GetPaddingR()
   ),
@@ -222,7 +222,7 @@ struct FlexLayoutOptionsStruct (
       input = input as Integer
       if input < 0 do input = 0
       this.paddingT = input
-      this.notify #(#PaddingT)
+      this.notify #PaddingT this.paddingT
     )
     this.GetPaddingT()
   ),
@@ -303,13 +303,13 @@ struct FlexLayoutOptionsStruct (
   ),
 
   /*-
-  @param params <Array[<Name>]|Any>
-  @param type: <Name>
+  @param type <Name>
+  @param param <Any>
   @returns <OkClass>
   */
-  private fn notify params type: = (
+  private fn notify type param = (
     for observer in this.observers do (
-      observer.Callback observer.Context params type:type
+      observer.Callback observer.Context type param
     )
     ok
   ),

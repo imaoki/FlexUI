@@ -22,45 +22,41 @@
   local expectedPaddingR = 0
   local expectedPaddingT = 0
 
-  local updateObject
-  fn updateObject context params type: = (
-    -- format "updateObject params:% type:%\n" params type
-    if classOf params == Array do (
-      for param in params do (
-        case param of (
-          (#MarginH): (
-            actual = ::TestValueStruct (testObj.GetMarginH())
-            expected = ::TestValueStruct expectedMarginH
-            assert (actual.Equals expected == true)
-          )
-          (#MarginV): (
-            actual = ::TestValueStruct (testObj.GetMarginV())
-            expected = ::TestValueStruct expectedMarginV
-            assert (actual.Equals expected == true)
-          )
-          (#PaddingB): (
-            actual = ::TestValueStruct (testObj.GetPaddingB())
-            expected = ::TestValueStruct expectedPaddingB
-            assert (actual.Equals expected == true)
-          )
-          (#PaddingL): (
-            actual = ::TestValueStruct (testObj.GetPaddingL())
-            expected = ::TestValueStruct expectedPaddingL
-            assert (actual.Equals expected == true)
-          )
-          (#PaddingR): (
-            actual = ::TestValueStruct (testObj.GetPaddingR())
-            expected = ::TestValueStruct expectedPaddingR
-            assert (actual.Equals expected == true)
-          )
-          (#PaddingT): (
-            actual = ::TestValueStruct (testObj.GetPaddingT())
-            expected = ::TestValueStruct expectedPaddingT
-            assert (actual.Equals expected == true)
-          )
-          default: ()
-        )
+  local testNotification
+  fn testNotification context type param = (
+    -- format "testNotification type:% param:%\n" type param
+    case type of (
+      (#MarginH): (
+        actual = ::TestValueStruct (testObj.GetMarginH())
+        expected = ::TestValueStruct expectedMarginH
+        assert (actual.Equals expected == true)
       )
+      (#MarginV): (
+        actual = ::TestValueStruct (testObj.GetMarginV())
+        expected = ::TestValueStruct expectedMarginV
+        assert (actual.Equals expected == true)
+      )
+      (#PaddingB): (
+        actual = ::TestValueStruct (testObj.GetPaddingB())
+        expected = ::TestValueStruct expectedPaddingB
+        assert (actual.Equals expected == true)
+      )
+      (#PaddingL): (
+        actual = ::TestValueStruct (testObj.GetPaddingL())
+        expected = ::TestValueStruct expectedPaddingL
+        assert (actual.Equals expected == true)
+      )
+      (#PaddingR): (
+        actual = ::TestValueStruct (testObj.GetPaddingR())
+        expected = ::TestValueStruct expectedPaddingR
+        assert (actual.Equals expected == true)
+      )
+      (#PaddingT): (
+        actual = ::TestValueStruct (testObj.GetPaddingT())
+        expected = ::TestValueStruct expectedPaddingT
+        assert (actual.Equals expected == true)
+      )
+      default: ()
     )
     ok
   )
@@ -69,7 +65,7 @@
   testDef = ::flexUIDefinitionPool[@"Model\Layout\FlexLayoutOptions.ms"]
   testObj = testDef()
 
-  testObj.AddObserver (::std.ObserverStruct updateObject testObj)
+  testObj.AddObserver (::std.ObserverStruct testNotification testObj)
   /* Setup End -------------------------------------------------------------- */
   sw.Start()
   /* Test Start ------------------------------------------------------------- */

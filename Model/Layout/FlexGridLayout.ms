@@ -60,7 +60,7 @@ struct FlexGridLayoutStruct (
     if cell.GetType() == #Layout and layout != this then (
       if this.addGrid row column rowSpan columnSpan then (
         append this.cells cell
-        this.notify #(#LayoutAdded)
+        this.notify #LayoutAdded cell
       )
       else (
         cell = undefined
@@ -87,7 +87,7 @@ struct FlexGridLayoutStruct (
     if cell.GetType() == #Widget and this.findWidget widget == 0 then (
       if this.addGrid row column rowSpan columnSpan then (
         append this.cells cell
-        this.notify #(#WidgetAdded)
+        this.notify #WidgetAdded cell
       )
       else (
         cell = undefined
@@ -166,7 +166,7 @@ struct FlexGridLayoutStruct (
       column = column as Integer
       if column > 0 do (
         columnFixedLength = this.columnCells[column].SetFixedLength fixedLength
-        this.notify #(#ColumnFixedLength)
+        this.notify #ColumnFixedLength columnFixedLength
       )
     )
     columnFixedLength
@@ -185,7 +185,7 @@ struct FlexGridLayoutStruct (
       column = column as Integer
       if column > 0 and this.isValidStretchCell this.columnCells[column] do (
         columnMinimum = this.columnCells[column].SetMinimum minimum
-        this.notify #(#ColumnMinimumWidth)
+        this.notify #ColumnMinimumWidth columnMinimum
       )
     )
     columnMinimum
@@ -204,7 +204,7 @@ struct FlexGridLayoutStruct (
       column = column as Integer
       if column > 0 and this.isValidStretchCell this.columnCells[column] do (
         columnStretch = this.columnCells[column].SetStretch stretch
-        this.notify #(#ColumnStretch)
+        this.notify #ColumnStretch columnStretch
       )
     )
     columnStretch
@@ -237,7 +237,7 @@ struct FlexGridLayoutStruct (
       )
       cellRect
     )
-    this.notify #(#RectUpdated)
+    this.notify #RectUpdated cellRects
     cellRects
   ),
 
@@ -254,7 +254,7 @@ struct FlexGridLayoutStruct (
       row = row as Integer
       if row > 0 do (
         rowFixedLength = this.rowCells[row].SetFixedLength fixedLength
-        this.notify #(#RowFixedLength)
+        this.notify #RowFixedLength rowFixedLength
       )
     )
     rowFixedLength
@@ -273,7 +273,7 @@ struct FlexGridLayoutStruct (
       row = row as Integer
       if row > 0 and this.isValidStretchCell this.rowCells[row] do (
         rowMinimum = this.rowCells[row].SetMinimum minimum
-        this.notify #(#RowMinimumHeight)
+        this.notify #RowMinimumHeight rowMinimum
       )
     )
     rowMinimum
@@ -292,7 +292,7 @@ struct FlexGridLayoutStruct (
       row = row as Integer
       if row > 0 and this.isValidStretchCell this.rowCells[row] do (
         rowStretch = this.rowCells[row].SetStretch stretch
-        this.notify #(#RowStretch)
+        this.notify #RowStretch rowStretch
       )
     )
     rowStretch
@@ -315,7 +315,7 @@ struct FlexGridLayoutStruct (
           cellItem.SetVisibility input
         )
       )
-      this.notify #(#VisibilityChanged)
+      this.notify #VisibilityChanged undefined
     )
     this.GetVisibility()
   ),
@@ -719,13 +719,13 @@ struct FlexGridLayoutStruct (
   ),
 
   /*-
-  @param params <Array[<Name>]|Any>
-  @param type: <Name>
+  @param type <Name>
+  @param param <Any>
   @returns <OkClass>
   */
-  private fn notify params type: = (
+  private fn notify type param = (
     for observer in this.observers do (
-      observer.Callback observer.Context params type:type
+      observer.Callback observer.Context type param
     )
     ok
   ),

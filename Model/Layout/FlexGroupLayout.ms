@@ -96,7 +96,7 @@ struct FlexGroupLayoutStruct (
     local boxCellType = boxCell.GetType()
     if boxCellType == #Layout or boxCellType == #Widget do (
       this.cell = boxCell
-      this.notify #(#CellSet)
+      this.notify #CellSet this.cell
     )
     this.GetCell()
   ),
@@ -135,7 +135,7 @@ struct FlexGroupLayoutStruct (
         cellItem.SetRect cellRect
       )
       append cellRects cellRect
-      this.notify #(#RectUpdated)
+      this.notify #RectUpdated cellRects
     )
     cellRects
   ),
@@ -160,7 +160,7 @@ struct FlexGroupLayoutStruct (
           cellItem.SetVisibility input
         )
       )
-      this.notify #(#VisibilityChanged)
+      this.notify #VisibilityChanged undefined
     )
     this.GetVisibility()
   ),
@@ -312,13 +312,13 @@ struct FlexGroupLayoutStruct (
   ),
 
   /*-
-  @param params <Array[<Name>]|Any>
-  @param type: <Name>
+  @param type <Name>
+  @param param <Any>
   @returns <OkClass>
   */
-  private fn notify params type: = (
+  private fn notify type param = (
     for observer in this.observers do (
-      observer.Callback observer.Context params type:type
+      observer.Callback observer.Context type param
     )
     ok
   ),

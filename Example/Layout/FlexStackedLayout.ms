@@ -136,20 +136,16 @@
       ok
     )
 
-    fn updateLayout context params type: = (
-      -- format "updateLayout params:% type:%\n" params type
-      if classOf params == Array do (
-        for param in params do (
-          case param of (
-            (#MarginH): updateControl()
-            (#MarginV): updateControl()
-            (#PaddingB): updateControl()
-            (#PaddingL): updateControl()
-            (#PaddingR): updateControl()
-            (#PaddingT): updateControl()
-            default: ()
-          )
-        )
+    fn updateLayout context type param = (
+      -- format "updateLayout type:% param:%\n" type param
+      case type of (
+        (#MarginH): updateControl()
+        (#MarginV): updateControl()
+        (#PaddingB): updateControl()
+        (#PaddingL): updateControl()
+        (#PaddingR): updateControl()
+        (#PaddingT): updateControl()
+        default: ()
       )
       ok
     )

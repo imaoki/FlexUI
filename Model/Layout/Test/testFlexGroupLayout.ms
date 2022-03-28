@@ -168,26 +168,22 @@
   local expectedCell = undefined
   local expectedVisibility = true
 
-  local updateObject
-  fn updateObject context params type: = (
-    -- format "updateObject params:% type:%\n" params type
-    if classOf params == Array do (
-      for param in params do (
-        case param of (
-          (#CellSet): (
-            actual = ::TestValueStruct (testObj.GetCell())
-            expected = ::TestValueStruct expectedCell
-            assert (actual.Equals expected == true)
-          )
-          (#RectUpdated): ()
-          (#VisibilityChanged): (
-            actual = ::TestValueStruct (testObj.GetVisibility())
-            expected = ::TestValueStruct expectedVisibility
-            assert (actual.Equals expected == true)
-          )
-          default: ()
-        )
+  local testNotification
+  fn testNotification context type param = (
+    -- format "testNotification type:% param:%\n" type param
+    case type of (
+      (#CellSet): (
+        actual = ::TestValueStruct (testObj.GetCell())
+        expected = ::TestValueStruct expectedCell
+        assert (actual.Equals expected == true)
       )
+      (#RectUpdated): ()
+      (#VisibilityChanged): (
+        actual = ::TestValueStruct (testObj.GetVisibility())
+        expected = ::TestValueStruct expectedVisibility
+        assert (actual.Equals expected == true)
+      )
+      default: ()
     )
     ok
   )
@@ -220,7 +216,7 @@
   testDef = ::flexUIDefinitionPool[@"Model\Layout\FlexGroupLayout.ms"]
   testObj = testDef()
 
-  testObj.AddObserver (::std.ObserverStruct updateObject testObj)
+  testObj.AddObserver (::std.ObserverStruct testNotification testObj)
   /* Setup End -------------------------------------------------------------- */
   sw.Start()
   /* Test Start ------------------------------------------------------------- */

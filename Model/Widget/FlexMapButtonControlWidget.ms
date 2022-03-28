@@ -271,7 +271,7 @@ struct FlexMapButtonControlWidgetStruct (
     local validValues = #(#Left, #Center, #Right)
     if findItem validValues input > 0 do (
       this.alignmentH = input
-      this.notify #(#AlignmentH)
+      this.notify #AlignmentH this.alignmentH
     )
     this.GetAlignmentH()
   ),
@@ -291,7 +291,7 @@ struct FlexMapButtonControlWidgetStruct (
     local validValues = #(#Top, #Center, #Bottom)
     if findItem validValues input > 0 do (
       this.alignmentV = input
-      this.notify #(#AlignmentV)
+      this.notify #AlignmentV this.alignmentV
     )
     this.GetAlignmentV()
   ),
@@ -307,7 +307,7 @@ struct FlexMapButtonControlWidgetStruct (
       input = input as Integer
       if input < 0 do input = 0
       this.captionMargin = input
-      this.notify #(#CaptionMargin)
+      this.notify #CaptionMargin this.captionMargin
     )
     this.GetCaptionMargin()
   ),
@@ -326,7 +326,7 @@ struct FlexMapButtonControlWidgetStruct (
     local validValues = #(#Left, #Top)
     if findItem validValues input > 0 do (
       this.captionPosition = input
-      this.notify #(#CaptionPosition)
+      this.notify #CaptionPosition this.captionPosition
     )
     this.GetCaptionPosition()
   ),
@@ -340,7 +340,7 @@ struct FlexMapButtonControlWidgetStruct (
   public fn SetControl obj = (
     if this.isValidControl obj do (
       this.control = obj
-      this.notify #(#Control)
+      this.notify #Control this.control
     )
     this.GetControl()
   ),
@@ -354,14 +354,14 @@ struct FlexMapButtonControlWidgetStruct (
   public fn SetExplicitH input = (
     if classOf input == UndefinedClass then (
       this.explicitH = input
-      this.notify #(#ExplicitH)
+      this.notify #ExplicitH this.explicitH
     )
     else (
       if superClassOf input == Number do (
         input = input as Integer
         if input < 0 do input = 0
         this.explicitH = input
-        this.notify #(#ExplicitH)
+        this.notify #ExplicitH this.explicitH
       )
     )
     this.GetExplicitH()
@@ -376,14 +376,14 @@ struct FlexMapButtonControlWidgetStruct (
   public fn SetExplicitW input = (
     if classOf input == UndefinedClass then (
       this.explicitW = input
-      this.notify #(#ExplicitW)
+      this.notify #ExplicitW this.explicitW
     )
     else (
       if superClassOf input == Number do (
         input = input as Integer
         if input < 0 do input = 0
         this.explicitW = input
-        this.notify #(#ExplicitW)
+        this.notify #ExplicitW this.explicitW
       )
     )
     this.GetExplicitW()
@@ -442,7 +442,7 @@ struct FlexMapButtonControlWidgetStruct (
         )
         -- コントロールの矩形を設定
         Windows.SetWindowPos hwnd1 x y w h true
-        this.notify #(#RectUpdated)
+        this.notify #RectUpdated undefined
       )
     )
     this.GetRect()
@@ -457,7 +457,7 @@ struct FlexMapButtonControlWidgetStruct (
   public fn SetVisibility input = (
     if classOf input == BooleanClass and this.isValidControl this.control do (
       this.control.Visible = input
-      this.notify #(#Visibility)
+      this.notify #Visibility this.control.Visible
     )
     this.GetVisibility()
   ),
@@ -635,13 +635,13 @@ struct FlexMapButtonControlWidgetStruct (
   ),
 
   /*-
-  @param params <Array[<Name>]|Any>
-  @param type: <Name>
+  @param type <Name>
+  @param param <Any>
   @returns <OkClass>
   */
-  private fn notify params type: = (
+  private fn notify type param = (
     for observer in this.observers do (
-      observer.Callback observer.Context params type:type
+      observer.Callback observer.Context type param
     )
     ok
   ),

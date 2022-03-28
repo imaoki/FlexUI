@@ -112,43 +112,39 @@
   local expectedRowSpan = 1
   local expectedType = undefined
 
-  local updateObject
-  fn updateObject context params type: = (
-    -- format "updateObject params:% type:%\n" params type
-    if classOf params == Array do (
-      for param in params do (
-        case param of (
-          (#Column): (
-            actual = ::TestValueStruct (testObj.GetColumn())
-            expected = ::TestValueStruct expectedColumn
-            assert (actual.Equals expected == true)
-          )
-          (#ColumnSpan): (
-            actual = ::TestValueStruct (testObj.GetColumnSpan())
-            expected = ::TestValueStruct expectedColumnSpan
-            assert (actual.Equals expected == true)
-          )
-          (#Item): (
-            actual = ::TestValueStruct (testObj.GetItem())
-            expected = ::TestValueStruct expectedItem
-            assert (actual.Equals expected == true)
-            actual = ::TestValueStruct (testObj.GetType())
-            expected = ::TestValueStruct expectedType
-            assert (actual.Equals expected == true)
-          )
-          (#Row): (
-            actual = ::TestValueStruct (testObj.GetRow())
-            expected = ::TestValueStruct expectedRow
-            assert (actual.Equals expected == true)
-          )
-          (#RowSpan): (
-            actual = ::TestValueStruct (testObj.GetRowSpan())
-            expected = ::TestValueStruct expectedRowSpan
-            assert (actual.Equals expected == true)
-          )
-          default: ()
-        )
+  local testNotification
+  fn testNotification context type param = (
+    -- format "testNotification type:% param:%\n" type param
+    case type of (
+      (#Column): (
+        actual = ::TestValueStruct (testObj.GetColumn())
+        expected = ::TestValueStruct expectedColumn
+        assert (actual.Equals expected == true)
       )
+      (#ColumnSpan): (
+        actual = ::TestValueStruct (testObj.GetColumnSpan())
+        expected = ::TestValueStruct expectedColumnSpan
+        assert (actual.Equals expected == true)
+      )
+      (#Item): (
+        actual = ::TestValueStruct (testObj.GetItem())
+        expected = ::TestValueStruct expectedItem
+        assert (actual.Equals expected == true)
+        actual = ::TestValueStruct (testObj.GetType())
+        expected = ::TestValueStruct expectedType
+        assert (actual.Equals expected == true)
+      )
+      (#Row): (
+        actual = ::TestValueStruct (testObj.GetRow())
+        expected = ::TestValueStruct expectedRow
+        assert (actual.Equals expected == true)
+      )
+      (#RowSpan): (
+        actual = ::TestValueStruct (testObj.GetRowSpan())
+        expected = ::TestValueStruct expectedRowSpan
+        assert (actual.Equals expected == true)
+      )
+      default: ()
     )
     ok
   )
@@ -160,7 +156,7 @@
   testDef = ::flexUIDefinitionPool[@"Model\Layout\FlexGridCell.ms"]
   testObj = testDef()
 
-  testObj.AddObserver (::std.ObserverStruct updateObject testObj)
+  testObj.AddObserver (::std.ObserverStruct testNotification testObj)
   /* Setup End -------------------------------------------------------------- */
   sw.Start()
   /* Test Start ------------------------------------------------------------- */
@@ -339,7 +335,7 @@
   local expectedRowSpan = 3
   local expectedType = #Layout
   testObj = testDef layout 1 2 3 4
-  testObj.AddObserver (::std.ObserverStruct updateObject testObj)
+  testObj.AddObserver (::std.ObserverStruct testNotification testObj)
   actual = ::TestValueStruct (testObj.GetColumn())
   expected = ::TestValueStruct expectedColumn
   assert (actual.Equals expected == true)
@@ -366,7 +362,7 @@
   local expectedRowSpan = 3
   local expectedType = #Widget
   testObj = testDef widget 1 2 3 4
-  testObj.AddObserver (::std.ObserverStruct updateObject testObj)
+  testObj.AddObserver (::std.ObserverStruct testNotification testObj)
   actual = ::TestValueStruct (testObj.GetColumn())
   expected = ::TestValueStruct expectedColumn
   assert (actual.Equals expected == true)

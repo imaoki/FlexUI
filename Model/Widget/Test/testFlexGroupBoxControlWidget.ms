@@ -25,60 +25,56 @@
   local expectedRect = undefined
   local expectedVisibility = undefined
 
-  local updateObject
-  fn updateObject context params type: = (
-    -- format "updateObject params:% type:%\n" params type
-    if classOf params == Array do (
-      for param in params do (
-        case param of (
-          (#AlignmentH): (
-            actual = ::TestValueStruct (testObj.GetAlignmentH())
-            expected = ::TestValueStruct expectedAlignmentH
-            assert (actual.Equals expected == true)
-          )
-          (#AlignmentV): (
-            actual = ::TestValueStruct (testObj.GetAlignmentV())
-            expected = ::TestValueStruct expectedAlignmentV
-            assert (actual.Equals expected == true)
-          )
-          (#CaptionMargin): (
-            actual = ::TestValueStruct (testObj.GetCaptionMargin())
-            expected = ::TestValueStruct expectedCaptionMargin
-            assert (actual.Equals expected == true)
-          )
-          (#CaptionPosition): (
-            actual = ::TestValueStruct (testObj.GetCaptionPosition())
-            expected = ::TestValueStruct expectedCaptionPosition
-            assert (actual.Equals expected == true)
-          )
-          (#Control): (
-            actual = ::TestValueStruct (testObj.GetControl())
-            expected = ::TestValueStruct expectedControl
-            assert (actual.Equals expected == true)
-          )
-          (#ExplicitH): (
-            actual = ::TestValueStruct (testObj.GetExplicitH())
-            expected = ::TestValueStruct expectedExplicitH
-            assert (actual.Equals expected == true)
-          )
-          (#ExplicitW): (
-            actual = ::TestValueStruct (testObj.GetExplicitW())
-            expected = ::TestValueStruct expectedExplicitW
-            assert (actual.Equals expected == true)
-          )
-          (#RectUpdated): (
-            actual = ::TestValueStruct (testObj.GetRect())
-            expected = ::TestValueStruct expectedRect
-            assert (actual.Equals expected == true)
-          )
-          (#Visibility): (
-            actual = ::TestValueStruct (testObj.GetVisibility())
-            expected = ::TestValueStruct expectedVisibility
-            assert (actual.Equals expected == true)
-          )
-          default: ()
-        )
+  local testNotification
+  fn testNotification context type param = (
+    -- format "testNotification type:% param:%\n" type param
+    case type of (
+      (#AlignmentH): (
+        actual = ::TestValueStruct (testObj.GetAlignmentH())
+        expected = ::TestValueStruct expectedAlignmentH
+        assert (actual.Equals expected == true)
       )
+      (#AlignmentV): (
+        actual = ::TestValueStruct (testObj.GetAlignmentV())
+        expected = ::TestValueStruct expectedAlignmentV
+        assert (actual.Equals expected == true)
+      )
+      (#CaptionMargin): (
+        actual = ::TestValueStruct (testObj.GetCaptionMargin())
+        expected = ::TestValueStruct expectedCaptionMargin
+        assert (actual.Equals expected == true)
+      )
+      (#CaptionPosition): (
+        actual = ::TestValueStruct (testObj.GetCaptionPosition())
+        expected = ::TestValueStruct expectedCaptionPosition
+        assert (actual.Equals expected == true)
+      )
+      (#Control): (
+        actual = ::TestValueStruct (testObj.GetControl())
+        expected = ::TestValueStruct expectedControl
+        assert (actual.Equals expected == true)
+      )
+      (#ExplicitH): (
+        actual = ::TestValueStruct (testObj.GetExplicitH())
+        expected = ::TestValueStruct expectedExplicitH
+        assert (actual.Equals expected == true)
+      )
+      (#ExplicitW): (
+        actual = ::TestValueStruct (testObj.GetExplicitW())
+        expected = ::TestValueStruct expectedExplicitW
+        assert (actual.Equals expected == true)
+      )
+      (#RectUpdated): (
+        actual = ::TestValueStruct (testObj.GetRect())
+        expected = ::TestValueStruct expectedRect
+        assert (actual.Equals expected == true)
+      )
+      (#Visibility): (
+        actual = ::TestValueStruct (testObj.GetVisibility())
+        expected = ::TestValueStruct expectedVisibility
+        assert (actual.Equals expected == true)
+      )
+      default: ()
     )
     ok
   )
@@ -135,7 +131,7 @@
   testDef = ::flexUIDefinitionPool[@"Model\Widget\FlexGroupBoxControlWidget.ms"]
   testObj = testDef()
 
-  testObj.AddObserver (::std.ObserverStruct updateObject testObj)
+  testObj.AddObserver (::std.ObserverStruct testNotification testObj)
   /* Setup End -------------------------------------------------------------- */
   sw.Start()
   /* Test Start ------------------------------------------------------------- */

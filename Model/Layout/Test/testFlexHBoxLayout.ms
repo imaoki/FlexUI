@@ -167,41 +167,37 @@
   local expectedCells = #()
   local expectedVisibility = true
 
-  local updateObject
-  fn updateObject context params type: = (
-    -- format "updateObject params:% type:%\n" params type
-    if classOf params == Array do (
-      for param in params do (
-        case param of (
-          (#LayoutAdded): (
-            actual = ::TestValueStruct (testObj.GetCells())
-            expected = ::TestValueStruct expectedCells
-            assert (actual.Equals expected == true)
-          )
-          (#RectUpdated): ()
-          (#SpaceAdded): (
-            actual = ::TestValueStruct (testObj.GetCells())
-            expected = ::TestValueStruct expectedCells
-            assert (actual.Equals expected == true)
-          )
-          (#StretchAdded): (
-            actual = ::TestValueStruct (testObj.GetCells())
-            expected = ::TestValueStruct expectedCells
-            assert (actual.Equals expected == true)
-          )
-          (#VisibilityChanged): (
-            actual = ::TestValueStruct (testObj.GetVisibility())
-            expected = ::TestValueStruct expectedVisibility
-            assert (actual.Equals expected == true)
-          )
-          (#WidgetAdded): (
-            actual = ::TestValueStruct (testObj.GetCells())
-            expected = ::TestValueStruct expectedCells
-            assert (actual.Equals expected == true)
-          )
-          default: ()
-        )
+  local testNotification
+  fn testNotification context type param = (
+    -- format "testNotification type:% param:%\n" type param
+    case type of (
+      (#LayoutAdded): (
+        actual = ::TestValueStruct (testObj.GetCells())
+        expected = ::TestValueStruct expectedCells
+        assert (actual.Equals expected == true)
       )
+      (#RectUpdated): ()
+      (#SpaceAdded): (
+        actual = ::TestValueStruct (testObj.GetCells())
+        expected = ::TestValueStruct expectedCells
+        assert (actual.Equals expected == true)
+      )
+      (#StretchAdded): (
+        actual = ::TestValueStruct (testObj.GetCells())
+        expected = ::TestValueStruct expectedCells
+        assert (actual.Equals expected == true)
+      )
+      (#VisibilityChanged): (
+        actual = ::TestValueStruct (testObj.GetVisibility())
+        expected = ::TestValueStruct expectedVisibility
+        assert (actual.Equals expected == true)
+      )
+      (#WidgetAdded): (
+        actual = ::TestValueStruct (testObj.GetCells())
+        expected = ::TestValueStruct expectedCells
+        assert (actual.Equals expected == true)
+      )
+      default: ()
     )
     ok
   )
@@ -215,7 +211,7 @@
   testDef = ::flexUIDefinitionPool[@"Model\Layout\FlexHBoxLayout.ms"]
   testObj = testDef()
 
-  testObj.AddObserver (::std.ObserverStruct updateObject testObj)
+  testObj.AddObserver (::std.ObserverStruct testNotification testObj)
   /* Setup End -------------------------------------------------------------- */
   sw.Start()
   /* Test Start ------------------------------------------------------------- */

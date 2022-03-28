@@ -174,67 +174,63 @@
   local expectedRowStretches = #()
   local expectedVisibility = true
 
-  local updateObject
-  fn updateObject context params type: = (
-    -- format "updateObject params:% type:%\n" params type
-    if classOf params == Array do (
-      for param in params do (
-        case param of (
-          (#ColumnFixedLength): (
-            local cells = testObj.GetColumnCells()
-            actual = ::TestValueStruct (for cell in cells collect cell.GetFixedLength())
-            expected = ::TestValueStruct expectedColumnFixedLengths
-            assert (actual.Equals expected == true)
-          )
-          (#ColumnMinimumWidth): (
-            local cells = testObj.GetColumnCells()
-            actual = ::TestValueStruct (for cell in cells collect cell.GetMinimum())
-            expected = ::TestValueStruct expectedColumnMinimumWidths
-            assert (actual.Equals expected == true)
-          )
-          (#ColumnStretch): (
-            local cells = testObj.GetColumnCells()
-            actual = ::TestValueStruct (for cell in cells collect cell.GetStretch())
-            expected = ::TestValueStruct expectedColumnStretches
-            assert (actual.Equals expected == true)
-          )
-          (#LayoutAdded): (
-            actual = ::TestValueStruct (testObj.GetCells())
-            expected = ::TestValueStruct expectedCells
-            assert (actual.Equals expected == true)
-          )
-          (#RectUpdated): ()
-          (#RowFixedLength): (
-            local cells = testObj.GetRowCells()
-            actual = ::TestValueStruct (for cell in cells collect cell.GetFixedLength())
-            expected = ::TestValueStruct expectedRowFixedLengths
-            assert (actual.Equals expected == true)
-          )
-          (#RowMinimumHeight): (
-            local cells = testObj.GetRowCells()
-            actual = ::TestValueStruct (for cell in cells collect cell.GetMinimum())
-            expected = ::TestValueStruct expectedRowMinimumHeights
-            assert (actual.Equals expected == true)
-          )
-          (#RowStretch): (
-            local cells = testObj.GetRowCells()
-            actual = ::TestValueStruct (for cell in cells collect cell.GetStretch())
-            expected = ::TestValueStruct expectedRowStretches
-            assert (actual.Equals expected == true)
-          )
-          (#VisibilityChanged): (
-            actual = ::TestValueStruct (testObj.GetVisibility())
-            expected = ::TestValueStruct expectedVisibility
-            assert (actual.Equals expected == true)
-          )
-          (#WidgetAdded): (
-            actual = ::TestValueStruct (testObj.GetCells())
-            expected = ::TestValueStruct expectedCells
-            assert (actual.Equals expected == true)
-          )
-          default: ()
-        )
+  local testNotification
+  fn testNotification context type param = (
+    -- format "testNotification type:% param:%\n" type param
+    case type of (
+      (#ColumnFixedLength): (
+        local cells = testObj.GetColumnCells()
+        actual = ::TestValueStruct (for cell in cells collect cell.GetFixedLength())
+        expected = ::TestValueStruct expectedColumnFixedLengths
+        assert (actual.Equals expected == true)
       )
+      (#ColumnMinimumWidth): (
+        local cells = testObj.GetColumnCells()
+        actual = ::TestValueStruct (for cell in cells collect cell.GetMinimum())
+        expected = ::TestValueStruct expectedColumnMinimumWidths
+        assert (actual.Equals expected == true)
+      )
+      (#ColumnStretch): (
+        local cells = testObj.GetColumnCells()
+        actual = ::TestValueStruct (for cell in cells collect cell.GetStretch())
+        expected = ::TestValueStruct expectedColumnStretches
+        assert (actual.Equals expected == true)
+      )
+      (#LayoutAdded): (
+        actual = ::TestValueStruct (testObj.GetCells())
+        expected = ::TestValueStruct expectedCells
+        assert (actual.Equals expected == true)
+      )
+      (#RectUpdated): ()
+      (#RowFixedLength): (
+        local cells = testObj.GetRowCells()
+        actual = ::TestValueStruct (for cell in cells collect cell.GetFixedLength())
+        expected = ::TestValueStruct expectedRowFixedLengths
+        assert (actual.Equals expected == true)
+      )
+      (#RowMinimumHeight): (
+        local cells = testObj.GetRowCells()
+        actual = ::TestValueStruct (for cell in cells collect cell.GetMinimum())
+        expected = ::TestValueStruct expectedRowMinimumHeights
+        assert (actual.Equals expected == true)
+      )
+      (#RowStretch): (
+        local cells = testObj.GetRowCells()
+        actual = ::TestValueStruct (for cell in cells collect cell.GetStretch())
+        expected = ::TestValueStruct expectedRowStretches
+        assert (actual.Equals expected == true)
+      )
+      (#VisibilityChanged): (
+        actual = ::TestValueStruct (testObj.GetVisibility())
+        expected = ::TestValueStruct expectedVisibility
+        assert (actual.Equals expected == true)
+      )
+      (#WidgetAdded): (
+        actual = ::TestValueStruct (testObj.GetCells())
+        expected = ::TestValueStruct expectedCells
+        assert (actual.Equals expected == true)
+      )
+      default: ()
     )
     ok
   )
@@ -251,7 +247,7 @@
   testDef = ::flexUIDefinitionPool[@"Model\Layout\FlexGridLayout.ms"]
   testObj = testDef()
 
-  testObj.AddObserver (::std.ObserverStruct updateObject testObj)
+  testObj.AddObserver (::std.ObserverStruct testNotification testObj)
   /* Setup End -------------------------------------------------------------- */
   sw.Start()
   /* Test Start ------------------------------------------------------------- */
