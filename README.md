@@ -1,5 +1,8 @@
 # FlexUI
 
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/imaoki/FlexUI)](https://github.com/imaoki/FlexUI/releases/latest)
+[![GitHub](https://img.shields.io/github/license/imaoki/FlexUI)](https://github.com/imaoki/FlexUI/blob/main/LICENSE)
+
 Framework for flexible placement of rollout controls.
 <!-- ロールアウトコントロールをフレキシブルに配置するためのフレームワーク。 -->
 
