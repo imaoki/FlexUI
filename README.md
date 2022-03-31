@@ -50,9 +50,6 @@ Framework for flexible placement of rollout controls.
 
 * [imaoki/Standard](https://github.com/imaoki/Standard)
 
-  Used for testing and examples only.
-  <!-- テストおよび例でのみ利用。 -->
-
 ## Development Environment
 <!-- 開発環境 -->
 
