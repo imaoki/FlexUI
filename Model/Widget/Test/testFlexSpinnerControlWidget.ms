@@ -26,7 +26,7 @@
   local expectedVisibility = undefined
 
   local testNotification
-  fn testNotification context type param = (
+  fn testNotification type param = (
     -- format "testNotification type:% param:%\n" type param
     case type of (
       (#AlignmentH): (
@@ -131,7 +131,7 @@
   testDef = ::flexUIDefinitionPool[@"Model\Widget\FlexSpinnerControlWidget.ms"]
   testObj = testDef()
 
-  testObj.AddObserver (::std.ObserverStruct testNotification testObj)
+  testObj.StateChanged.Subscribe (::std.ObserverStruct testNotification)
   /* Setup End -------------------------------------------------------------- */
   sw.Start()
   /* Test Start ------------------------------------------------------------- */

@@ -60,7 +60,7 @@ struct FlexGridLayoutStruct (
     if cell.GetType() == #Layout and layout != this then (
       if this.addGrid row column rowSpan columnSpan then (
         append this.cells cell
-        this.notify #LayoutAdded cell
+        this.StateChanged.Notify #LayoutAdded cell
       )
       else (
         cell = undefined
@@ -87,7 +87,7 @@ struct FlexGridLayoutStruct (
     if cell.GetType() == #Widget and this.findWidget widget == 0 then (
       if this.addGrid row column rowSpan columnSpan then (
         append this.cells cell
-        this.notify #WidgetAdded cell
+        this.StateChanged.Notify #WidgetAdded cell
       )
       else (
         cell = undefined
@@ -166,7 +166,7 @@ struct FlexGridLayoutStruct (
       column = column as Integer
       if column > 0 do (
         columnFixedLength = this.columnCells[column].SetFixedLength fixedLength
-        this.notify #ColumnFixedLength columnFixedLength
+        this.StateChanged.Notify #ColumnFixedLength columnFixedLength
       )
     )
     columnFixedLength
@@ -185,7 +185,7 @@ struct FlexGridLayoutStruct (
       column = column as Integer
       if column > 0 and this.isValidStretchCell this.columnCells[column] do (
         columnMinimum = this.columnCells[column].SetMinimum minimum
-        this.notify #ColumnMinimumWidth columnMinimum
+        this.StateChanged.Notify #ColumnMinimumWidth columnMinimum
       )
     )
     columnMinimum
@@ -204,7 +204,7 @@ struct FlexGridLayoutStruct (
       column = column as Integer
       if column > 0 and this.isValidStretchCell this.columnCells[column] do (
         columnStretch = this.columnCells[column].SetStretch stretch
-        this.notify #ColumnStretch columnStretch
+        this.StateChanged.Notify #ColumnStretch columnStretch
       )
     )
     columnStretch
@@ -237,7 +237,7 @@ struct FlexGridLayoutStruct (
       )
       cellRect
     )
-    this.notify #RectUpdated cellRects
+    this.StateChanged.Notify #RectUpdated cellRects
     cellRects
   ),
 
@@ -254,7 +254,7 @@ struct FlexGridLayoutStruct (
       row = row as Integer
       if row > 0 do (
         rowFixedLength = this.rowCells[row].SetFixedLength fixedLength
-        this.notify #RowFixedLength rowFixedLength
+        this.StateChanged.Notify #RowFixedLength rowFixedLength
       )
     )
     rowFixedLength
@@ -273,7 +273,7 @@ struct FlexGridLayoutStruct (
       row = row as Integer
       if row > 0 and this.isValidStretchCell this.rowCells[row] do (
         rowMinimum = this.rowCells[row].SetMinimum minimum
-        this.notify #RowMinimumHeight rowMinimum
+        this.StateChanged.Notify #RowMinimumHeight rowMinimum
       )
     )
     rowMinimum
@@ -292,7 +292,7 @@ struct FlexGridLayoutStruct (
       row = row as Integer
       if row > 0 and this.isValidStretchCell this.rowCells[row] do (
         rowStretch = this.rowCells[row].SetStretch stretch
-        this.notify #RowStretch rowStretch
+        this.StateChanged.Notify #RowStretch rowStretch
       )
     )
     rowStretch
@@ -315,7 +315,7 @@ struct FlexGridLayoutStruct (
           cellItem.SetVisibility input
         )
       )
-      this.notify #VisibilityChanged undefined
+      this.StateChanged.Notify #VisibilityChanged undefined
     )
     this.GetVisibility()
   ),
@@ -678,59 +678,11 @@ struct FlexGridLayoutStruct (
     isEqualStructName and isEqualProperties
   ),
 
-  /*- @prop <Array[<Struct:ObserverStruct>]> */
-  private observers = #(),
-
-  /*-
-  @param observer <Struct:ObserverStruct>
-  @returns <BooleanClass> 成功した場合は`true`、失敗した場合は`false`。
-  */
-  public fn AddObserver observer = (
-    if this.findObserver observer == 0 do (
-      append this.observers observer
-    )
-    this.findObserver observer > 0
-  ),
-
-  /*-
-  @param observer <Struct:ObserverStruct>
-  @returns <BooleanClass> 成功した場合は`true`、失敗した場合は`false`。
-  */
-  public fn RemoveObserver observer = (
-    local index = this.findObserver observer
-    if index > 0 do (
-      deleteItem this.observers index
-    )
-    this.findObserver observer == 0
-  ),
-
-  /*-
-  @param observer <Struct:ObserverStruct>
-  @returns <Integer>
-  */
-  private fn findObserver observer = (
-    local index = 0
-    for i = 1 to this.observers.Count while index == 0 do (
-      if this.observers[i].Equals observer do (
-        index = i
-      )
-    )
-    index
-  ),
-
-  /*-
-  @param type <Name>
-  @param param <Any>
-  @returns <OkClass>
-  */
-  private fn notify type param = (
-    for observer in this.observers do (
-      observer.Callback observer.Context type param
-    )
-    ok
-  ),
+  /*- @prop <Struct:ObservableStruct> */
+  public StateChanged,
 
   on Create do (
+    this.StateChanged = ::std.ObservableStruct()
     if not this.isValidLayoutOptions this.Options do (
       this.Options = (::flexUIDefinitionPool[@"Model\Layout\FlexLayoutOptions.ms"])()
     )

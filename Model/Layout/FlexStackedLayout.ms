@@ -45,7 +45,7 @@ struct FlexStackedLayoutStruct (
     local cell = this.boxCellDef layout
     if cell.GetType() == #Layout and layout != this then (
       this.addCell cell index
-      this.notify #LayoutAdded cell
+      this.StateChanged.Notify #LayoutAdded cell
     )
     else (
       cell = undefined
@@ -65,7 +65,7 @@ struct FlexStackedLayoutStruct (
     local cell = this.boxCellDef widget
     if cell.GetType() == #Widget and this.findWidget widget == 0 then (
       this.addCell cell index
-      this.notify #WidgetAdded cell
+      this.StateChanged.Notify #WidgetAdded cell
     )
     else (
       cell = undefined
@@ -106,7 +106,7 @@ struct FlexStackedLayoutStruct (
     if classOf index == Integer and 0 <= index and index <= this.cells.Count do (
       this.currentIndex = index
       this.updateCellVisibility()
-      this.notify #CurrentIndex this.currentIndex
+      this.StateChanged.Notify #CurrentIndex this.currentIndex
     )
     this.GetCurrentIndex()
   ),
@@ -139,7 +139,7 @@ struct FlexStackedLayoutStruct (
       )
       cellRect
     )
-    this.notify #RectUpdated cellRects
+    this.StateChanged.Notify #RectUpdated cellRects
     cellRects
   ),
 
@@ -153,7 +153,7 @@ struct FlexStackedLayoutStruct (
     if classOf input == BooleanClass do (
       this.visibility = input
       this.updateCellVisibility()
-      this.notify #VisibilityChanged undefined
+      this.StateChanged.Notify #VisibilityChanged undefined
     )
     this.GetVisibility()
   ),
@@ -299,59 +299,11 @@ struct FlexStackedLayoutStruct (
     isEqualStructName and isEqualProperties
   ),
 
-  /*- @prop <Array[<Struct:ObserverStruct>]> */
-  private observers = #(),
-
-  /*-
-  @param observer <Struct:ObserverStruct>
-  @returns <BooleanClass> 成功した場合は`true`、失敗した場合は`false`。
-  */
-  public fn AddObserver observer = (
-    if this.findObserver observer == 0 do (
-      append this.observers observer
-    )
-    this.findObserver observer > 0
-  ),
-
-  /*-
-  @param observer <Struct:ObserverStruct>
-  @returns <BooleanClass> 成功した場合は`true`、失敗した場合は`false`。
-  */
-  public fn RemoveObserver observer = (
-    local index = this.findObserver observer
-    if index > 0 do (
-      deleteItem this.observers index
-    )
-    this.findObserver observer == 0
-  ),
-
-  /*-
-  @param observer <Struct:ObserverStruct>
-  @returns <Integer>
-  */
-  private fn findObserver observer = (
-    local index = 0
-    for i = 1 to this.observers.Count while index == 0 do (
-      if this.observers[i].Equals observer do (
-        index = i
-      )
-    )
-    index
-  ),
-
-  /*-
-  @param type <Name>
-  @param param <Any>
-  @returns <OkClass>
-  */
-  private fn notify type param = (
-    for observer in this.observers do (
-      observer.Callback observer.Context type param
-    )
-    ok
-  ),
+  /*- @prop <Struct:ObservableStruct> */
+  public StateChanged,
 
   on Create do (
+    this.StateChanged = ::std.ObservableStruct()
     if not this.isValidLayoutOptions this.Options do (
       this.Options = (::flexUIDefinitionPool[@"Model\Layout\FlexLayoutOptions.ms"])()
     )

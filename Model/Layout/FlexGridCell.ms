@@ -113,7 +113,7 @@ struct FlexGridCellStruct (
       input = input as Integer
       if input < 1 do input = 1
       this.column = input
-      this.notify #Column this.column
+      this.StateChanged.Notify #Column this.column
     )
     this.GetColumn()
   ),
@@ -129,7 +129,7 @@ struct FlexGridCellStruct (
       input = input as Integer
       if input < 1 do input = 1
       this.columnSpan = input
-      this.notify #ColumnSpan this.columnSpan
+      this.StateChanged.Notify #ColumnSpan this.columnSpan
     )
     this.GetColumnSpan()
   ),
@@ -144,7 +144,7 @@ struct FlexGridCellStruct (
     local itemType = this.typeOf obj
     if classOf itemType == Name do (
       this.item = obj
-      this.notify #Item this.item
+      this.StateChanged.Notify #Item this.item
     )
     this.GetItem()
   ),
@@ -160,7 +160,7 @@ struct FlexGridCellStruct (
       input = input as Integer
       if input < 1 do input = 1
       this.row = input
-      this.notify #Row this.row
+      this.StateChanged.Notify #Row this.row
     )
     this.GetRow()
   ),
@@ -176,7 +176,7 @@ struct FlexGridCellStruct (
       input = input as Integer
       if input < 1 do input = 1
       this.rowSpan = input
-      this.notify #RowSpan this.rowSpan
+      this.StateChanged.Notify #RowSpan this.rowSpan
     )
     this.GetRowSpan()
   ),
@@ -293,59 +293,11 @@ struct FlexGridCellStruct (
     isEqualStructName and isEqualProperties
   ),
 
-  /*- @prop <Array[<Struct:ObserverStruct>]> */
-  private observers = #(),
-
-  /*-
-  @param observer <Struct:ObserverStruct>
-  @returns <BooleanClass> 成功した場合は`true`、失敗した場合は`false`。
-  */
-  public fn AddObserver observer = (
-    if this.findObserver observer == 0 do (
-      append this.observers observer
-    )
-    this.findObserver observer > 0
-  ),
-
-  /*-
-  @param observer <Struct:ObserverStruct>
-  @returns <BooleanClass> 成功した場合は`true`、失敗した場合は`false`。
-  */
-  public fn RemoveObserver observer = (
-    local index = this.findObserver observer
-    if index > 0 do (
-      deleteItem this.observers index
-    )
-    this.findObserver observer == 0
-  ),
-
-  /*-
-  @param observer <Struct:ObserverStruct>
-  @returns <Integer>
-  */
-  private fn findObserver observer = (
-    local index = 0
-    for i = 1 to this.observers.Count while index == 0 do (
-      if this.observers[i].Equals observer do (
-        index = i
-      )
-    )
-    index
-  ),
-
-  /*-
-  @param type <Name>
-  @param param <Any>
-  @returns <OkClass>
-  */
-  private fn notify type param = (
-    for observer in this.observers do (
-      observer.Callback observer.Context type param
-    )
-    ok
-  ),
+  /*- @prop <Struct:ObservableStruct> */
+  public StateChanged,
 
   on Create do (
+    this.StateChanged = ::std.ObservableStruct()
     this.SetItem this._CP1_
     this.SetRow this._CP2_
     this.SetColumn this._CP3_

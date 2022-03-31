@@ -124,7 +124,7 @@ struct FlexLayoutOptionsStruct (
       input = input as Integer
       if input < 0 do input = 0
       this.marginH = input
-      this.notify #MarginH this.marginH
+      this.StateChanged.Notify #MarginH this.marginH
     )
     this.GetMarginH()
   ),
@@ -140,7 +140,7 @@ struct FlexLayoutOptionsStruct (
       input = input as Integer
       if input < 0 do input = 0
       this.marginV = input
-      this.notify #MarginV this.marginV
+      this.StateChanged.Notify #MarginV this.marginV
     )
     this.GetMarginV()
   ),
@@ -174,7 +174,7 @@ struct FlexLayoutOptionsStruct (
       input = input as Integer
       if input < 0 do input = 0
       this.paddingB = input
-      this.notify #PaddingB this.paddingB
+      this.StateChanged.Notify #PaddingB this.paddingB
     )
     this.GetPaddingB()
   ),
@@ -190,7 +190,7 @@ struct FlexLayoutOptionsStruct (
       input = input as Integer
       if input < 0 do input = 0
       this.paddingL = input
-      this.notify #PaddingL this.paddingL
+      this.StateChanged.Notify #PaddingL this.paddingL
     )
     this.GetPaddingL()
   ),
@@ -206,7 +206,7 @@ struct FlexLayoutOptionsStruct (
       input = input as Integer
       if input < 0 do input = 0
       this.paddingR = input
-      this.notify #PaddingR this.paddingR
+      this.StateChanged.Notify #PaddingR this.paddingR
     )
     this.GetPaddingR()
   ),
@@ -222,7 +222,7 @@ struct FlexLayoutOptionsStruct (
       input = input as Integer
       if input < 0 do input = 0
       this.paddingT = input
-      this.notify #PaddingT this.paddingT
+      this.StateChanged.Notify #PaddingT this.paddingT
     )
     this.GetPaddingT()
   ),
@@ -262,59 +262,11 @@ struct FlexLayoutOptionsStruct (
     isEqualStructName and isEqualProperties
   ),
 
-  /*- @prop <Array[<Struct:ObserverStruct>]> */
-  private observers = #(),
-
-  /*-
-  @param observer <Struct:ObserverStruct>
-  @returns <BooleanClass> 成功した場合は`true`、失敗した場合は`false`。
-  */
-  public fn AddObserver observer = (
-    if this.findObserver observer == 0 do (
-      append this.observers observer
-    )
-    this.findObserver observer > 0
-  ),
-
-  /*-
-  @param observer <Struct:ObserverStruct>
-  @returns <BooleanClass> 成功した場合は`true`、失敗した場合は`false`。
-  */
-  public fn RemoveObserver observer = (
-    local index = this.findObserver observer
-    if index > 0 do (
-      deleteItem this.observers index
-    )
-    this.findObserver observer == 0
-  ),
-
-  /*-
-  @param observer <Struct:ObserverStruct>
-  @returns <Integer>
-  */
-  private fn findObserver observer = (
-    local index = 0
-    for i = 1 to this.observers.Count while index == 0 do (
-      if this.observers[i].Equals observer do (
-        index = i
-      )
-    )
-    index
-  ),
-
-  /*-
-  @param type <Name>
-  @param param <Any>
-  @returns <OkClass>
-  */
-  private fn notify type param = (
-    for observer in this.observers do (
-      observer.Callback observer.Context type param
-    )
-    ok
-  ),
+  /*- @prop <Struct:ObservableStruct> */
+  public StateChanged,
 
   on Create do (
+    this.StateChanged = ::std.ObservableStruct()
     this.SetMargin this._CP1_ this._CP2_
     this.SetPadding this._CP3_ this._CP4_ this._CP5_ this._CP6_
   )

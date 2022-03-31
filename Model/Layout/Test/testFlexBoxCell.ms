@@ -112,7 +112,7 @@
   local expectedType = undefined
 
   local testNotification
-  fn testNotification context type param = (
+  fn testNotification type param = (
     -- format "testNotification type:% param:%\n" type param
     case type of (
       (#FixedLength): (
@@ -150,7 +150,7 @@
   testDef = ::flexUIDefinitionPool[@"Model\Layout\FlexBoxCell.ms"]
   testObj = testDef()
 
-  testObj.AddObserver (::std.ObserverStruct testNotification testObj)
+  testObj.StateChanged.Subscribe (::std.ObserverStruct testNotification)
   /* Setup End -------------------------------------------------------------- */
   sw.Start()
   /* Test Start ------------------------------------------------------------- */
@@ -313,7 +313,7 @@
   expectedStretch = 2
   expectedType = #Layout
   testObj = testDef layout 2 10 20
-  testObj.AddObserver (::std.ObserverStruct testNotification testObj)
+  testObj.StateChanged.Subscribe (::std.ObserverStruct testNotification)
   actual = ::TestValueStruct (testObj.GetFixedLength())
   expected = ::TestValueStruct expectedFixedLength
   assert (actual.Equals expected == true)
@@ -336,7 +336,7 @@
   expectedStretch = 2
   expectedType = #Space
   testObj = testDef 5 2 10 20
-  testObj.AddObserver (::std.ObserverStruct testNotification testObj)
+  testObj.StateChanged.Subscribe (::std.ObserverStruct testNotification)
   actual = ::TestValueStruct (testObj.GetFixedLength())
   expected = ::TestValueStruct expectedFixedLength
   assert (actual.Equals expected == true)
@@ -359,7 +359,7 @@
   expectedStretch = 2
   expectedType = #Stretch
   testObj = testDef -1 2 10 20
-  testObj.AddObserver (::std.ObserverStruct testNotification testObj)
+  testObj.StateChanged.Subscribe (::std.ObserverStruct testNotification)
   actual = ::TestValueStruct (testObj.GetFixedLength())
   expected = ::TestValueStruct expectedFixedLength
   assert (actual.Equals expected == true)
@@ -382,7 +382,7 @@
   expectedStretch = 2
   expectedType = #Widget
   testObj = testDef widget 2 10 20
-  testObj.AddObserver (::std.ObserverStruct testNotification testObj)
+  testObj.StateChanged.Subscribe (::std.ObserverStruct testNotification)
   actual = ::TestValueStruct (testObj.GetFixedLength())
   expected = ::TestValueStruct expectedFixedLength
   assert (actual.Equals expected == true)

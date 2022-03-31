@@ -136,7 +136,7 @@
       ok
     )
 
-    fn updateLayout context type param = (
+    fn updateLayout type param = (
       -- format "updateLayout type:% param:%\n" type param
       case type of (
         (#MarginH): updateControl()
@@ -162,7 +162,7 @@
       local containerLayoutOptions = ::flexUI.CreateLayoutOptions()
       containerLayoutOptions.SetMargin 5 5
       containerLayoutOptions.SetPadding 5 5 5 5
-      containerLayoutOptions.AddObserver (::std.ObserverStruct updateLayout containerLayout)
+      containerLayoutOptions.StateChanged.Subscribe (::std.ObserverStruct updateLayout)
       SpnMarginH.Value = containerLayoutOptions.GetMarginH()
       SpnMarginV.Value = containerLayoutOptions.GetMarginV()
       SpnPaddingT.Value = containerLayoutOptions.GetPaddingT()

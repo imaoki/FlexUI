@@ -168,7 +168,7 @@
   local expectedVisibility = true
 
   local testNotification
-  fn testNotification context type param = (
+  fn testNotification type param = (
     -- format "testNotification type:% param:%\n" type param
     case type of (
       (#LayoutAdded): (
@@ -211,7 +211,7 @@
   testDef = ::flexUIDefinitionPool[@"Model\Layout\FlexHBoxLayout.ms"]
   testObj = testDef()
 
-  testObj.AddObserver (::std.ObserverStruct testNotification testObj)
+  testObj.StateChanged.Subscribe (::std.ObserverStruct testNotification)
   /* Setup End -------------------------------------------------------------- */
   sw.Start()
   /* Test Start ------------------------------------------------------------- */

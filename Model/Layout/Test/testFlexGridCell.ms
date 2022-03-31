@@ -113,7 +113,7 @@
   local expectedType = undefined
 
   local testNotification
-  fn testNotification context type param = (
+  fn testNotification type param = (
     -- format "testNotification type:% param:%\n" type param
     case type of (
       (#Column): (
@@ -156,7 +156,7 @@
   testDef = ::flexUIDefinitionPool[@"Model\Layout\FlexGridCell.ms"]
   testObj = testDef()
 
-  testObj.AddObserver (::std.ObserverStruct testNotification testObj)
+  testObj.StateChanged.Subscribe (::std.ObserverStruct testNotification)
   /* Setup End -------------------------------------------------------------- */
   sw.Start()
   /* Test Start ------------------------------------------------------------- */
@@ -335,7 +335,7 @@
   local expectedRowSpan = 3
   local expectedType = #Layout
   testObj = testDef layout 1 2 3 4
-  testObj.AddObserver (::std.ObserverStruct testNotification testObj)
+  testObj.StateChanged.Subscribe (::std.ObserverStruct testNotification)
   actual = ::TestValueStruct (testObj.GetColumn())
   expected = ::TestValueStruct expectedColumn
   assert (actual.Equals expected == true)
@@ -362,7 +362,7 @@
   local expectedRowSpan = 3
   local expectedType = #Widget
   testObj = testDef widget 1 2 3 4
-  testObj.AddObserver (::std.ObserverStruct testNotification testObj)
+  testObj.StateChanged.Subscribe (::std.ObserverStruct testNotification)
   actual = ::TestValueStruct (testObj.GetColumn())
   expected = ::TestValueStruct expectedColumn
   assert (actual.Equals expected == true)

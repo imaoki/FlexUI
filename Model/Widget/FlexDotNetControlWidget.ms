@@ -273,7 +273,7 @@ struct FlexDotNetControlWidgetStruct (
     local validValues = #(#Left, #Center, #Right)
     if findItem validValues input > 0 do (
       this.alignmentH = input
-      this.notify #AlignmentH this.alignmentH
+      this.StateChanged.Notify #AlignmentH this.alignmentH
     )
     this.GetAlignmentH()
   ),
@@ -293,7 +293,7 @@ struct FlexDotNetControlWidgetStruct (
     local validValues = #(#Top, #Center, #Bottom)
     if findItem validValues input > 0 do (
       this.alignmentV = input
-      this.notify #AlignmentV this.alignmentV
+      this.StateChanged.Notify #AlignmentV this.alignmentV
     )
     this.GetAlignmentV()
   ),
@@ -309,7 +309,7 @@ struct FlexDotNetControlWidgetStruct (
       input = input as Integer
       if input < 0 do input = 0
       this.captionMargin = input
-      this.notify #CaptionMargin this.captionMargin
+      this.StateChanged.Notify #CaptionMargin this.captionMargin
     )
     this.GetCaptionMargin()
   ),
@@ -328,7 +328,7 @@ struct FlexDotNetControlWidgetStruct (
     local validValues = #(#Left, #Top)
     if findItem validValues input > 0 do (
       this.captionPosition = input
-      this.notify #CaptionPosition this.captionPosition
+      this.StateChanged.Notify #CaptionPosition this.captionPosition
     )
     this.GetCaptionPosition()
   ),
@@ -342,7 +342,7 @@ struct FlexDotNetControlWidgetStruct (
   public fn SetControl obj = (
     if this.isValidControl obj do (
       this.control = obj
-      this.notify #Control this.control
+      this.StateChanged.Notify #Control this.control
     )
     this.GetControl()
   ),
@@ -356,14 +356,14 @@ struct FlexDotNetControlWidgetStruct (
   public fn SetExplicitH input = (
     if classOf input == UndefinedClass then (
       this.explicitH = input
-      this.notify #ExplicitH this.explicitH
+      this.StateChanged.Notify #ExplicitH this.explicitH
     )
     else (
       if superClassOf input == Number do (
         input = input as Integer
         if input < 0 do input = 0
         this.explicitH = input
-        this.notify #ExplicitH this.explicitH
+        this.StateChanged.Notify #ExplicitH this.explicitH
       )
     )
     this.GetExplicitH()
@@ -378,14 +378,14 @@ struct FlexDotNetControlWidgetStruct (
   public fn SetExplicitW input = (
     if classOf input == UndefinedClass then (
       this.explicitW = input
-      this.notify #ExplicitW this.explicitW
+      this.StateChanged.Notify #ExplicitW this.explicitW
     )
     else (
       if superClassOf input == Number do (
         input = input as Integer
         if input < 0 do input = 0
         this.explicitW = input
-        this.notify #ExplicitW this.explicitW
+        this.StateChanged.Notify #ExplicitW this.explicitW
       )
     )
     this.GetExplicitW()
@@ -449,7 +449,7 @@ struct FlexDotNetControlWidgetStruct (
           this.control.Pos = [x, y]
           this.control.Width = w
           this.control.Height = h
-          this.notify #RectUpdated undefined
+          this.StateChanged.Notify #RectUpdated undefined
         )
         else (
           this.control.Pos = [-10, -10]
@@ -470,7 +470,7 @@ struct FlexDotNetControlWidgetStruct (
   public fn SetVisibility input = (
     if classOf input == BooleanClass and this.isValidControl this.control do (
       this.control.Visible = input
-      this.notify #Visibility this.control.Visible
+      this.StateChanged.Notify #Visibility this.control.Visible
       this.SetRect this.lastRect
     )
     this.GetVisibility()
@@ -608,59 +608,11 @@ struct FlexDotNetControlWidgetStruct (
     isEqualStructName and isEqualProperties
   ),
 
-  /*- @prop <Array[<Struct:ObserverStruct>]> */
-  private observers = #(),
-
-  /*-
-  @param observer <Struct:ObserverStruct>
-  @returns <BooleanClass> 成功した場合は`true`、失敗した場合は`false`。
-  */
-  public fn AddObserver observer = (
-    if this.findObserver observer == 0 do (
-      append this.observers observer
-    )
-    this.findObserver observer > 0
-  ),
-
-  /*-
-  @param observer <Struct:ObserverStruct>
-  @returns <BooleanClass> 成功した場合は`true`、失敗した場合は`false`。
-  */
-  public fn RemoveObserver observer = (
-    local index = this.findObserver observer
-    if index > 0 do (
-      deleteItem this.observers index
-    )
-    this.findObserver observer == 0
-  ),
-
-  /*-
-  @param observer <Struct:ObserverStruct>
-  @returns <Integer>
-  */
-  private fn findObserver observer = (
-    local index = 0
-    for i = 1 to this.observers.Count while index == 0 do (
-      if this.observers[i].Equals observer do (
-        index = i
-      )
-    )
-    index
-  ),
-
-  /*-
-  @param type <Name>
-  @param param <Any>
-  @returns <OkClass>
-  */
-  private fn notify type param = (
-    for observer in this.observers do (
-      observer.Callback observer.Context type param
-    )
-    ok
-  ),
+  /*- @prop <Struct:ObservableStruct> */
+  public StateChanged,
 
   on Create do (
+    this.StateChanged = ::std.ObservableStruct()
     this.SetControl this._CP1_
   )
 )

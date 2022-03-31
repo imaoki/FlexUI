@@ -1,4 +1,23 @@
 /*! © 2022 imaoki | MIT License | https://github.com/imaoki */
+(
+  local hasMetRequirements
+  fn hasMetRequirements = (
+    isStruct ::std \
+        and isProperty ::std #StructName \
+        and classOf ::std.StructName == MAXScriptFunction \
+        and ::std.StructName() == #StandardStruct
+  )
+  if not hasMetRequirements() do (
+    local fileClass = DotNetClass "System.IO.File"
+    local pathClass = DotNetClass "System.IO.Path"
+    local currentDir = pathClass.GetDirectoryName (getSourceFileName())
+    local standardFile = currentDir + @"\Standard.min.ms"
+    if fileClass.Exists standardFile do fileIn standardFile
+  )
+  if not hasMetRequirements() do (
+    format "[error]Requirement not met.\n"
+  )
+)
 fileIn @"definitionPool.ms"
 /*- @var <Struct:FlexUIStruct> */
 global flexUI
@@ -222,7 +241,7 @@ struct FlexUIStruct (
   ),
 
   /*- @prop <String> バージョン番号。メジャー、マイナー、パッチの順。 */
-  private version = "2.1.0",
+  private version = "2.2.1",
 
   /*- @returns <Name> */
   public fn StructName = #FlexUIStruct,

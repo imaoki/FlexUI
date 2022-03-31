@@ -133,7 +133,7 @@
       ok
     )
 
-    fn updateWidget context type param = (
+    fn updateWidget type param = (
       -- format "updateWidget type:% param:%\n" type param
       case type of (
         (#AlignmentH): updateControl()
@@ -161,7 +161,7 @@
     on CkbxVisibility Changed state do setVisibility()
     on RltTest Open do (
       widget = ::flexUI.CreateWidget Rdbtn
-      widget.AddObserver (::std.ObserverStruct updateWidget widget)
+      widget.StateChanged.Subscribe (::std.ObserverStruct updateWidget)
       RdbtnAlignmentH.State = findItem #(#Left, #Center, #Right) (widget.GetAlignmentH())
       RdbtnAlignmentV.State = findItem #(#Top, #Center, #Bottom) (widget.GetAlignmentV())
       RdbtnPosition.State = findItem #(#Left, #Top) (widget.GetCaptionPosition())

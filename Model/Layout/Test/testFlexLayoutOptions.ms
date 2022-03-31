@@ -23,7 +23,7 @@
   local expectedPaddingT = 0
 
   local testNotification
-  fn testNotification context type param = (
+  fn testNotification type param = (
     -- format "testNotification type:% param:%\n" type param
     case type of (
       (#MarginH): (
@@ -65,7 +65,7 @@
   testDef = ::flexUIDefinitionPool[@"Model\Layout\FlexLayoutOptions.ms"]
   testObj = testDef()
 
-  testObj.AddObserver (::std.ObserverStruct testNotification testObj)
+  testObj.StateChanged.Subscribe (::std.ObserverStruct testNotification)
   /* Setup End -------------------------------------------------------------- */
   sw.Start()
   /* Test Start ------------------------------------------------------------- */

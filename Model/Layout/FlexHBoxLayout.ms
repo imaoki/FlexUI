@@ -42,7 +42,7 @@ struct FlexHBoxLayoutStruct (
     local cell = this.boxCellDef layout stretch minimum fixedLength
     if cell.GetType() == #Layout and layout != this then (
       append this.cells cell
-      this.notify #LayoutAdded cell
+      this.StateChanged.Notify #LayoutAdded cell
     )
     else (
       cell = undefined
@@ -60,7 +60,7 @@ struct FlexHBoxLayoutStruct (
     local cell = this.boxCellDef input
     if cell.GetType() == #Space then (
       append this.cells cell
-      this.notify #SpaceAdded cell
+      this.StateChanged.Notify #SpaceAdded cell
     )
     else (
       cell = undefined
@@ -78,7 +78,7 @@ struct FlexHBoxLayoutStruct (
     local cell = this.boxCellDef -1 stretch
     if cell.GetType() == #Stretch then (
       append this.cells cell
-      this.notify #StretchAdded cell
+      this.StateChanged.Notify #StretchAdded cell
     )
     else (
       cell = undefined
@@ -100,7 +100,7 @@ struct FlexHBoxLayoutStruct (
     local cell = this.boxCellDef widget stretch minimum fixedLength
     if cell.GetType() == #Widget and this.findWidget widget == 0 then (
       append this.cells cell
-      this.notify #WidgetAdded cell
+      this.StateChanged.Notify #WidgetAdded cell
     )
     else (
       cell = undefined
@@ -250,7 +250,7 @@ struct FlexHBoxLayoutStruct (
       cellX += cellW
       cellRect
     )
-    this.notify #RectUpdated cellRects
+    this.StateChanged.Notify #RectUpdated cellRects
     cellRects
   ),
 
@@ -271,7 +271,7 @@ struct FlexHBoxLayoutStruct (
           cellItem.SetVisibility input
         )
       )
-      this.notify #VisibilityChanged undefined
+      this.StateChanged.Notify #VisibilityChanged undefined
     )
     this.GetVisibility()
   ),
@@ -372,59 +372,11 @@ struct FlexHBoxLayoutStruct (
     isEqualStructName and isEqualProperties
   ),
 
-  /*- @prop <Array[<Struct:ObserverStruct>]> */
-  private observers = #(),
-
-  /*-
-  @param observer <Struct:ObserverStruct>
-  @returns <BooleanClass> 成功した場合は`true`、失敗した場合は`false`。
-  */
-  public fn AddObserver observer = (
-    if this.findObserver observer == 0 do (
-      append this.observers observer
-    )
-    this.findObserver observer > 0
-  ),
-
-  /*-
-  @param observer <Struct:ObserverStruct>
-  @returns <BooleanClass> 成功した場合は`true`、失敗した場合は`false`。
-  */
-  public fn RemoveObserver observer = (
-    local index = this.findObserver observer
-    if index > 0 do (
-      deleteItem this.observers index
-    )
-    this.findObserver observer == 0
-  ),
-
-  /*-
-  @param observer <Struct:ObserverStruct>
-  @returns <Integer>
-  */
-  private fn findObserver observer = (
-    local index = 0
-    for i = 1 to this.observers.Count while index == 0 do (
-      if this.observers[i].Equals observer do (
-        index = i
-      )
-    )
-    index
-  ),
-
-  /*-
-  @param type <Name>
-  @param param <Any>
-  @returns <OkClass>
-  */
-  private fn notify type param = (
-    for observer in this.observers do (
-      observer.Callback observer.Context type param
-    )
-    ok
-  ),
+  /*- @prop <Struct:ObservableStruct> */
+  public StateChanged,
 
   on Create do (
+    this.StateChanged = ::std.ObservableStruct()
     if not this.isValidLayoutOptions this.Options do (
       this.Options = (::flexUIDefinitionPool[@"Model\Layout\FlexLayoutOptions.ms"])()
     )

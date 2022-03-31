@@ -96,7 +96,7 @@
     --   ok
     -- )
 
-    -- fn updateLayout context type param = (
+    -- fn updateLayout type param = (
     --   -- format "updateLayout type:% param:%\n" type param
     --   case type of (
     --     (#MarginH): updateControl()
@@ -122,7 +122,7 @@
       layout = ::flexUI.CreateGroupLayout groupBoxWidget
       -- layout.Options.SetMargin 5 5
       -- layout.Options.SetPadding 5 5 5 5
-      -- layout.Options.AddObserver (::std.ObserverStruct updateLayout layout)
+      -- layout.Options.StateChanged.Subscribe (::std.ObserverStruct updateLayout)
       -- SpnMarginH.Value = layout.Options.GetMarginH()
       -- SpnMarginV.Value = layout.Options.GetMarginV()
       -- SpnPaddingT.Value = layout.Options.GetPaddingT()
