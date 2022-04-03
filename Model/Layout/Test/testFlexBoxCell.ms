@@ -150,7 +150,7 @@
   testDef = ::flexUIDefinitionPool[@"Model\Layout\FlexBoxCell.ms"]
   testObj = testDef()
 
-  testObj.StateChanged.Subscribe (::std.ObserverStruct testNotification)
+  testObj.StateChanged.Subscribe testNotification
   /* Setup End -------------------------------------------------------------- */
   sw.Start()
   /* Test Start ------------------------------------------------------------- */
@@ -313,7 +313,7 @@
   expectedStretch = 2
   expectedType = #Layout
   testObj = testDef layout 2 10 20
-  testObj.StateChanged.Subscribe (::std.ObserverStruct testNotification)
+  testObj.StateChanged.Subscribe testNotification
   actual = ::TestValueStruct (testObj.GetFixedLength())
   expected = ::TestValueStruct expectedFixedLength
   assert (actual.Equals expected == true)
@@ -336,7 +336,7 @@
   expectedStretch = 2
   expectedType = #Space
   testObj = testDef 5 2 10 20
-  testObj.StateChanged.Subscribe (::std.ObserverStruct testNotification)
+  testObj.StateChanged.Subscribe testNotification
   actual = ::TestValueStruct (testObj.GetFixedLength())
   expected = ::TestValueStruct expectedFixedLength
   assert (actual.Equals expected == true)
@@ -359,7 +359,7 @@
   expectedStretch = 2
   expectedType = #Stretch
   testObj = testDef -1 2 10 20
-  testObj.StateChanged.Subscribe (::std.ObserverStruct testNotification)
+  testObj.StateChanged.Subscribe testNotification
   actual = ::TestValueStruct (testObj.GetFixedLength())
   expected = ::TestValueStruct expectedFixedLength
   assert (actual.Equals expected == true)
@@ -382,7 +382,7 @@
   expectedStretch = 2
   expectedType = #Widget
   testObj = testDef widget 2 10 20
-  testObj.StateChanged.Subscribe (::std.ObserverStruct testNotification)
+  testObj.StateChanged.Subscribe testNotification
   actual = ::TestValueStruct (testObj.GetFixedLength())
   expected = ::TestValueStruct expectedFixedLength
   assert (actual.Equals expected == true)

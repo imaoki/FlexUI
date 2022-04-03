@@ -130,7 +130,7 @@
       layout = ::flexUI.CreateGridLayout()
       layout.Options.SetMargin 5 5
       layout.Options.SetPadding 5 5 5 5
-      layout.Options.StateChanged.Subscribe (::std.ObserverStruct updateLayout)
+      layout.Options.StateChanged.Subscribe updateLayout
       SpnMarginH.Value = layout.Options.GetMarginH()
       SpnMarginV.Value = layout.Options.GetMarginV()
       SpnPaddingT.Value = layout.Options.GetPaddingT()

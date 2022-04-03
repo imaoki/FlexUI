@@ -160,7 +160,7 @@
     on CkbxVisibility Changed state do setVisibility()
     on RltTest Open do (
       widget = ::flexUI.CreateWidget Ckbtn
-      widget.StateChanged.Subscribe (::std.ObserverStruct updateWidget)
+      widget.StateChanged.Subscribe updateWidget
       RdbtnAlignmentH.State = findItem #(#Left, #Center, #Right) (widget.GetAlignmentH())
       RdbtnAlignmentV.State = findItem #(#Top, #Center, #Bottom) (widget.GetAlignmentV())
       RdbtnPosition.State = findItem #(#Left, #Top) (widget.GetCaptionPosition())

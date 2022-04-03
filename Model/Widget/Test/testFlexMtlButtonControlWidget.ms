@@ -131,7 +131,7 @@
   testDef = ::flexUIDefinitionPool[@"Model\Widget\FlexMtlButtonControlWidget.ms"]
   testObj = testDef()
 
-  testObj.StateChanged.Subscribe (::std.ObserverStruct testNotification)
+  testObj.StateChanged.Subscribe testNotification
   /* Setup End -------------------------------------------------------------- */
   sw.Start()
   /* Test Start ------------------------------------------------------------- */

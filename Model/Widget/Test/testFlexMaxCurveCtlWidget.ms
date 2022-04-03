@@ -140,7 +140,7 @@
   testDef = ::flexUIDefinitionPool[@"Model\Widget\FlexMaxCurveCtlWidget.ms"]
   testObj = testDef()
 
-  testObj.StateChanged.Subscribe (::std.ObserverStruct testNotification)
+  testObj.StateChanged.Subscribe testNotification
 
   /* プロパティテスト用UI表示 */
   createDialog RltPropertyTest 160 160 \

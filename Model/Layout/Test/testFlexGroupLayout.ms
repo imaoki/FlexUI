@@ -216,7 +216,7 @@
   testDef = ::flexUIDefinitionPool[@"Model\Layout\FlexGroupLayout.ms"]
   testObj = testDef()
 
-  testObj.StateChanged.Subscribe (::std.ObserverStruct testNotification)
+  testObj.StateChanged.Subscribe testNotification
   /* Setup End -------------------------------------------------------------- */
   sw.Start()
   /* Test Start ------------------------------------------------------------- */
