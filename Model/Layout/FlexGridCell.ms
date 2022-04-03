@@ -6,6 +6,15 @@
 ```maxscript
 ::FlexGridCellStruct item row column rowSpan columnSpan
 ```
+
+通知
+:   | 通知名        | 通知データ           | タイミング               |
+    | ------------- | -------------------- | ------------------------ |
+    | `#Column`     | 新たな`column`値     | `column`を設定した後     |
+    | `#ColumnSpan` | 新たな`columnSpan`値 | `columnSpan`を設定した後 |
+    | `#Item`       | 新たな`item`値       | `item`を設定した後       |
+    | `#Row`        | 新たな`row`値        | `row`を設定した後        |
+    | `#RowSpan`    | 新たな`rowSpan`値    | `rowSpan`を設定した後    |
 */
 struct FlexGridCellStruct (
   /*- @prop <Struct> 作成パラメータ1。セルのアイテム。既定値は`undefined`。 */

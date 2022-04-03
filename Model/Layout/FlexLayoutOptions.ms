@@ -6,6 +6,16 @@
 ```maxscript
 ::FlexLayoutOptionsStruct marginH marginV paddingT paddingR paddingB paddingL
 ```
+
+通知
+:   | 通知名      | 通知データ         | タイミング             |
+    | ----------- | ------------------ | ---------------------- |
+    | `#MarginH`  | 新たな`marginH`値  | `marginH`を設定した後  |
+    | `#MarginV`  | 新たな`marginV`値  | `marginV`を設定した後  |
+    | `#PaddingB` | 新たな`paddingB`値 | `paddingB`を設定した後 |
+    | `#PaddingL` | 新たな`paddingL`値 | `paddingL`を設定した後 |
+    | `#PaddingR` | 新たな`paddingR`値 | `paddingR`を設定した後 |
+    | `#PaddingT` | 新たな`paddingT`値 | `paddingT`を設定した後 |
 */
 struct FlexLayoutOptionsStruct (
   /*- @prop <Integer> 作成パラメータ1。セル間の水平方向の余白。既定値は`0`。 */

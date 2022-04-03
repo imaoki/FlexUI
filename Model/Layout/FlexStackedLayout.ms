@@ -1,6 +1,15 @@
 /*! © 2022 imaoki | MIT License | https://github.com/imaoki */
 /*-
 登録されたアイテムの内一つのみを表示する。
+
+通知
+:   | 通知名               | 通知データ                   | タイミング                         |
+    | -------------------- | ---------------------------- | ---------------------------------- |
+    | `#CurrentIndex`      | 新たな`currentIndex`値       | `currentIndex`を設定した後         |
+    | `#LayoutAdded`       | 追加したセル                 | レイアウトを追加した後             |
+    | `#RectUpdated`       | 各セルの矩形                 | レイアウトの矩形を設定した後       |
+    | `#VisibilityChanged` | 新たなセルのアイテムの可視性 | セルのアイテムの可視性を設定した後 |
+    | `#WidgetAdded`       | 追加したセル                 | ウィジェットを追加した後           |
 */
 struct FlexStackedLayoutStruct (
   /*- @prop <Struct:FlexLayoutOptionsStruct> 既定値は`undefined`。未指定の場合は既定値で作成される。 */

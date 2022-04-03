@@ -10,6 +10,19 @@
 03. `explicitH`および`explicitW`がそれぞれ`0`以上の場合は適用
 
 04. `minH`および`minW`を適用
+
+通知
+:   | 通知名               | 通知データ                   | タイミング                         |
+    | -------------------- | ---------------------------- | ---------------------------------- |
+    | `#AlignmentH`        | 新たな`alignmentH`値         | `alignmentH`を設定した後           |
+    | `#AlignmentV`        | 新たな`alignmentV`値         | `alignmentV`を設定した後           |
+    | `#CaptionMargin`     | 新たな`captionMargin`値      | `captionMargin`を設定した後        |
+    | `#CaptionPosition`   | 新たな`captionPosition`値    | `captionPosition`を設定した後      |
+    | `#Control`           | 新たな`control`値            | `control`を設定した後              |
+    | `#ExplicitH`         | 新たな`explicitH`値          | `explicitH`を設定した後            |
+    | `#ExplicitW`         | 新たな`explicitW`値          | `explicitW`を設定した後            |
+    | `#RectUpdated`       | 各セルの矩形                 | レイアウトの矩形を設定した後       |
+    | `#VisibilityChanged` | 新たなセルのアイテムの可視性 | セルのアイテムの可視性を設定した後 |
 */
 struct FlexCheckButtonControlWidgetStruct (
   /*- @prop <CheckButtonControl> 作成パラメータ1。ロールアウトコントロール。既定値は`undefined`。 */

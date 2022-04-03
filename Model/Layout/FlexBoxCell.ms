@@ -6,6 +6,14 @@
 ```maxscript
 ::FlexBoxCellStruct item stretch minimum fixedLength
 ```
+
+通知
+:   | 通知名         | 通知データ            | タイミング                |
+    | -------------- | --------------------- | ------------------------- |
+    | `#FixedLength` | 新たな`fixedLength`値 | `fixedLength`を設定した後 |
+    | `#Item`        | 新たな`item`値        | `item`を設定した後        |
+    | `#Minimum`     | 新たな`minimum`値     | `minimum`を設定した後     |
+    | `#Stretch`     | 新たな`stretch`値     | `stretch`を設定した後     |
 */
 struct FlexBoxCellStruct (
   /*- @prop <Struct|Integer> 作成パラメータ1。セルのアイテム。既定値は`undefined`。 */
