@@ -104,7 +104,7 @@ struct FlexBoxCellStruct (
   セルの固定長を設定する。
   @param input <Integer|UndefinedClass> `1`以上の整数、または`undefined`。
   @returns <Integer|UndefinedClass>
-  @remarks 無効な値を指定した場合は何もしない。
+  @remarks 無効な値の場合は何もしない。
   */
   public fn SetFixedLength input = (
     if classOf input == UndefinedClass then (
@@ -126,7 +126,7 @@ struct FlexBoxCellStruct (
   セルのアイテムを設定する。
   @param obj <Struct|Integer>
   @returns <Struct|Integer>
-  @remarks 無効な値を指定した場合は何もしない。
+  @remarks 無効な値の場合は何もしない。
   */
   public fn SetItem obj = (
     local itemType = this.typeOf obj
@@ -141,7 +141,7 @@ struct FlexBoxCellStruct (
   セルの最小値を設定する。
   @param input <Integer> `1`以上の整数。
   @returns <Integer>
-  @remarks 無効な値を指定した場合は何もしない。
+  @remarks 無効な値の場合は何もしない。
   */
   public fn SetMinimum input = (
     if superClassOf input == Number do (
@@ -157,7 +157,7 @@ struct FlexBoxCellStruct (
   セルのストレッチ係数を設定する。
   @param input <Integer> `1`以上の整数。
   @returns <Integer>
-  @remarks 無効な値を指定した場合は何もしない。
+  @remarks 無効な値の場合は何もしない。
   */
   public fn SetStretch input = (
     if superClassOf input == Number do (

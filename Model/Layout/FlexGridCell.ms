@@ -115,7 +115,7 @@ struct FlexGridCellStruct (
   セルを配置する列を設定する。
   @param input <Integer> `1`以上の整数。
   @returns <Integer>
-  @remarks 無効な値を指定した場合は何もしない。
+  @remarks 無効な値の場合は何もしない。
   */
   public fn SetColumn input = (
     if superClassOf input == Number do (
@@ -131,7 +131,7 @@ struct FlexGridCellStruct (
   セルが専有する列数を設定する。
   @param input <Integer> `1`以上の整数。
   @returns <Integer>
-  @remarks 無効な値を指定した場合は何もしない。
+  @remarks 無効な値の場合は何もしない。
   */
   public fn SetColumnSpan input = (
     if superClassOf input == Number do (
@@ -147,7 +147,7 @@ struct FlexGridCellStruct (
   セルのアイテムを設定する。
   @param obj <Struct>
   @returns <Struct>
-  @remarks 無効な値を指定した場合は何もしない。
+  @remarks 無効な値の場合は何もしない。
   */
   public fn SetItem obj = (
     local itemType = this.typeOf obj
@@ -162,7 +162,7 @@ struct FlexGridCellStruct (
   セルを配置する行を設定する。
   @param input <Integer> `1`以上の整数。
   @returns <Integer>
-  @remarks 無効な値を指定した場合は何もしない。
+  @remarks 無効な値の場合は何もしない。
   */
   public fn SetRow input = (
     if superClassOf input == Number do (
@@ -178,7 +178,7 @@ struct FlexGridCellStruct (
   セルが専有する行数を設定する。
   @param input <Integer> `1`以上の整数。
   @returns <Integer>
-  @remarks 無効な値を指定した場合は何もしない。
+  @remarks 無効な値の場合は何もしない。
   */
   public fn SetRowSpan input = (
     if superClassOf input == Number do (

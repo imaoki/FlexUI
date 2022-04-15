@@ -114,7 +114,7 @@ struct FlexLayoutOptionsStruct (
   @param inputH <Integer> 水平方向の余白。`0`以上の整数。
   @param inputV <Integer> 垂直方向の余白。`0`以上の整数。
   @returns <Array[<Integer>]>
-  @remarks 無効な値を指定した場合は何もしない。
+  @remarks 無効な値の場合は何もしない。
   */
   public fn SetMargin inputH inputV = (
     #(
@@ -127,7 +127,7 @@ struct FlexLayoutOptionsStruct (
   セル間の水平方向の余白を設定する。
   @param input <Integer> `0`以上の整数。
   @returns <Integer>
-  @remarks 無効な値を指定した場合は何もしない。
+  @remarks 無効な値の場合は何もしない。
   */
   public fn SetMarginH input = (
     if superClassOf input == Number do (
@@ -143,7 +143,7 @@ struct FlexLayoutOptionsStruct (
   セル間の垂直方向の余白を設定する。
   @param input <Integer> `0`以上の整数。
   @returns <Integer>
-  @remarks 無効な値を指定した場合は何もしない。
+  @remarks 無効な値の場合は何もしない。
   */
   public fn SetMarginV input = (
     if superClassOf input == Number do (
@@ -162,7 +162,7 @@ struct FlexLayoutOptionsStruct (
   @param inputB <Integer> 下側の余白。`0`以上の整数。
   @param inputL <Integer> 左側の余白。`0`以上の整数。
   @returns <Array[<Integer>]>
-  @remarks 無効な値を指定した場合は何もしない。
+  @remarks 無効な値の場合は何もしない。
   */
   public fn SetPadding inputT inputR inputB inputL = (
     #(
@@ -177,7 +177,7 @@ struct FlexLayoutOptionsStruct (
   レイアウト外周の下側の余白を設定する。
   @param input <Integer> `0`以上の整数。
   @returns <Integer>
-  @remarks 無効な値を指定した場合は何もしない。
+  @remarks 無効な値の場合は何もしない。
   */
   public fn SetPaddingB input = (
     if superClassOf input == Number do (
@@ -193,7 +193,7 @@ struct FlexLayoutOptionsStruct (
   レイアウト外周の左側の余白を設定する。
   @param input <Integer> `0`以上の整数。
   @returns <Integer>
-  @remarks 無効な値を指定した場合は何もしない。
+  @remarks 無効な値の場合は何もしない。
   */
   public fn SetPaddingL input = (
     if superClassOf input == Number do (
@@ -209,7 +209,7 @@ struct FlexLayoutOptionsStruct (
   レイアウト外周の右側の余白を設定する。
   @param input <Integer> `0`以上の整数。
   @returns <Integer>
-  @remarks 無効な値を指定した場合は何もしない。
+  @remarks 無効な値の場合は何もしない。
   */
   public fn SetPaddingR input = (
     if superClassOf input == Number do (
@@ -225,7 +225,7 @@ struct FlexLayoutOptionsStruct (
   レイアウト外周の上側の余白を設定する。
   @param input <Integer> `0`以上の整数。
   @returns <Integer>
-  @remarks 無効な値を指定した場合は何もしない。
+  @remarks 無効な値の場合は何もしない。
   */
   public fn SetPaddingT input = (
     if superClassOf input == Number do (

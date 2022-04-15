@@ -172,7 +172,7 @@ struct FlexGridLayoutStruct (
   @param column <Integer> 対象の列。`1`以上の整数。
   @param fixedLength <Integer|UndefinedClass> 固定幅。`1`以上の整数、または`undefined`。
   @returns <Integer|UndefinedClass>
-  @remarks 無効な値を指定した場合は何もしない。
+  @remarks 無効な値の場合は何もしない。
   */
   public fn SetColumnFixedLength column fixedLength = (
     local columnFixedLength = undefined
@@ -191,7 +191,7 @@ struct FlexGridLayoutStruct (
   @param column <Integer> 対象の列。`1`以上の整数。
   @param minimum <Integer> 最小幅。`1`以上の整数。
   @returns <Integer|UndefinedClass>
-  @remarks 無効な値を指定した場合は何もしない。
+  @remarks 無効な値の場合は何もしない。
   */
   public fn SetColumnMinimumWidth column minimum = (
     local columnMinimum = undefined
@@ -210,7 +210,7 @@ struct FlexGridLayoutStruct (
   @param column <Integer> 対象の列。`1`以上の整数。
   @param stretch <Integer> ストレッチ係数。`1`以上の整数。
   @returns <Integer|UndefinedClass>
-  @remarks 無効な値を指定した場合は何もしない。
+  @remarks 無効な値の場合は何もしない。
   */
   public fn SetColumnStretch column stretch = (
     local columnStretch = undefined
@@ -260,7 +260,7 @@ struct FlexGridLayoutStruct (
   @param row <Integer> 対象の列。`1`以上の整数。
   @param minimum <Integer> 固定高。`1`以上の整数。
   @returns <Integer|UndefinedClass>
-  @remarks 無効な値を指定した場合は何もしない。
+  @remarks 無効な値の場合は何もしない。
   */
   public fn SetRowFixedLength row fixedLength = (
     local rowFixedLength = undefined
@@ -279,7 +279,7 @@ struct FlexGridLayoutStruct (
   @param row <Integer> 対象の列。`1`以上の整数。
   @param minimum <Integer> 最小高。`1`以上の整数。
   @returns <Integer|UndefinedClass>
-  @remarks 無効な値を指定した場合は何もしない。
+  @remarks 無効な値の場合は何もしない。
   */
   public fn SetRowMinimumHeight row minimum = (
     local rowMinimum = undefined
@@ -298,7 +298,7 @@ struct FlexGridLayoutStruct (
   @param row <Integer> 対象の行。`1`以上の整数。
   @param stretch <Integer> ストレッチ係数。`1`以上の整数。
   @returns <Integer|UndefinedClass>
-  @remarks 無効な値を指定した場合は何もしない。
+  @remarks 無効な値の場合は何もしない。
   */
   public fn SetRowStretch row stretch = (
     local rowStretch = undefined
