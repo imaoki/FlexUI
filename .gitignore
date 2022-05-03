@@ -1,0 +1,6 @@
+# Common
+_*
+*.mxsconfig
+
+# Specific
+!/Test/Research/_testControls.ms
