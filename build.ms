@@ -9,12 +9,12 @@
   local definitionPoolCode = mp.ClipFile @".\definitionPool.ms" 1 3836
   local FlexUICode = mp.ClipFile @".\FlexUI.ms" 1 -1
 
-  local FlexBoxCellCode = mp.ClipFile @".\Model\Layout\FlexBoxCell.ms" 602 -1
-  local FlexGridCellCode = mp.ClipFile @".\Model\Layout\FlexGridCell.ms" 649 -1
+  local FlexBoxCellCode = mp.ClipFile @".\Model\Layout\FlexBoxCell.ms" 595 -1
+  local FlexGridCellCode = mp.ClipFile @".\Model\Layout\FlexGridCell.ms" 642 -1
   local FlexGridLayoutCode = mp.ClipFile @".\Model\Layout\FlexGridLayout.ms" 1090 -1
   local FlexGroupLayoutCode = mp.ClipFile @".\Model\Layout\FlexGroupLayout.ms" 610 -1
   local FlexHBoxLayoutCode = mp.ClipFile @".\Model\Layout\FlexHBoxLayout.ms" 794 -1
-  local FlexLayoutOptionsCode = mp.ClipFile @".\Model\Layout\FlexLayoutOptions.ms" 681 -1
+  local FlexLayoutOptionsCode = mp.ClipFile @".\Model\Layout\FlexLayoutOptions.ms" 674 -1
   local FlexStackedLayoutCode = mp.ClipFile @".\Model\Layout\FlexStackedLayout.ms" 667 -1
   local FlexVBoxLayoutCode = mp.ClipFile @".\Model\Layout\FlexVBoxLayout.ms" 794 -1
 

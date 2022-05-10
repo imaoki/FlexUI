@@ -1,11 +1,10 @@
 /*! © 2022 imaoki | MIT License | https://github.com/imaoki */
 /*-
 グリッドレイアウトのセル情報を格納する構造体。
-@remarks インスタンス作成時のパラメータ指定順は以下の通り。
-
-```maxscript
-::FlexGridCellStruct item row column rowSpan columnSpan
-```
+@remarks 作成パラメータ
+:   ```maxscript
+    ::FlexGridCellStruct item row column rowSpan columnSpan
+    ```
 
 通知
 :   | 通知名        | 通知データ           | タイミング               |

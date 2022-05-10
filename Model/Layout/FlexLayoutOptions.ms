@@ -1,11 +1,10 @@
 /*! © 2022 imaoki | MIT License | https://github.com/imaoki */
 /*-
 レイアウトの枠の設定を格納する構造体。
-@remarks インスタンス作成時のパラメータ指定順は以下の通り。
-
-```maxscript
-::FlexLayoutOptionsStruct marginH marginV paddingT paddingR paddingB paddingL
-```
+@remarks 作成パラメータ
+:   ```maxscript
+    ::FlexLayoutOptionsStruct marginH marginV paddingT paddingR paddingB paddingL
+    ```
 
 通知
 :   | 通知名      | 通知データ         | タイミング             |

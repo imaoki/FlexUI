@@ -1,11 +1,10 @@
 /*! © 2022 imaoki | MIT License | https://github.com/imaoki */
 /*-
 ボックスレイアウトのセル情報を格納する構造体。
-@remarks インスタンス作成時のパラメータ指定順は以下の通り。
-
-```maxscript
-::FlexBoxCellStruct item stretch minimum fixedLength
-```
+@remarks 作成パラメータ
+:   ```maxscript
+    ::FlexBoxCellStruct item stretch minimum fixedLength
+    ```
 
 通知
 :   | 通知名         | 通知データ            | タイミング                |
