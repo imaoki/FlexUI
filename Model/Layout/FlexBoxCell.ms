@@ -3,7 +3,7 @@
 ボックスレイアウトのセル情報を格納する構造体。
 @remarks 作成パラメータ
 :   ```maxscript
-    ::FlexBoxCellStruct item stretch minimum fixedLength
+    FlexBoxCellStruct item stretch minimum fixedLength
     ```
 
 通知

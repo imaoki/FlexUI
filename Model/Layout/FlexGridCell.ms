@@ -3,7 +3,7 @@
 グリッドレイアウトのセル情報を格納する構造体。
 @remarks 作成パラメータ
 :   ```maxscript
-    ::FlexGridCellStruct item row column rowSpan columnSpan
+    FlexGridCellStruct item row column rowSpan columnSpan
     ```
 
 通知

@@ -3,7 +3,7 @@
 レイアウトの枠の設定を格納する構造体。
 @remarks 作成パラメータ
 :   ```maxscript
-    ::FlexLayoutOptionsStruct marginH marginV paddingT paddingR paddingB paddingL
+    FlexLayoutOptionsStruct marginH marginV paddingT paddingR paddingB paddingL
     ```
 
 通知
