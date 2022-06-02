@@ -240,8 +240,8 @@ struct FlexUIStruct (
         and obj.StructName() == #FlexGroupBoxControlWidgetStruct
   ),
 
-  /*- @prop <String> バージョン番号。メジャー、マイナー、パッチの順。 */
-  private version = "2.2.1",
+  /*- @prop <Array[<Integer>]> バージョン番号。メジャー、マイナー、パッチの順。 */
+  private version = #(2, 2, 1),
 
   /*- @returns <Name> */
   public fn StructName = #FlexUIStruct,
@@ -281,7 +281,7 @@ struct FlexUIStruct (
   ),
 
   /*-
-  @returns <String>
+  @returns <Array[<Integer>]>
   */
   public fn GetVersion = (
     this.version
