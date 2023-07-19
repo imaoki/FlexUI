@@ -4,70 +4,55 @@
 [![GitHub](https://img.shields.io/github/license/imaoki/FlexUI)](https://github.com/imaoki/FlexUI/blob/main/LICENSE)
 
 ロールアウトコントロールをフレキシブルに配置するためのフレームワーク。
-<!-- Framework for flexible placement of rollout controls. -->
 
 ## 特徴
-<!-- ## Features -->
 
 * 通常はサイズが変更できないコントロールもサイズ変更が可能。
-  <!-- * Controls that normally cannot be resized can be resized. -->
 
 * 23種のロールアウトコントロールに対応。
-  <!-- * Supports 23 types of rollout controls. -->
   （`comboBox`、`subRollout`、`timer`は非対応）
-  <!-- (`comboBox`, `subRollout` and `timer` are not supported) -->
 
 ## ライセンス
-<!-- ## License -->
 
 [MIT License](https://github.com/imaoki/FlexUI/blob/main/LICENSE)
 
 ## 要件
-<!-- ## Requirements -->
 
 * [imaoki/Standard](https://github.com/imaoki/Standard)
 
+* （任意）[imaoki/StartupLoader](https://github.com/imaoki/StartupLoader)
+  導入済みの場合はインストール/アンインストールでスタートアップスクリプトの登録/解除が行われる。
+  未使用の場合はスクリプトの評価のみ行われる。
+
 ## 開発環境
-<!-- ## Development Environment -->
 
 `3ds Max 2024`
 
 ## インストール
-<!-- ## Install -->
 
 01. 依存スクリプトは予めインストールしておく。
-    <!-- 01. Dependent scripts should be installed beforehand. -->
 
 02. `install.ms`を実行する。
-    <!-- 02. Execute `install.ms`. -->
 
 ## アンインストール
-<!-- ## Uninstall -->
 
 `uninstall.ms`を実行する。
-<!-- Execute `uninstall.ms`. -->
 
 ## 単一ファイル版
-<!-- ## Single File Version -->
 
 ### インストール
-<!-- ### Install -->
 
 01. 依存スクリプトは予めインストールしておく。
-    <!-- 01. Dependent scripts should be installed beforehand. -->
 
 02. `Distribution\FlexUI.min.ms`を実行する。
-    <!-- 02. Execute `Distribution\FlexUI.min.ms`. -->
 
 ### アンインストール
-<!-- ### Uninstall -->
 
 ```maxscript
 ::flexUI.Uninstall()
 ```
 
 ## 例
-<!-- ## Examples -->
 
 * Widget(`Example\Widget\FlexEditTextControlWidget.ms`)
 
@@ -94,15 +79,12 @@
   ![Example-TabPage](Resource/Example-TabPage.png "Example-TabPage")
 
 ## 使い方
-<!-- ## Usage -->
 
 ### Widget
 
 * ウィジェットは全種類が共通のプロパティとメソッドを持つ。
-  <!-- * All types of widgets have common properties and methods. -->
 
 * 既定のサイズ、最小サイズ、およびリサイズの可/不可はロールアウトコントロールの特性に合わせて定数として定義されている。
-  <!-- * Default size, minimum size, and resizable/unresizable are defined as constants according to the characteristics of the rollout control. -->
 
 ```maxscript
 (
@@ -134,45 +116,13 @@
 )
 ```
 
-<!-- ```maxscript
-(
-  local widget = ::flexUI.CreateWidget Edt
-
-  -- Overall horizontal alignment
-  widget.SetAlignmentH #Center
-
-  -- Overall vertical alignment
-  widget.SetAlignmentV #Center
-
-  -- Margin pixels between caption and body
-  widget.SetCaptionMargin 3
-
-  -- Caption placement
-  widget.SetCaptionPosition #Left
-
-  -- Explicit height without caption
-  widget.SetExplicitH undefined
-
-  -- Explicit width without caption
-  widget.SetExplicitW undefined
-
-  -- Set control visibility
-  widget.SetVisibility false
-
-  -- Set rectangle
-  widget.SetRect (Box2 0 0 100 100)
-)
-``` -->
-
 ### Layout
 
 #### GridLayout
 
 * 仮想グリッド上にアイテムを配置するレイアウト。
-  <!-- * Layout that places items on a virtual grid. -->
 
 * グリッドは必要に応じて自動的に拡張される。
-  <!-- * Grid automatically expands as needed. -->
 
 ```maxscript
 (
@@ -212,48 +162,9 @@
 )
 ```
 
-<!-- ```maxscript
-(
-  -- Layout options are optional
-  local layoutOptions = ::flexUI.CreateLayoutOptions()
-  local gridLayout = ::flexUI.CreateGridLayout options:layoutOptions
-
-  -- Add layout (row, column)
-  gridLayout.AddLayout vBoxLayout 1 1
-
-  -- Add widget (row, column, rowSpan, columnSpan)
-  gridLayout.AddWidget widget 2 3 rowSpan:1 columnSpan:3
-
-  -- Set minimum row height (row, height)
-  gridLayout.SetRowMinimumHeight 1 10
-
-  -- Set minimum column width (column, width)
-  gridLayout.SetColumnMinimumWidth 2 10
-
-  -- Set row stretch factor (row, stretch factor)
-  gridLayout.SetRowStretch 2 2
-
-  -- Set column stretch factor (column, stretch factor)
-  gridLayout.SetColumnStretch 3 2
-
-  -- Set rows to fixed length (row, fixed length)
-  gridLayout.SetRowFixedLength 1 20
-
-  -- Set columns to fixed length (columns, fixed length)
-  gridLayout.SetColumnFixedLength 1 20
-
-  -- Set layout visibility
-  gridLayout.SetVisibility false
-
-  -- Set rectangle
-  gridLayout.SetRect (Box2 0 0 100 100)
-)
-``` -->
-
 #### GroupLayout
 
 * `GroupBoxControl`用のレイアウト。
-  <!-- * Layout for `GroupBoxControl`. -->
 
 ```maxscript
 (
@@ -272,27 +183,9 @@
 )
 ```
 
-<!-- ```maxscript
-(
-  -- `GroupBoxControl` widget is required
-  local groupBoxWidget = ::flexUI.CreateWidget Gbx
-  local groupLayout = ::flexUI.CreateGroupLayout groupBoxWidget
-
-  -- Add a layout or widget
-  groupLayout.SetCell widget
-
-  -- Set layout visibility
-  groupLayout.SetVisibility false
-
-  -- Set rectangle
-  groupLayout.SetRect (Box2 0 0 100 100)
-)
-``` -->
-
 #### HBoxLayout
 
 * 水平方向にアイテムを配置するレイアウト。
-  <!-- * Layout for horizontal item placement. -->
 
 ```maxscript
 (
@@ -326,45 +219,11 @@
 )
 ```
 
-<!-- ```maxscript
-(
-  -- Layout options are optional
-  local layoutOptions = ::flexUI.CreateLayoutOptions()
-  local hBoxLayout = ::flexUI.CreateHBoxLayout options:layoutOptions
-
-  -- Add layout (stretch factor defaults to `1`)
-  hBoxLayout.AddLayout groupLayout
-
-  -- Add fixed space
-  hBoxLayout.AddSpace 10
-
-  -- Add stretch (stretch factor `2`)
-  hBoxLayout.AddStretch stretch:2
-
-  -- Add widget (stretch factor `3`)
-  hBoxLayout.AddWidget widget stretch:3
-
-  -- Add layout with fixed length
-  hBoxLayout.AddLayout groupLayout fixedLength:20
-
-  -- Add widget with fixed length
-  hBoxLayout.AddWidget widget fixedLength:20
-
-  -- Set layout visibility
-  hBoxLayout.SetVisibility false
-
-  -- Set rectangle
-  hBoxLayout.SetRect (Box2 0 0 100 100)
-)
-``` -->
-
 #### VBoxLayout
 
 * 垂直方向にアイテムを配置するレイアウト。
-  <!-- * Layout for vertical item placement. -->
 
 * メソッドは`HBoxLayout`と共通。
-  <!-- * Methods are common to `HBoxLayout`. -->
 
 ```maxscript
 (
@@ -377,21 +236,9 @@
 )
 ```
 
-<!-- ```maxscript
-(
-  -- Layout options are optional
-  local layoutOptions = ::flexUI.CreateLayoutOptions()
-  local vBoxLayout = ::flexUI.CreateVBoxLayout options:layoutOptions
-
-  -- Set rectangle
-  vBoxLayout.SetRect (Box2 0 0 100 100)
-)
-``` -->
-
 #### StackedLayout
 
 * 登録されたアイテムの内一つのみを表示するレイアウト。
-  <!-- * Layout showing only one of the registered items. -->
 
 ```maxscript
 (
@@ -422,68 +269,27 @@
 )
 ```
 
-<!-- ```maxscript
-(
-  -- Layout options are optional
-  local layoutOptions = ::flexUI.CreateLayoutOptions()
-  local stackedLayout = ::flexUI.CreateStackedLayout options:layoutOptions
-
-  -- Add layout
-  stackedLayout.AddLayout layout
-
-  -- Add widget
-  stackedLayout.AddWidget widget
-
-  -- Add layout (specify index to insert)
-  stackedLayout.AddLayout layout index:2
-
-  -- Add widget (specify index to insert)
-  stackedLayout.AddWidget widget index:2
-
-  -- Set current index
-  stackedLayout.SetCurrentIndex 2
-
-  -- Get current index and update control for page switching
-  DdlPage.Selection = stackedLayout.GetCurrentIndex()
-
-  -- Set rectangle
-  stackedLayout.SetRect (Box2 0 0 100 100)
-)
-``` -->
-
 ## 制限
-<!-- ## Limitations -->
 
 * `RolloutFloater`および`SubRollout`には非対応。
-  <!-- * Not supported for `RolloutFloater` and `SubRollout`. -->
   `Resized`イベントの発生するダイアログでのみ使用可能。
-  <!-- Only available on dialogs with `Resized` events. -->
 
 * `FlexComboBoxControlWidgetStruct`は`dropDownList`にのみ対応。
-  <!-- * `FlexComboBoxControlWidgetStruct` supports only `dropDownList`. -->
   現状では`dropDownList`との判別ができないため使用頻度の低そうな`comboBox`を非対応とした。
-  <!-- The `comboBox`, which seems to be used infrequently because it cannot be distinguished from the `dropDownList` at present, was made unsupported. -->
 
 * `curveControl`のサイズ変更には非対応。
-  <!-- * Not supported for `curveControl` resizing. -->
 
 * `slider`の`orient`パラメータは`#Horizontal`にのみ対応。
-  <!-- * The `orient` parameter of `slider` is only supported for `#Horizontal`. -->
 
 ## 追加情報
-<!-- ## Additional Information -->
 
 ### グローバル変数
-<!-- ### Global Variable -->
 
 * 通常はグローバル変数`::flexUI`を通して操作する。
-  <!-- * Usually, it is operated through the global variable `::flexUI`. -->
 
 * 詳細は[`mxsdoc.FlexUI.ms`](https://imaoki.github.io/mxskb/mxsdoc/flexui-flexui.html)を参照。
-  <!-- * See [`mxsdoc.FlexUI.ms`](https://imaoki.github.io/mxskb/mxsdoc/flexui-flexui.html) for details. -->
 
 ### ウィジェットの種類
-<!-- ### Widget Type -->
 
 | ウィジェット                                                                                                                          | ロールアウトコントロール | 幅   | 高さ | イメージ                                                                                                     |
 | ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------ | ---- | ---- | ------------------------------------------------------------------------------------------------------------ |
@@ -512,7 +318,6 @@
 | [`FlexSpinnerControlWidgetStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexspinnercontrolwidget.html)           | `spinner`                | 可変 | 固定 | ![FlexSpinnerControlWidget](Resource/FlexSpinnerControlWidget.png "FlexSpinnerControlWidget")                |
 
 ### レイアウトの種類
-<!-- ### Layout Type -->
 
 | レイアウト                                                                                                    | 説明                                     | イメージ                                                                 |
 | ------------------------------------------------------------------------------------------------------------- | ---------------------------------------- | ------------------------------------------------------------------------ |
@@ -523,13 +328,10 @@
 | [`FlexStackedLayoutStruct`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-layout-flexstackedlayout.html) | 登録されたアイテムの内一つのみを表示する | ![FlexStackedLayout](Resource/FlexStackedLayout.png "FlexStackedLayout") |
 
 ### レイアウトオプション
-<!-- ### Layout Options -->
 
 * レイアウト各部の余白を設定する。
-  <!-- * Set the margins for each part of the layout. -->
 
 * 詳細は[`mxsdoc.FlexLayoutOptions.ms`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-layout-flexlayoutoptions.html)を参照。
-  <!-- * See [`mxsdoc.FlexLayoutOptions.ms`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-layout-flexlayoutoptions.html) for details. -->
 
 ```maxscript
 (
@@ -561,57 +363,13 @@
 )
 ```
 
-<!-- ```maxscript
-(
-  local layoutOptions = ::flexUI.CreateLayoutOptions()
-
-  -- Horizontal margins between cells
-  layoutOptions.SetMarginH 0
-
-  -- Vertical margins between cells
-  layoutOptions.SetMarginV 0
-
-  -- Bottom margin of layout
-  layoutOptions.SetPaddingB 0
-
-  -- Left margin of layout
-  layoutOptions.SetPaddingL 0
-
-  -- Right margin of layout
-  layoutOptions.SetPaddingR 0
-
-  -- Top margin of layout
-  layoutOptions.SetPaddingT 0
-
-  -- Set margins at once (horizontal, vertical)
-  layoutOptions.SetMargin 0 0
-
-  -- Set padding at once (top, right, bottom, left)
-  layoutOptions.SetPadding 0 0 0 0
-)
-``` -->
-
 ### 通知
-<!-- ### Notifications -->
 
 #### Widget
 
 全てのウィジェットで共通。
-<!-- Common to all widgets. -->
 
 * [Widget](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-widget-flexanglecontrolwidget.html#flexanglecontrolwidgetstruct)
-
-<!-- | `params`           | Timing                                              | -->
-<!-- | ------------------ | --------------------------------------------------- | -->
-<!-- | `#AlignmentH`      | After setting `alignmentH`                          | -->
-<!-- | `#AlignmentV`      | After setting `alignmentV`                          | -->
-<!-- | `#CaptionMargin`   | After setting `captionMargin`                       | -->
-<!-- | `#CaptionPosition` | After setting `captionPosition`                     | -->
-<!-- | `#Control`         | After setting `control`                             | -->
-<!-- | `#ExplicitH`       | After setting `explicitH`                           | -->
-<!-- | `#ExplicitW`       | After setting `explicitW`                           | -->
-<!-- | `#RectUpdated`     | After setting the rollout control rectangle         | -->
-<!-- | `#Visibility`      | After setting the visibility of the rollout control | -->
 
 #### Layout
 
@@ -625,64 +383,6 @@
 
 * [FlexStackedLayoutStruct](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-layout-flexstackedlayout.html#flexstackedlayoutstruct)
 
-<!-- ##### FlexGridLayoutStruct -->
-
-<!-- | `params`              | Timing                                  | -->
-<!-- | --------------------- | --------------------------------------- | -->
-<!-- | `#ColumnFixedLength`  | After setting the fixed width of column | -->
-<!-- | `#ColumnMinimumWidth` | After setting the minimum column width  | -->
-<!-- | `#ColumnStretch`      | After setting the column stretch factor | -->
-<!-- | `#LayoutAdded`        | After adding a layout                   | -->
-<!-- | `#RectUpdated`        | After setting the layout rectangle      | -->
-<!-- | `#RowFixedLength`     | After setting the fixed height of row   | -->
-<!-- | `#RowMinimumHeight`   | After setting the minimum row height    | -->
-<!-- | `#RowStretch`         | After setting the row stretch factor    | -->
-<!-- | `#VisibilityChanged`  | After setting layout visibility         | -->
-<!-- | `#WidgetAdded`        | After adding a widget                   | -->
-
-<!-- ##### FlexGroupLayoutStruct -->
-
-<!-- | `params`             | Timing                             | -->
-<!-- | -------------------- | ---------------------------------- | -->
-<!-- | `#CellSet`           | After setting the cell             | -->
-<!-- | `#RectUpdated`       | After setting the layout rectangle | -->
-<!-- | `#VisibilityChanged` | After setting layout visibility    | -->
-
-<!-- ##### FlexHBoxLayoutStruct -->
-
-<!-- | `params`             | Timing                             | -->
-<!-- | -------------------- | ---------------------------------- | -->
-<!-- | `#LayoutAdded`       | After adding a layout              | -->
-<!-- | `#RectUpdated`       | After setting the layout rectangle | -->
-<!-- | `#SpaceAdded`        | After adding fixed space           | -->
-<!-- | `#StretchAdded`      | After adding stretchable space     | -->
-<!-- | `#VisibilityChanged` | After setting layout visibility    | -->
-<!-- | `#WidgetAdded`       | After adding a widget              | -->
-
-<!-- ##### FlexVBoxLayoutStruct -->
-
-<!-- `FlexHBoxLayoutStruct`と同様。 -->
-<!-- Similar to `FlexHBoxLayoutStruct`. -->
-
-<!-- ##### FlexStackedLayoutStruct -->
-
-<!-- | `params`             | Timing                             | -->
-<!-- | -------------------- | ---------------------------------- | -->
-<!-- | `#CurrentIndex`      | After setting the `currentIndex`   | -->
-<!-- | `#LayoutAdded`       | After adding a layout              | -->
-<!-- | `#RectUpdated`       | After setting the layout rectangle | -->
-<!-- | `#VisibilityChanged` | After setting layout visibility    | -->
-<!-- | `#WidgetAdded`       | After adding a widget              | -->
-
 #### Layout Options
 
 * [FlexLayoutOptionsStruct](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-layout-flexlayoutoptions.html#flexlayoutoptionsstruct)
-
-<!-- | `params`    | Timing                   | -->
-<!-- | ----------- | ------------------------ | -->
-<!-- | `#MarginH`  | After setting `marginH`  | -->
-<!-- | `#MarginV`  | After setting `marginV`  | -->
-<!-- | `#PaddingB` | After setting `paddingB` | -->
-<!-- | `#PaddingL` | After setting `paddingL` | -->
-<!-- | `#PaddingR` | After setting `paddingR` | -->
-<!-- | `#PaddingT` | After setting `paddingT` | -->
