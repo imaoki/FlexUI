@@ -104,36 +104,6 @@
 * 既定のサイズ、最小サイズ、およびリサイズの可/不可はロールアウトコントロールの特性に合わせて定数として定義されている。
   <!-- * Default size, minimum size, and resizable/unresizable are defined as constants according to the characteristics of the rollout control. -->
 
-<!-- ```maxscript
-(
-  local widget = ::flexUI.CreateWidget Edt
-
-  -- Overall horizontal alignment
-  widget.SetAlignmentH #Center
-
-  -- Overall vertical alignment
-  widget.SetAlignmentV #Center
-
-  -- Margin pixels between caption and body
-  widget.SetCaptionMargin 3
-
-  -- Caption placement
-  widget.SetCaptionPosition #Left
-
-  -- Explicit height without caption
-  widget.SetExplicitH undefined
-
-  -- Explicit width without caption
-  widget.SetExplicitW undefined
-
-  -- Set control visibility
-  widget.SetVisibility false
-
-  -- Set rectangle
-  widget.SetRect (Box2 0 0 100 100)
-)
-``` -->
-
 ```maxscript
 (
   local widget = ::flexUI.CreateWidget Edt
@@ -164,6 +134,36 @@
 )
 ```
 
+<!-- ```maxscript
+(
+  local widget = ::flexUI.CreateWidget Edt
+
+  -- Overall horizontal alignment
+  widget.SetAlignmentH #Center
+
+  -- Overall vertical alignment
+  widget.SetAlignmentV #Center
+
+  -- Margin pixels between caption and body
+  widget.SetCaptionMargin 3
+
+  -- Caption placement
+  widget.SetCaptionPosition #Left
+
+  -- Explicit height without caption
+  widget.SetExplicitH undefined
+
+  -- Explicit width without caption
+  widget.SetExplicitW undefined
+
+  -- Set control visibility
+  widget.SetVisibility false
+
+  -- Set rectangle
+  widget.SetRect (Box2 0 0 100 100)
+)
+``` -->
+
 ### Layout
 
 #### GridLayout
@@ -173,44 +173,6 @@
 
 * グリッドは必要に応じて自動的に拡張される。
   <!-- * Grid automatically expands as needed. -->
-
-<!-- ```maxscript
-(
-  -- Layout options are optional
-  local layoutOptions = ::flexUI.CreateLayoutOptions()
-  local gridLayout = ::flexUI.CreateGridLayout options:layoutOptions
-
-  -- Add layout (row, column)
-  gridLayout.AddLayout vBoxLayout 1 1
-
-  -- Add widget (row, column, rowSpan, columnSpan)
-  gridLayout.AddWidget widget 2 3 rowSpan:1 columnSpan:3
-
-  -- Set minimum row height (row, height)
-  gridLayout.SetRowMinimumHeight 1 10
-
-  -- Set minimum column width (column, width)
-  gridLayout.SetColumnMinimumWidth 2 10
-
-  -- Set row stretch factor (row, stretch factor)
-  gridLayout.SetRowStretch 2 2
-
-  -- Set column stretch factor (column, stretch factor)
-  gridLayout.SetColumnStretch 3 2
-
-  -- Set rows to fixed length (row, fixed length)
-  gridLayout.SetRowFixedLength 1 20
-
-  -- Set columns to fixed length (columns, fixed length)
-  gridLayout.SetColumnFixedLength 1 20
-
-  -- Set layout visibility
-  gridLayout.SetVisibility false
-
-  -- Set rectangle
-  gridLayout.SetRect (Box2 0 0 100 100)
-)
-``` -->
 
 ```maxscript
 (
@@ -250,27 +212,48 @@
 )
 ```
 
+<!-- ```maxscript
+(
+  -- Layout options are optional
+  local layoutOptions = ::flexUI.CreateLayoutOptions()
+  local gridLayout = ::flexUI.CreateGridLayout options:layoutOptions
+
+  -- Add layout (row, column)
+  gridLayout.AddLayout vBoxLayout 1 1
+
+  -- Add widget (row, column, rowSpan, columnSpan)
+  gridLayout.AddWidget widget 2 3 rowSpan:1 columnSpan:3
+
+  -- Set minimum row height (row, height)
+  gridLayout.SetRowMinimumHeight 1 10
+
+  -- Set minimum column width (column, width)
+  gridLayout.SetColumnMinimumWidth 2 10
+
+  -- Set row stretch factor (row, stretch factor)
+  gridLayout.SetRowStretch 2 2
+
+  -- Set column stretch factor (column, stretch factor)
+  gridLayout.SetColumnStretch 3 2
+
+  -- Set rows to fixed length (row, fixed length)
+  gridLayout.SetRowFixedLength 1 20
+
+  -- Set columns to fixed length (columns, fixed length)
+  gridLayout.SetColumnFixedLength 1 20
+
+  -- Set layout visibility
+  gridLayout.SetVisibility false
+
+  -- Set rectangle
+  gridLayout.SetRect (Box2 0 0 100 100)
+)
+``` -->
+
 #### GroupLayout
 
 * `GroupBoxControl`用のレイアウト。
   <!-- * Layout for `GroupBoxControl`. -->
-
-<!-- ```maxscript
-(
-  -- `GroupBoxControl` widget is required
-  local groupBoxWidget = ::flexUI.CreateWidget Gbx
-  local groupLayout = ::flexUI.CreateGroupLayout groupBoxWidget
-
-  -- Add a layout or widget
-  groupLayout.SetCell widget
-
-  -- Set layout visibility
-  groupLayout.SetVisibility false
-
-  -- Set rectangle
-  groupLayout.SetRect (Box2 0 0 100 100)
-)
-``` -->
 
 ```maxscript
 (
@@ -289,42 +272,27 @@
 )
 ```
 
+<!-- ```maxscript
+(
+  -- `GroupBoxControl` widget is required
+  local groupBoxWidget = ::flexUI.CreateWidget Gbx
+  local groupLayout = ::flexUI.CreateGroupLayout groupBoxWidget
+
+  -- Add a layout or widget
+  groupLayout.SetCell widget
+
+  -- Set layout visibility
+  groupLayout.SetVisibility false
+
+  -- Set rectangle
+  groupLayout.SetRect (Box2 0 0 100 100)
+)
+``` -->
+
 #### HBoxLayout
 
 * 水平方向にアイテムを配置するレイアウト。
   <!-- * Layout for horizontal item placement. -->
-
-<!-- ```maxscript
-(
-  -- Layout options are optional
-  local layoutOptions = ::flexUI.CreateLayoutOptions()
-  local hBoxLayout = ::flexUI.CreateHBoxLayout options:layoutOptions
-
-  -- Add layout (stretch factor defaults to `1`)
-  hBoxLayout.AddLayout groupLayout
-
-  -- Add fixed space
-  hBoxLayout.AddSpace 10
-
-  -- Add stretch (stretch factor `2`)
-  hBoxLayout.AddStretch stretch:2
-
-  -- Add widget (stretch factor `3`)
-  hBoxLayout.AddWidget widget stretch:3
-
-  -- Add layout with fixed length
-  hBoxLayout.AddLayout groupLayout fixedLength:20
-
-  -- Add widget with fixed length
-  hBoxLayout.AddWidget widget fixedLength:20
-
-  -- Set layout visibility
-  hBoxLayout.SetVisibility false
-
-  -- Set rectangle
-  hBoxLayout.SetRect (Box2 0 0 100 100)
-)
-``` -->
 
 ```maxscript
 (
@@ -358,6 +326,38 @@
 )
 ```
 
+<!-- ```maxscript
+(
+  -- Layout options are optional
+  local layoutOptions = ::flexUI.CreateLayoutOptions()
+  local hBoxLayout = ::flexUI.CreateHBoxLayout options:layoutOptions
+
+  -- Add layout (stretch factor defaults to `1`)
+  hBoxLayout.AddLayout groupLayout
+
+  -- Add fixed space
+  hBoxLayout.AddSpace 10
+
+  -- Add stretch (stretch factor `2`)
+  hBoxLayout.AddStretch stretch:2
+
+  -- Add widget (stretch factor `3`)
+  hBoxLayout.AddWidget widget stretch:3
+
+  -- Add layout with fixed length
+  hBoxLayout.AddLayout groupLayout fixedLength:20
+
+  -- Add widget with fixed length
+  hBoxLayout.AddWidget widget fixedLength:20
+
+  -- Set layout visibility
+  hBoxLayout.SetVisibility false
+
+  -- Set rectangle
+  hBoxLayout.SetRect (Box2 0 0 100 100)
+)
+``` -->
+
 #### VBoxLayout
 
 * 垂直方向にアイテムを配置するレイアウト。
@@ -365,17 +365,6 @@
 
 * メソッドは`HBoxLayout`と共通。
   <!-- * Methods are common to `HBoxLayout`. -->
-
-<!-- ```maxscript
-(
-  -- Layout options are optional
-  local layoutOptions = ::flexUI.CreateLayoutOptions()
-  local vBoxLayout = ::flexUI.CreateVBoxLayout options:layoutOptions
-
-  -- Set rectangle
-  vBoxLayout.SetRect (Box2 0 0 100 100)
-)
-``` -->
 
 ```maxscript
 (
@@ -388,39 +377,21 @@
 )
 ```
 
-#### StackedLayout
-
-* 登録されたアイテムの内一つのみを表示するレイアウト。
-  <!-- * Layout showing only one of the registered items. -->
-
 <!-- ```maxscript
 (
   -- Layout options are optional
   local layoutOptions = ::flexUI.CreateLayoutOptions()
-  local stackedLayout = ::flexUI.CreateStackedLayout options:layoutOptions
-
-  -- Add layout
-  stackedLayout.AddLayout layout
-
-  -- Add widget
-  stackedLayout.AddWidget widget
-
-  -- Add layout (specify index to insert)
-  stackedLayout.AddLayout layout index:2
-
-  -- Add widget (specify index to insert)
-  stackedLayout.AddWidget widget index:2
-
-  -- Set current index
-  stackedLayout.SetCurrentIndex 2
-
-  -- Get current index and update control for page switching
-  DdlPage.Selection = stackedLayout.GetCurrentIndex()
+  local vBoxLayout = ::flexUI.CreateVBoxLayout options:layoutOptions
 
   -- Set rectangle
-  stackedLayout.SetRect (Box2 0 0 100 100)
+  vBoxLayout.SetRect (Box2 0 0 100 100)
 )
 ``` -->
+
+#### StackedLayout
+
+* 登録されたアイテムの内一つのみを表示するレイアウト。
+  <!-- * Layout showing only one of the registered items. -->
 
 ```maxscript
 (
@@ -450,6 +421,35 @@
   stackedLayout.SetRect (Box2 0 0 100 100)
 )
 ```
+
+<!-- ```maxscript
+(
+  -- Layout options are optional
+  local layoutOptions = ::flexUI.CreateLayoutOptions()
+  local stackedLayout = ::flexUI.CreateStackedLayout options:layoutOptions
+
+  -- Add layout
+  stackedLayout.AddLayout layout
+
+  -- Add widget
+  stackedLayout.AddWidget widget
+
+  -- Add layout (specify index to insert)
+  stackedLayout.AddLayout layout index:2
+
+  -- Add widget (specify index to insert)
+  stackedLayout.AddWidget widget index:2
+
+  -- Set current index
+  stackedLayout.SetCurrentIndex 2
+
+  -- Get current index and update control for page switching
+  DdlPage.Selection = stackedLayout.GetCurrentIndex()
+
+  -- Set rectangle
+  stackedLayout.SetRect (Box2 0 0 100 100)
+)
+``` -->
 
 ## 制限
 <!-- ## Limitations -->
@@ -531,36 +531,6 @@
 * 詳細は[`mxsdoc.FlexLayoutOptions.ms`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-layout-flexlayoutoptions.html)を参照。
   <!-- * See [`mxsdoc.FlexLayoutOptions.ms`](https://imaoki.github.io/mxskb/mxsdoc/flexui-model-layout-flexlayoutoptions.html) for details. -->
 
-<!-- ```maxscript
-(
-  local layoutOptions = ::flexUI.CreateLayoutOptions()
-
-  -- Horizontal margins between cells
-  layoutOptions.SetMarginH 0
-
-  -- Vertical margins between cells
-  layoutOptions.SetMarginV 0
-
-  -- Bottom margin of layout
-  layoutOptions.SetPaddingB 0
-
-  -- Left margin of layout
-  layoutOptions.SetPaddingL 0
-
-  -- Right margin of layout
-  layoutOptions.SetPaddingR 0
-
-  -- Top margin of layout
-  layoutOptions.SetPaddingT 0
-
-  -- Set margins at once (horizontal, vertical)
-  layoutOptions.SetMargin 0 0
-
-  -- Set padding at once (top, right, bottom, left)
-  layoutOptions.SetPadding 0 0 0 0
-)
-``` -->
-
 ```maxscript
 (
   local layoutOptions = ::flexUI.CreateLayoutOptions()
@@ -590,6 +560,36 @@
   layoutOptions.SetPadding 0 0 0 0
 )
 ```
+
+<!-- ```maxscript
+(
+  local layoutOptions = ::flexUI.CreateLayoutOptions()
+
+  -- Horizontal margins between cells
+  layoutOptions.SetMarginH 0
+
+  -- Vertical margins between cells
+  layoutOptions.SetMarginV 0
+
+  -- Bottom margin of layout
+  layoutOptions.SetPaddingB 0
+
+  -- Left margin of layout
+  layoutOptions.SetPaddingL 0
+
+  -- Right margin of layout
+  layoutOptions.SetPaddingR 0
+
+  -- Top margin of layout
+  layoutOptions.SetPaddingT 0
+
+  -- Set margins at once (horizontal, vertical)
+  layoutOptions.SetMargin 0 0
+
+  -- Set padding at once (top, right, bottom, left)
+  layoutOptions.SetPadding 0 0 0 0
+)
+``` -->
 
 ### 通知
 <!-- ### Notifications -->
